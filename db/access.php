@@ -42,7 +42,8 @@ $capabilities = array(
             'teacher' => CAP_PROHIBIT,
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_PROHIBIT
-        )
+        ),
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
     ),
 
     'block/remlab_manager:addinstance' => array(
@@ -56,7 +57,8 @@ $capabilities = array(
             'teacher' => CAP_PROHIBIT,
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_PROHIBIT
-        )
+        ),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
 
     'block/remlab_manager:view' => array(
