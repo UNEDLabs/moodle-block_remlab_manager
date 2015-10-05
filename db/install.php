@@ -36,6 +36,7 @@ function xmldb_block_remlab_manager_install() {
 
     $table = new xmldb_table('remlab_manager_conf');
     if (!$dbman->table_exists($table)) {
+        $dbman->create_table($table);
         $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, true, null, null);
         $dbman->add_field($table, $field);
         $field = new xmldb_field('practiceintro', XMLDB_TYPE_CHAR, '255', true, XMLDB_NOTNULL, false, null, 'id');
@@ -68,6 +69,7 @@ function xmldb_block_remlab_manager_install() {
 
     $table = new xmldb_table('remlab_manager_expsyst2pract');
     if (!$dbman->table_exists($table)) {
+        $dbman->create_table($table);
         $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, true, null, null);
         $dbman->add_field($table, $field);
         $field = new xmldb_field('ejsappid', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, false, null, 'id');
@@ -80,6 +82,7 @@ function xmldb_block_remlab_manager_install() {
 
     $table = new xmldb_table('remlab_manager_sarlab_keys');
     if (!$dbman->table_exists($table)) {
+        $dbman->create_table($table);
         $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, true, null, null);
         $dbman->add_field($table, $field);
         $field = new xmldb_field('user', XMLDB_TYPE_CHAR, '100', true, XMLDB_NOTNULL, false, null, 'id');
