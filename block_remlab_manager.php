@@ -54,7 +54,8 @@ class block_remlab_manager extends block_list {
      * Get content function for the RemlabManager block
      */
     function get_content() {
-        global $COURSE, $CFG, $USER;
+        global $CFG, $COURSE;
+        require_once($CFG->dirroot . '/mod/ejsapp/locallib.php');
         $practiceintro_index = optional_param('experience', -1, PARAM_INT);
 
         if (empty($this->instance)) {

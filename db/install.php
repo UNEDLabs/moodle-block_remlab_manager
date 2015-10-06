@@ -51,7 +51,7 @@ function xmldb_block_remlab_manager_install() {
         $table->add_field('active', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'reboottime');
         $table->add_field('free_access', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'active');
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
-        $table->add_field('ejsappid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $dbman->create_table($table);
     }
 
     $table = new xmldb_table('remlab_manager_expsyst2pract');
