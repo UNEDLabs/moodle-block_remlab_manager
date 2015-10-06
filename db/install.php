@@ -36,62 +36,42 @@ function xmldb_block_remlab_manager_install() {
 
     $table = new xmldb_table('remlab_manager_conf');
     if (!$dbman->table_exists($table)) {
-        $dbman->create_table($table);
-        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, true, null, null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('practiceintro', XMLDB_TYPE_CHAR, '255', true, XMLDB_NOTNULL, false, null, 'id');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('usingsarlab', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, '0', 'ejsappid');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('sarlabinstance', XMLDB_TYPE_INTEGER, '2', true, XMLDB_NOTNULL, false, '0', 'usingsarlab');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('sarlabcollab', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, '0', 'sarlabinstance');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('ip', XMLDB_TYPE_CHAR, '255', true, XMLDB_NOTNULL, false, null, 'sarlabcollab');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('port', XMLDB_TYPE_INTEGER, '6', true, XMLDB_NOTNULL, false, null, 'ip');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('slotsduration', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'port');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('totalslots', XMLDB_TYPE_INTEGER, '5', true, XMLDB_NOTNULL, false, null, 'slotsduration');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('weeklyslots', XMLDB_TYPE_INTEGER, '3', true, XMLDB_NOTNULL, false, null, 'totalslots');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('dailyslots', XMLDB_TYPE_INTEGER, '2', true, XMLDB_NOTNULL, false, null, 'weeklyslots');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('reboottime', XMLDB_TYPE_INTEGER, '2', true, XMLDB_NOTNULL, false, null, 'dailyslots');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('active', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'reboottime');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('free_access', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'active');
-        $dbman->add_field($table, $field);
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, true, null);
+        $table->add_field('practiceintro', XMLDB_TYPE_CHAR, '255', true, XMLDB_NOTNULL, false, null, 'id');
+        $table->add_field('usingsarlab', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, '0', 'practiceintro');
+        $table->add_field('sarlabinstance', XMLDB_TYPE_INTEGER, '2', true, XMLDB_NOTNULL, false, '0', 'usingsarlab');
+        $table->add_field('sarlabcollab', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, '0', 'sarlabinstance');
+        $table->add_field('ip', XMLDB_TYPE_CHAR, '255', true, XMLDB_NOTNULL, false, null, 'sarlabcollab');
+        $table->add_field('port', XMLDB_TYPE_INTEGER, '6', true, XMLDB_NOTNULL, false, null, 'ip');
+        $table->add_field('slotsduration', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'port');
+        $table->add_field('totalslots', XMLDB_TYPE_INTEGER, '5', true, XMLDB_NOTNULL, false, null, 'slotsduration');
+        $table->add_field('weeklyslots', XMLDB_TYPE_INTEGER, '3', true, XMLDB_NOTNULL, false, null, 'totalslots');
+        $table->add_field('dailyslots', XMLDB_TYPE_INTEGER, '2', true, XMLDB_NOTNULL, false, null, 'weeklyslots');
+        $table->add_field('reboottime', XMLDB_TYPE_INTEGER, '2', true, XMLDB_NOTNULL, false, null, 'dailyslots');
+        $table->add_field('active', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'reboottime');
+        $table->add_field('free_access', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'active');
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->add_field('ejsappid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
     }
 
     $table = new xmldb_table('remlab_manager_expsyst2pract');
     if (!$dbman->table_exists($table)) {
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, true, null);
+        $table->add_field('ejsappid', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, false, null, 'id');
+        $table->add_field('practiceid', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, false, null, 'ejsappid');
+        $table->add_field('practiceintro', XMLDB_TYPE_CHAR, '255', true, XMLDB_NOTNULL, false, null, 'practiceid');
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
         $dbman->create_table($table);
-        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, true, null, null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('ejsappid', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, false, null, 'id');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('practiceid', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, false, null, 'ejsappid');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('practiceintro', XMLDB_TYPE_CHAR, '255', true, XMLDB_NOTNULL, false, null, 'practiceintro');
-        $dbman->add_field($table, $field);
     }
 
     $table = new xmldb_table('remlab_manager_sarlab_keys');
     if (!$dbman->table_exists($table)) {
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, true, null);
+        $table->add_field('user', XMLDB_TYPE_CHAR, '100', true, XMLDB_NOTNULL, false, null, 'id');
+        $table->add_field('sarlabpass', XMLDB_TYPE_CHAR, '40', true, XMLDB_NOTNULL, false, null, 'user');
+        $table->add_field('labmanager', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'sarlabpass');
+        $table->add_field('creationtime', XMLDB_TYPE_INTEGER, '20', true, XMLDB_NOTNULL, false, null, 'labmanager');
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
         $dbman->create_table($table);
-        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', true, XMLDB_NOTNULL, true, null, null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('user', XMLDB_TYPE_CHAR, '100', true, XMLDB_NOTNULL, false, null, 'id');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('sarlabpass', XMLDB_TYPE_CHAR, '40', true, XMLDB_NOTNULL, false, null, 'user');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('labmanager', XMLDB_TYPE_INTEGER, '1', true, XMLDB_NOTNULL, false, null, 'sarlabpass');
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('creationtime', XMLDB_TYPE_INTEGER, '20', true, XMLDB_NOTNULL, false, null, 'labmanager');
-        $dbman->add_field($table, $field);
     }
 }
