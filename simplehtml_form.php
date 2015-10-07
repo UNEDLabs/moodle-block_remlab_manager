@@ -122,7 +122,7 @@ class simplehtml_form extends moodleform {
         if ($rem_lab_data) {
             $mform->setDefault('port', $rem_lab_data->port);
         } else {
-            $mform->setDefault('active', '443');
+            $mform->setDefault('port', '443');
         }
 
         $mform->addElement('selectyesno', 'active', get_string('active', 'block_remlab_manager'));
