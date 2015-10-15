@@ -40,7 +40,7 @@ $string['configure_new_experience'] = 'Configurar nueva experiencia';
 
 //settings.php:
 $string['default_communication_set'] = "Opciones de comunicaci&oacute;n. (Importante s&oacute;lo si tambi&eacute;n usa Sarlab";
-$string['sarlab_IP'] = "Nombre y direcci&aacute;n IP del servidor Sarlab";
+$string['sarlab_IP'] = "Nombre y direcci&oacute;n IP del servidor Sarlab";
 $string['sarlab_IP_description'] = "Si usa Sarlab (un sistema que gestiona las conexiones a recursos de laboratorios remotos), debe proporcionar la direcci&oacute;n IP del servidor que ejecuta el sistema Sarlab que desea utilizar. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor Sarlab (por ejemplo, uno en 127.0.0.1 y otro en 127.0.0.2), inserte las direcciones IP separadas por puntos y comas: 127.0.0.1;127.0.0.2. Adem&aacute;s, puede proporcionar un nombre para identificar cada servidor Sarlab: 'Sarlab Madrid'127.0.0.1;'Sarlab Huelva'127.0.0.2";
 $string['sarlab_port'] = "Puerto(s) de comunicaci&oacute; con Sarlab";
 $string['sarlab_port_description'] = "Si usa Sarlab (un sistema que gestiona las conexiones a recursos de laboratorios remotos), debe proporcionar un puerto v&aacute;lido para establecer las comunicaciones necesarias con el servidor de Sarlab. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor Sarlab (por ejemplo, uno usando el puerto 443 y un segundo usando tambi&eacute;n el puerto 443), inserte los valores separados por puntos y comas: 443;443";
@@ -105,7 +105,7 @@ $string['dailyslots_help'] = 'Cantidad diaria de franjas m&aacute;ximas que se l
 $string['reboottime'] = 'Tiempo de inactividad (minutos)';
 $string['reboottime_help'] = 'Espacio m&iacute;nimo de tiempo (en minutos) desde que alguien deja de usar el laboratorio remoto hasta que otra persona puede empezar a usarlo. &Uacute;til para darle tiempo al laboratorio remoto de resetearse o volver a su estado inicial.';
 
-$string['sarlab_exp_conf'] = 'Configurati&oacute;n de la experiencia de Sarlab';
+$string['sarlab_exp_conf'] = 'Configuraci&oacute;n de la experiencia de Sarlab';
 
 $string['ip_server'] = 'Dirección IP del servidor del laboratorio';
 $string['ip_server_help'] = 'Establezca la dirección IP del laboratorio a la que se conecta.';

@@ -54,6 +54,8 @@ class simplehtml_form extends moodleform {
         $mform->setType('editingexperience', PARAM_INT);
         $mform->addElement('hidden', 'originalpracticeintro');
         $mform->setType('originalpracticeintro', PARAM_TEXT);
+        $mform->addElement('hidden', 'sarlab_configured', null);
+        $mform->setType('sarlab_configured', PARAM_INT);
 
         // Get data if editing an already existing experience
         $editing_experience = $this->_customdata[0];
@@ -69,8 +71,12 @@ class simplehtml_form extends moodleform {
         if ($rem_lab_data) {
             $mform->setDefault('sarlab', $rem_lab_data->usingsarlab);
         }
-
         $list_sarlab_IPs = explode(";", $CFG->sarlab_IP);
+        $sarlab_configured = 0;
+        if ($list_sarlab_IPs[0] != '' && $list_sarlab_IPs[0] != '127.0.0.1' && $list_sarlab_IPs[0] != 'localhost') $sarlab_configured = 1;
+        $mform->setDefault('sarlab_configured', $sarlab_configured);
+        $mform->disabledIf('sarlab', 'sarlab_configured', 'eq', 0);
+
         $sarlab_instance_options = array();
         for ($i = 0; $i < count($list_sarlab_IPs); $i++) {
             $sarlab_instance_options_temp = $list_sarlab_IPs[$i];
@@ -194,90 +200,91 @@ class simplehtml_form extends moodleform {
         }
 
 
-        // Sarlab experience configuration
-        $mform->addElement('header', 'rem_lab', get_string('sarlab_exp_conf', 'block_remlab_manager'));
+        if ($sarlab_configured) {
+            // Sarlab experience configuration
+            $mform->addElement('header', 'rem_lab', get_string('sarlab_exp_conf', 'block_remlab_manager'));
 
-        //TODO: if editing an existing experience, get information of that experience from the Sarlab Server
-        $experience_sarlab_info = null;
-        if ($editing_experience) {
+            //TODO: if editing an existing experience, get information of that experience from the Sarlab Server
+            $experience_sarlab_info = null;
+            if ($editing_experience) {
 
-        }
-
-        $varsarray = array();
-        $varsarray[] = $mform->createElement('text', 'ip_client', get_string('ip_client', 'block_remlab_manager'), array('size' => '15'));
-        $varsarray[] = $mform->createElement('text', 'port_client', get_string('port_client', 'block_remlab_manager'), array('size' => '3'));
-        $varsarray[] = $mform->createElement('text', 'ip_server', get_string('ip_server', 'block_remlab_manager'), array('size' => '15'));
-        $varsarray[] = $mform->createElement('text', 'port_server', get_string('port_server', 'block_remlab_manager'),  array('size' => '3'));
-
-        $repeateloptions = array();
-        $repeateloptions['ip_client']['disabledif'] = array('sarlab', 'eq', 0);
-        $repeateloptions['ip_client']['type'] = PARAM_TEXT;
-        $repeateloptions['ip_client']['helpbutton'] = array('ip_client', 'block_remlab_manager');
-        $repeateloptions['ip_client']['rule'] = array(get_string('maximumchars', '', 4), 'maxlength', 15, 'client');
-        if ($experience_sarlab_info) {
-            $repeateloptions['ip_client']['default'] = $experience_sarlab_info->reboottime;
-        } else {
-            $repeateloptions['ip_client']['default'] = '127.0.0.1';
-        }
-        $repeateloptions['port_client']['disabledif'] = array('sarlab', 'eq', 0);
-        $repeateloptions['port_client']['type'] = PARAM_INT;
-        $repeateloptions['port_client']['helpbutton'] = array('port_client', 'block_remlab_manager');
-        $repeateloptions['port_client']['rule'] = 'numeric'; //array('port_client', get_string('maximumchars', '', 4), 'maxlength', 4, 'client');
-        if ($experience_sarlab_info) {
-            $repeateloptions['port_client']['default'] = $experience_sarlab_info->reboottime;
-        } else {
-            $repeateloptions['port_client']['default'] = '8081';
-        }
-        $repeateloptions['ip_server']['disabledif'] = array('sarlab', 'eq', 0);
-        $repeateloptions['ip_server']['type'] = PARAM_TEXT;
-        $repeateloptions['ip_server']['helpbutton'] = array('ip_server', 'block_remlab_manager');
-        $repeateloptions['ip_server']['rule'] = array(get_string('maximumchars', '', 4), 'maxlength', 15, 'client');
-        if ($experience_sarlab_info) {
-            $repeateloptions['ip_server']['default'] = $experience_sarlab_info->reboottime;
-        }
-        $repeateloptions['port_server']['disabledif'] = array('sarlab', 'eq', 0);
-        $repeateloptions['port_server']['type'] = PARAM_INT;
-        $repeateloptions['port_server']['helpbutton'] = array('port_server', 'block_remlab_manager');
-        $repeateloptions['port_server']['rule'] = 'numeric'; //array('port_server', get_string('maximumchars', '', 4), 'maxlength', 4, 'client');
-        if ($experience_sarlab_info) {
-            $repeateloptions['port_server']['default'] = $experience_sarlab_info->reboottime;
-        }
-
-        $no = 2;
-        /*if ($this->current->instance) {
-            if ($personal_vars = $DB->get_records('ejsapp_personal_vars', array('ejsappid' => $this->current->instance))) {
-                $no = count($personal_vars);
             }
-        }*/
 
-        $this->repeat_elements($varsarray, $no, $repeateloptions, 'option_repeats', 'option_add_fields', 2, null, true);
+            $varsarray = array();
+            $varsarray[] = $mform->createElement('text', 'ip_client', get_string('ip_client', 'block_remlab_manager'), array('size' => '15'));
+            $varsarray[] = $mform->createElement('text', 'port_client', get_string('port_client', 'block_remlab_manager'), array('size' => '3'));
+            $varsarray[] = $mform->createElement('text', 'ip_server', get_string('ip_server', 'block_remlab_manager'), array('size' => '15'));
+            $varsarray[] = $mform->createElement('text', 'port_server', get_string('port_server', 'block_remlab_manager'), array('size' => '3'));
 
-        if ($experience_sarlab_info) {
-            $lab_power_board = $experience_sarlab_info->power_boards_list;
-        } else {
-            $lab_power_board = array('APC 1', 'APC 2');
-        }
-        $select = $mform->addElement('select', 'lab_power_board', get_string('lab_power_board', 'block_remlab_manager'), $lab_power_board);
-        $mform->addHelpButton('lab_power_board', 'lab_power_board', 'block_remlab_manager');
-        $mform->disabledIf('lab_power_board', 'sarlab', 'eq', 0);
-        if ($experience_sarlab_info) {
-            $select->setSelected($experience_sarlab_info->power_board);
-        }
-        else {
-            $select->setSelected('APC 1');
+            $repeateloptions = array();
+            $repeateloptions['ip_client']['disabledif'] = array('sarlab', 'eq', 0);
+            $repeateloptions['ip_client']['type'] = PARAM_TEXT;
+            $repeateloptions['ip_client']['helpbutton'] = array('ip_client', 'block_remlab_manager');
+            $repeateloptions['ip_client']['rule'] = array(get_string('maximumchars', '', 4), 'maxlength', 15, 'client');
+            if ($experience_sarlab_info) {
+                $repeateloptions['ip_client']['default'] = $experience_sarlab_info->reboottime;
+            } else {
+                $repeateloptions['ip_client']['default'] = '127.0.0.1';
+            }
+            $repeateloptions['port_client']['disabledif'] = array('sarlab', 'eq', 0);
+            $repeateloptions['port_client']['type'] = PARAM_INT;
+            $repeateloptions['port_client']['helpbutton'] = array('port_client', 'block_remlab_manager');
+            $repeateloptions['port_client']['rule'] = 'numeric'; //array('port_client', get_string('maximumchars', '', 4), 'maxlength', 4, 'client');
+            if ($experience_sarlab_info) {
+                $repeateloptions['port_client']['default'] = $experience_sarlab_info->reboottime;
+            } else {
+                $repeateloptions['port_client']['default'] = '8081';
+            }
+            $repeateloptions['ip_server']['disabledif'] = array('sarlab', 'eq', 0);
+            $repeateloptions['ip_server']['type'] = PARAM_TEXT;
+            $repeateloptions['ip_server']['helpbutton'] = array('ip_server', 'block_remlab_manager');
+            $repeateloptions['ip_server']['rule'] = array(get_string('maximumchars', '', 4), 'maxlength', 15, 'client');
+            if ($experience_sarlab_info) {
+                $repeateloptions['ip_server']['default'] = $experience_sarlab_info->reboottime;
+            }
+            $repeateloptions['port_server']['disabledif'] = array('sarlab', 'eq', 0);
+            $repeateloptions['port_server']['type'] = PARAM_INT;
+            $repeateloptions['port_server']['helpbutton'] = array('port_server', 'block_remlab_manager');
+            $repeateloptions['port_server']['rule'] = 'numeric'; //array('port_server', get_string('maximumchars', '', 4), 'maxlength', 4, 'client');
+            if ($experience_sarlab_info) {
+                $repeateloptions['port_server']['default'] = $experience_sarlab_info->reboottime;
+            }
+
+            $no = 2;
+            /*if ($this->current->instance) {
+                if ($personal_vars = $DB->get_records('ejsapp_personal_vars', array('ejsappid' => $this->current->instance))) {
+                    $no = count($personal_vars);
+                }
+            }*/
+
+            $this->repeat_elements($varsarray, $no, $repeateloptions, 'option_repeats', 'option_add_fields', 2, null, true);
+
+            if ($experience_sarlab_info) {
+                $lab_power_board = $experience_sarlab_info->power_boards_list;
+            } else {
+                $lab_power_board = array('APC 1', 'APC 2');
+            }
+            $select = $mform->addElement('select', 'lab_power_board', get_string('lab_power_board', 'block_remlab_manager'), $lab_power_board);
+            $mform->addHelpButton('lab_power_board', 'lab_power_board', 'block_remlab_manager');
+            $mform->disabledIf('lab_power_board', 'sarlab', 'eq', 0);
+            if ($experience_sarlab_info) {
+                $select->setSelected($experience_sarlab_info->power_board);
+            } else {
+                $select->setSelected('APC 1');
+            }
+
+            $lab_power_outputs = array('1', '2', '3', '4', '5', '6', '7', '8');
+            $select = $mform->addElement('select', 'lab_power_outputs', get_string('lab_power_outputs', 'block_remlab_manager'), $lab_power_outputs);
+            $select->setMultiple(true);
+            $mform->addHelpButton('lab_power_outputs', 'lab_power_outputs', 'block_remlab_manager');
+            $mform->disabledIf('lab_power_outputs', 'sarlab', 'eq', 0);
+            if ($experience_sarlab_info) {
+                $select->setSelected($experience_sarlab_info->power_outputs);
+            } else {
+                $select->setSelected(array('0', '1'));
+            }
         }
 
-        $lab_power_outputs = array('1', '2', '3', '4', '5', '6', '7', '8');
-        $select = $mform->addElement('select', 'lab_power_outputs', get_string('lab_power_outputs', 'block_remlab_manager'), $lab_power_outputs);
-        $select->setMultiple(true);
-        $mform->addHelpButton('lab_power_outputs', 'lab_power_outputs', 'block_remlab_manager');
-        $mform->disabledIf('lab_power_outputs', 'sarlab', 'eq', 0);
-        if ($experience_sarlab_info) {
-            $select->setSelected($experience_sarlab_info->power_outputs);
-        }
-        else {
-            $select->setSelected(array('0', '1'));
-        }
         $this->add_action_buttons();
 
     }
