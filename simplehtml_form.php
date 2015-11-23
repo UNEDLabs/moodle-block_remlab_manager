@@ -21,7 +21,7 @@
 //       Madrid, Spain
 
 /**
- * Page for configuring the data needed by a remote lab application to acces the lab hardware
+ * Page for configuring the data needed by a remote lab application to access the lab hardware
  *
  * @package    block
  * @subpackage remlab_manager
@@ -66,16 +66,16 @@ class simplehtml_form extends moodleform {
         }
 
         // Start adding all the visible elements
-        $mform->addElement('selectyesno', 'sarlab', get_string('sarlab', 'block_remlab_manager'));
-        $mform->addHelpButton('sarlab', 'sarlab', 'block_remlab_manager');
+        $mform->addElement('selectyesno', 'usingsarlab', get_string('sarlab', 'block_remlab_manager'));
+        $mform->addHelpButton('usingsarlab', 'sarlab', 'block_remlab_manager');
         if ($rem_lab_data) {
-            $mform->setDefault('sarlab', $rem_lab_data->usingsarlab);
+            $mform->setDefault('usingsarlab', $rem_lab_data->usingsarlab);
         }
         $list_sarlab_IPs = explode(";", $CFG->sarlab_IP);
         $sarlab_configured = 0;
         if ($list_sarlab_IPs[0] != '' && $list_sarlab_IPs[0] != '127.0.0.1' && $list_sarlab_IPs[0] != 'localhost') $sarlab_configured = 1;
         $mform->setDefault('sarlab_configured', $sarlab_configured);
-        $mform->disabledIf('sarlab', 'sarlab_configured', 'eq', 0);
+        $mform->disabledIf('usingsarlab', 'sarlab_configured', 'eq', 0);
 
         $sarlab_instance_options = array();
         for ($i = 0; $i < count($list_sarlab_IPs); $i++) {
@@ -89,19 +89,19 @@ class simplehtml_form extends moodleform {
             }
         }
 
-        $mform->addElement('select', 'sarlab_instance', get_string('sarlab_instance', 'block_remlab_manager'), $sarlab_instance_options);
-        $mform->addHelpButton('sarlab_instance', 'sarlab_instance', 'block_remlab_manager');
-        $mform->disabledIf('sarlab_instance', 'sarlab', 'eq', 0);
+        $mform->addElement('select', 'sarlabinstance', get_string('sarlab_instance', 'block_remlab_manager'), $sarlab_instance_options);
+        $mform->addHelpButton('sarlabinstance', 'sarlab_instance', 'block_remlab_manager');
+        $mform->disabledIf('sarlabinstance', 'usingsarlab', 'eq', 0);
         if ($rem_lab_data) {
-            $mform->setDefault('sarlab_instance', $rem_lab_data->sarlabinstance);
+            $mform->setDefault('sarlabinstance', $rem_lab_data->sarlabinstance);
         }
 
         //Check whether the selected practice uses sarlab or not in order to show or hide the collab access feature
-        $mform->addElement('selectyesno', 'sarlab_collab', get_string('sarlab_collab', 'block_remlab_manager'));
-        $mform->addHelpButton('sarlab_collab', 'sarlab_collab', 'block_remlab_manager');
-        $mform->disabledIf('sarlab_collab', 'sarlab', 'eq', 0);
+        $mform->addElement('selectyesno', 'sarlabcollab', get_string('sarlab_collab', 'block_remlab_manager'));
+        $mform->addHelpButton('sarlabcollab', 'sarlab_collab', 'block_remlab_manager');
+        $mform->disabledIf('sarlabcollab', 'usingsarlab', 'eq', 0);
         if ($rem_lab_data) {
-            $mform->setDefault('sarlab_collab', $rem_lab_data->sarlabcollab);
+            $mform->setDefault('sarlabcollab', $rem_lab_data->sarlabcollab);
         }
 
         $mform->addElement('text', 'practiceintro', get_string('practiceintro', 'block_remlab_manager'), array('size' => '20'));
@@ -115,7 +115,7 @@ class simplehtml_form extends moodleform {
         $mform->setType('ip', PARAM_TEXT);
         $mform->addRule('ip', get_string('maximumchars', '', 15), 'maxlength', 15, 'client');
         $mform->addHelpButton('ip', 'ip_lab', 'block_remlab_manager');
-        $mform->disabledIf('ip', 'sarlab', 'eq', 1);
+        $mform->disabledIf('ip', 'usingsarlab', 'eq', 1);
         if ($rem_lab_data) {
             $mform->setDefault('ip', $rem_lab_data->ip);
         }
@@ -124,7 +124,7 @@ class simplehtml_form extends moodleform {
         $mform->setType('port', PARAM_INT);
         $mform->addRule('port', get_string('maximumchars', '', 6), 'maxlength', 6, 'client');
         $mform->addHelpButton('port', 'port', 'block_remlab_manager');
-        $mform->disabledIf('port', 'sarlab', 'eq', 1);
+        $mform->disabledIf('port', 'usingsarlab', 'eq', 1);
         if ($rem_lab_data) {
             $mform->setDefault('port', $rem_lab_data->port);
         } else {
@@ -204,7 +204,7 @@ class simplehtml_form extends moodleform {
             // Sarlab experience configuration
             $mform->addElement('header', 'rem_lab', get_string('sarlab_exp_conf', 'block_remlab_manager'));
 
-            //TODO: if editing an existing experience, get information of that experience from the Sarlab Server
+            //TODO: if editing an existing SARLAB experience, get information of that experience from the Sarlab Server
             $experience_sarlab_info = null;
             if ($editing_experience) {
 
@@ -217,7 +217,7 @@ class simplehtml_form extends moodleform {
             $varsarray[] = $mform->createElement('text', 'port_server', get_string('port_server', 'block_remlab_manager'), array('size' => '3'));
 
             $repeateloptions = array();
-            $repeateloptions['ip_client']['disabledif'] = array('sarlab', 'eq', 0);
+            $repeateloptions['ip_client']['disabledif'] = array('usingsarlab', 'eq', 0);
             $repeateloptions['ip_client']['type'] = PARAM_TEXT;
             $repeateloptions['ip_client']['helpbutton'] = array('ip_client', 'block_remlab_manager');
             $repeateloptions['ip_client']['rule'] = array(get_string('maximumchars', '', 4), 'maxlength', 15, 'client');
@@ -226,7 +226,7 @@ class simplehtml_form extends moodleform {
             } else {
                 $repeateloptions['ip_client']['default'] = '127.0.0.1';
             }
-            $repeateloptions['port_client']['disabledif'] = array('sarlab', 'eq', 0);
+            $repeateloptions['port_client']['disabledif'] = array('usingsarlab', 'eq', 0);
             $repeateloptions['port_client']['type'] = PARAM_INT;
             $repeateloptions['port_client']['helpbutton'] = array('port_client', 'block_remlab_manager');
             $repeateloptions['port_client']['rule'] = 'numeric'; //array('port_client', get_string('maximumchars', '', 4), 'maxlength', 4, 'client');
@@ -235,14 +235,14 @@ class simplehtml_form extends moodleform {
             } else {
                 $repeateloptions['port_client']['default'] = '8081';
             }
-            $repeateloptions['ip_server']['disabledif'] = array('sarlab', 'eq', 0);
+            $repeateloptions['ip_server']['disabledif'] = array('usingsarlab', 'eq', 0);
             $repeateloptions['ip_server']['type'] = PARAM_TEXT;
             $repeateloptions['ip_server']['helpbutton'] = array('ip_server', 'block_remlab_manager');
             $repeateloptions['ip_server']['rule'] = array(get_string('maximumchars', '', 4), 'maxlength', 15, 'client');
             if ($experience_sarlab_info) {
                 $repeateloptions['ip_server']['default'] = $experience_sarlab_info->reboottime;
             }
-            $repeateloptions['port_server']['disabledif'] = array('sarlab', 'eq', 0);
+            $repeateloptions['port_server']['disabledif'] = array('usingsarlab', 'eq', 0);
             $repeateloptions['port_server']['type'] = PARAM_INT;
             $repeateloptions['port_server']['helpbutton'] = array('port_server', 'block_remlab_manager');
             $repeateloptions['port_server']['rule'] = 'numeric'; //array('port_server', get_string('maximumchars', '', 4), 'maxlength', 4, 'client');
@@ -250,14 +250,7 @@ class simplehtml_form extends moodleform {
                 $repeateloptions['port_server']['default'] = $experience_sarlab_info->reboottime;
             }
 
-            $no = 2;
-            /*if ($this->current->instance) {
-                if ($personal_vars = $DB->get_records('ejsapp_personal_vars', array('ejsappid' => $this->current->instance))) {
-                    $no = count($personal_vars);
-                }
-            }*/
-
-            $this->repeat_elements($varsarray, $no, $repeateloptions, 'option_repeats', 'option_add_fields', 2, null, true);
+            $this->repeat_elements($varsarray, 2, $repeateloptions, 'option_repeats', 'option_add_fields', 2, null, true);
 
             if ($experience_sarlab_info) {
                 $lab_power_board = $experience_sarlab_info->power_boards_list;
@@ -266,7 +259,7 @@ class simplehtml_form extends moodleform {
             }
             $select = $mform->addElement('select', 'lab_power_board', get_string('lab_power_board', 'block_remlab_manager'), $lab_power_board);
             $mform->addHelpButton('lab_power_board', 'lab_power_board', 'block_remlab_manager');
-            $mform->disabledIf('lab_power_board', 'sarlab', 'eq', 0);
+            $mform->disabledIf('lab_power_board', 'usingsarlab', 'eq', 0);
             if ($experience_sarlab_info) {
                 $select->setSelected($experience_sarlab_info->power_board);
             } else {
@@ -277,7 +270,7 @@ class simplehtml_form extends moodleform {
             $select = $mform->addElement('select', 'lab_power_outputs', get_string('lab_power_outputs', 'block_remlab_manager'), $lab_power_outputs);
             $select->setMultiple(true);
             $mform->addHelpButton('lab_power_outputs', 'lab_power_outputs', 'block_remlab_manager');
-            $mform->disabledIf('lab_power_outputs', 'sarlab', 'eq', 0);
+            $mform->disabledIf('lab_power_outputs', 'usingsarlab', 'eq', 0);
             if ($experience_sarlab_info) {
                 $select->setSelected($experience_sarlab_info->power_outputs);
             } else {
@@ -299,7 +292,7 @@ class simplehtml_form extends moodleform {
     {
         $errors = parent::validation($data, $files);
 
-        if ($data['sarlab'] == 0) {
+        if ($data['usingsarlab'] == 0) {
             if (empty($data['ip'])) {
                 $errors['ip'] = get_string('ip_lab_required', 'block_remlab_manager');
             }
@@ -308,7 +301,7 @@ class simplehtml_form extends moodleform {
             }
         }
 
-        if ($data['sarlab'] == 1) {
+        if ($data['usingsarlab'] == 1) {
             if (empty($data['practiceintro'])) {
                 $errors['practiceintro'] = get_string('practiceintro_required', 'block_remlab_manager');
             }

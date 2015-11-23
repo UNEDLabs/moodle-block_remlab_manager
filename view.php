@@ -123,7 +123,7 @@ if ($delete != 0) { // confirm deletion of experience
                 print_error('inserterror', 'block_remlab_manager');
             }
         }
-        // TODO: If needed, send info to Sarlab for updating the experience configuration
+        // TODO: If needed, send info to SARLAB for updating the experience configuration
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
         redirect($courseurl);
     } else {
