@@ -52,7 +52,7 @@ $PAGE->set_url('/blocks/remlab_manager/view.php', array('id' => $courseid));
 $PAGE->set_pagelayout('standard');
 $PAGE->set_heading(get_string('configure_lab', 'block_remlab_manager'));
 
-if ($delete != 0) { // confirm deletion of experience
+if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion of experience
     if ($delete == 1) { // show confirm/cancel buttons
         echo $OUTPUT->header();
         $url_confirm = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $blockid, 'courseid' => $courseid, 'experience' => $practiceintro_index, 'delete' => 2));
@@ -78,7 +78,7 @@ if ($delete != 0) { // confirm deletion of experience
     $toform['practiceintro'] = '';
     $toform['originalpracticeintro'] = '';
     $practiceintro = '';
-    if ($editing_experience == 1) { // editing an already existing experience
+    if ($editing_experience == 1 && !empty($_SESSION['list_experiences'])) { // editing an already existing experience
         $list_experiences = $_SESSION['list_experiences'];
         $toform['practiceintro'] = $list_experiences[$practiceintro_index];
         $toform['originalpracticeintro'] = $list_experiences[$practiceintro_index];

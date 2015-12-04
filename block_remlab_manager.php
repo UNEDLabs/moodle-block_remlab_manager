@@ -76,8 +76,13 @@ class block_remlab_manager extends block_list {
         $url_delete = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id, 'delete' => 1));
         $this->content->items[0] = '<form method="post">';
         $this->content->items[0] .= html_writer::select($list_showable_experiences, 'experience', $practiceintro_index, true);
-        $this->content->items[1] = '<input type="submit" formaction="'.$url_edit.'" value="'.get_string('configure_existing_experience', 'block_remlab_manager').'" />';
-        $this->content->items[2] = '<input type="submit" formaction="'.$url_delete.'" value="'.get_string('delete_existing_experience', 'block_remlab_manager').'" />';
+        if (empty($list_showable_experiences)) {
+            $this->content->items[1] = '<input type="submit" formaction="' . $url_edit . '" value="' . get_string('configure_existing_experience', 'block_remlab_manager') . '" disabled/>';
+            $this->content->items[2] = '<input type="submit" formaction="' . $url_delete . '" value="' . get_string('delete_existing_experience', 'block_remlab_manager') . '" disabled/>';
+        } else {
+            $this->content->items[1] = '<input type="submit" formaction="' . $url_edit . '" value="' . get_string('configure_existing_experience', 'block_remlab_manager') . '" />';
+            $this->content->items[2] = '<input type="submit" formaction="' . $url_delete . '" value="' . get_string('delete_existing_experience', 'block_remlab_manager') . '" />';
+        }
         $this->content->items[2] .= "</form>";
         $this->content->items[3] = html_writer::label(get_string('or', 'block_remlab_manager'), null);
         $url_new = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id));

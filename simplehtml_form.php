@@ -68,6 +68,7 @@ class simplehtml_form extends moodleform {
         // Start adding all the visible elements
         $mform->addElement('selectyesno', 'usingsarlab', get_string('sarlab', 'block_remlab_manager'));
         $mform->addHelpButton('usingsarlab', 'sarlab', 'block_remlab_manager');
+        $mform->setDefault('usingsarlab', 0);
         if ($rem_lab_data) {
             $mform->setDefault('usingsarlab', $rem_lab_data->usingsarlab);
         }
