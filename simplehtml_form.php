@@ -108,6 +108,7 @@ class simplehtml_form extends moodleform {
         $mform->addElement('text', 'practiceintro', get_string('practiceintro', 'block_remlab_manager'), array('size' => '20'));
         $mform->setType('practiceintro', PARAM_TEXT);
         $mform->addHelpButton('practiceintro', 'practiceintro', 'block_remlab_manager');
+        $mform->addRule('practiceintro', get_string('practiceintro_required', 'block_remlab_manager'), 'required');
         if ($rem_lab_data) {
             $mform->setDefault('practiceintro', $rem_lab_data->practiceintro);
         }
@@ -203,7 +204,7 @@ class simplehtml_form extends moodleform {
 
         if ($sarlab_configured) {
             // Sarlab experience configuration
-            $mform->addElement('header', 'rem_lab', get_string('sarlab_exp_conf', 'block_remlab_manager'));
+            $mform->addElement('header', 'sarlab', get_string('sarlab_exp_conf', 'block_remlab_manager'));
 
             //TODO: if editing an existing SARLAB experience, get information of that experience from the Sarlab Server
             $experience_sarlab_info = null;
@@ -299,12 +300,6 @@ class simplehtml_form extends moodleform {
             }
             if (empty($data['port'])) {
                 $errors['port'] = get_string('port_required', 'block_remlab_manager');
-            }
-        }
-
-        if ($data['usingsarlab'] == 1) {
-            if (empty($data['practiceintro'])) {
-                $errors['practiceintro'] = get_string('practiceintro_required', 'block_remlab_manager');
             }
         }
 
