@@ -66,7 +66,7 @@ if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion
             $list_experiences = $_SESSION['list_experiences'];
             $practiceintro = $list_experiences[$practiceintro_index];
             $DB->delete_records('remlab_manager_conf', array('practiceintro' => $practiceintro));
-            // TODO: If needed, send info to Sarlab for deleting the experience
+            // TODO: If needed, send info to SARLAB for deleting the experience
         }
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
         redirect($courseurl);
@@ -99,6 +99,8 @@ if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion
             $practice_record->totalslots = 18;
             $practice_record->weeklyslots = 9;
             $practice_record->dailyslots = 3;
+            $practice_record->active = 1;
+            $practice_record->free_access = 0;
             $DB->insert_record('remlab_manager_conf', $practice_record);
         }
     }
@@ -123,7 +125,7 @@ if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion
                 print_error('inserterror', 'block_remlab_manager');
             }
         }
-        // TODO: If needed, send info to SARLAB for updating the experience configuration
+        // TODO: If needed, send info to SARLAB for updating/creating the experience configuration
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
         redirect($courseurl);
     } else {
