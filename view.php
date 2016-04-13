@@ -37,7 +37,7 @@ global $DB, $PAGE, $OUTPUT, $CFG;
 // Check for all required and optional variables.
 $blockid = required_param('blockid', PARAM_INT);
 $courseid = required_param('courseid', PARAM_INT);
-$practiceintro_index = optional_param('experience', -1, PARAM_INT);
+$practiceintro_index = optional_param('experience', 0, PARAM_INT);
 $editing_experience = optional_param('edit', 0, PARAM_INT);
 $delete = optional_param('delete', 0, PARAM_INT);
 $id = optional_param('id', -1, PARAM_INT);
@@ -101,6 +101,8 @@ if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion
             $practice_record->dailyslots = 3;
             $practice_record->active = 1;
             $practice_record->free_access = 0;
+			$practice_record->slotsduration = 0;
+            $practice_record->reboottime = 2;
             $DB->insert_record('remlab_manager_conf', $practice_record);
         }
     }
