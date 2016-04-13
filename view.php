@@ -101,7 +101,7 @@ if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion
             $practice_record->dailyslots = 3;
             $practice_record->active = 1;
             $practice_record->free_access = 0;
-			$practice_record->slotsduration = 0;
+            $practice_record->slotsduration = 0;
             $practice_record->reboottime = 2;
             $DB->insert_record('remlab_manager_conf', $practice_record);
         }
