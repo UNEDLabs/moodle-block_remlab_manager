@@ -27,14 +27,19 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
+
 require_once("{$CFG->libdir}/formslib.php");
 require_once("../../mod/ejsapp/locallib.php");
+
 class simplehtml_form extends moodleform {
+
     function definition()
     {
         global $CFG, $DB;
+
         $mform =& $this->_form;
         $mform->addElement('header', 'rem_lab', get_string('rem_lab_conf', 'ejsapp'));
+
         // First, hidden elements
         $mform->addElement('hidden', 'blockid');
         $mform->setType('blockid', PARAM_INT);
@@ -46,6 +51,7 @@ class simplehtml_form extends moodleform {
         $mform->setType('originalpracticeintro', PARAM_TEXT);
         $mform->addElement('hidden', 'sarlab_configured', null);
         $mform->setType('sarlab_configured', PARAM_INT);
+
         // Get data if editing an already existing experience
         $editing_experience = $this->_customdata[0];
         $practiceintro = $this->_customdata[1];
@@ -53,6 +59,7 @@ class simplehtml_form extends moodleform {
         if ($editing_experience) {
             $rem_lab_data = $DB->get_record('remlab_manager_conf', array('practiceintro' => $practiceintro));
         }
+
         // Start adding all the visible elements
         $mform->addElement('selectyesno', 'usingsarlab', get_string('sarlab', 'block_remlab_manager'));
         $mform->addHelpButton('usingsarlab', 'sarlab', 'block_remlab_manager');
@@ -60,6 +67,7 @@ class simplehtml_form extends moodleform {
         if ($rem_lab_data) {
             $mform->setDefault('usingsarlab', $rem_lab_data->usingsarlab);
         }
+
         $list_sarlab_IPs = explode(";", $CFG->sarlab_IP);
         $sarlab_configured = 0;
         if ($list_sarlab_IPs[0] != '' && $list_sarlab_IPs[0] != '127.0.0.1' && $list_sarlab_IPs[0] != 'localhost') $sarlab_configured = 1;
@@ -82,6 +90,7 @@ class simplehtml_form extends moodleform {
         if ($rem_lab_data) {
             $mform->setDefault('sarlabinstance', $rem_lab_data->sarlabinstance);
         }
+
         //Check whether the selected practice uses sarlab or not in order to show or hide the collab access feature
         $mform->addElement('selectyesno', 'sarlabcollab', get_string('sarlab_collab', 'block_remlab_manager'));
         $mform->addHelpButton('sarlabcollab', 'sarlab_collab', 'block_remlab_manager');
@@ -89,6 +98,7 @@ class simplehtml_form extends moodleform {
         if ($rem_lab_data) {
             $mform->setDefault('sarlabcollab', $rem_lab_data->sarlabcollab);
         }
+
         $mform->addElement('text', 'practiceintro', get_string('practiceintro', 'block_remlab_manager'), array('size' => '20'));
         $mform->setType('practiceintro', PARAM_TEXT);
         $mform->addHelpButton('practiceintro', 'practiceintro', 'block_remlab_manager');
@@ -96,6 +106,7 @@ class simplehtml_form extends moodleform {
         if ($rem_lab_data) {
             $mform->setDefault('practiceintro', $rem_lab_data->practiceintro);
         }
+
         $mform->addElement('text', 'ip', get_string('ip_lab', 'block_remlab_manager'), array('size' => '12'));
         $mform->setType('ip', PARAM_TEXT);
         $mform->addRule('ip', get_string('maximumchars', '', 15), 'maxlength', 15, 'client');
@@ -104,6 +115,7 @@ class simplehtml_form extends moodleform {
         if ($rem_lab_data) {
             $mform->setDefault('ip', $rem_lab_data->ip);
         }
+
         $mform->addElement('text', 'port', get_string('port', 'block_remlab_manager'), array('size' => '2'));
         $mform->setType('port', PARAM_INT);
         $mform->addRule('port', get_string('maximumchars', '', 6), 'maxlength', 6, 'client');
@@ -114,6 +126,7 @@ class simplehtml_form extends moodleform {
         } else {
             $mform->setDefault('port', '443');
         }
+
         $mform->addElement('selectyesno', 'active', get_string('active', 'block_remlab_manager'));
         $mform->addHelpButton('active', 'active', 'block_remlab_manager');
         $mform->disabledIf('active', 'is_rem_lab', 'eq', 0);
@@ -122,6 +135,7 @@ class simplehtml_form extends moodleform {
         } else {
             $mform->setDefault('active', '1');
         }
+
         $mform->addElement('selectyesno', 'free_access', get_string('free_access', 'block_remlab_manager'));
         $mform->addHelpButton('free_access', 'free_access', 'block_remlab_manager');
         if ($rem_lab_data) {
@@ -129,6 +143,7 @@ class simplehtml_form extends moodleform {
         } else {
             $mform->setDefault('free_access', '0');
         }
+
         $mform->addElement('select', 'slotsduration', get_string('slotsduration', 'block_remlab_manager'), array('60', '30', '15', '5', '2'));
         $mform->addHelpButton('slotsduration', 'slotsduration', 'block_remlab_manager');
         if ($rem_lab_data) {
@@ -136,6 +151,7 @@ class simplehtml_form extends moodleform {
         } else {
             $mform->setDefault('slotsduration', '60');
         }
+
         $mform->addElement('text', 'totalslots', get_string('totalslots', 'block_remlab_manager'), array('size' => '2'));
         $mform->setType('totalslots', PARAM_INT);
         $mform->addRule('totalslots', get_string('maximumchars', '', 5), 'maxlength', 5, 'client');
@@ -146,6 +162,7 @@ class simplehtml_form extends moodleform {
         } else {
             $mform->setDefault('totalslots', 18);
         }
+
         $mform->addElement('text', 'weeklyslots', get_string('weeklyslots', 'block_remlab_manager'), array('size' => '2'));
         $mform->setType('weeklyslots', PARAM_INT);
         $mform->addRule('weeklyslots', get_string('maximumchars', '', 3), 'maxlength', 3, 'client');
@@ -156,6 +173,7 @@ class simplehtml_form extends moodleform {
         } else {
             $mform->setDefault('weeklyslots', 9);
         }
+
         $mform->addElement('text', 'dailyslots', get_string('dailyslots', 'block_remlab_manager'), array('size' => '2'));
         $mform->setType('dailyslots', PARAM_INT);
         $mform->addRule('dailyslots', get_string('maximumchars', '', 2), 'maxlength', 2, 'client');
@@ -166,6 +184,7 @@ class simplehtml_form extends moodleform {
         } else {
             $mform->setDefault('dailyslots', 3);
         }
+
         $mform->addElement('text', 'reboottime', get_string('reboottime', 'block_remlab_manager'), array('size' => '2'));
         $mform->setType('reboottime', PARAM_INT);
         $mform->addRule('reboottime', get_string('maximumchars', '', 2), 'maxlength', 2, 'client');
@@ -175,6 +194,7 @@ class simplehtml_form extends moodleform {
         } else {
             $mform->setDefault('reboottime', 2);
         }
+
         if ($sarlab_configured) {
             // Sarlab experience configuration
             $mform->addElement('header', 'sarlab', get_string('sarlab_exp_conf', 'block_remlab_manager'));
@@ -182,6 +202,7 @@ class simplehtml_form extends moodleform {
             $experience_sarlab_info = null;
             if ($editing_experience) {
             }
+
             $varsarray = array();
             $varsarray[] = $mform->createElement('text', 'ip_client', get_string('ip_client', 'block_remlab_manager'), array('size' => '15'));
             $varsarray[] = $mform->createElement('text', 'port_client', get_string('port_client', 'block_remlab_manager'), array('size' => '3'));
@@ -221,6 +242,7 @@ class simplehtml_form extends moodleform {
                 $repeateloptions['port_server']['default'] = $experience_sarlab_info->reboottime;
             }
             $this->repeat_elements($varsarray, 2, $repeateloptions, 'option_repeats', 'option_add_fields', 2, null, true);
+
             if ($experience_sarlab_info) {
                 $lab_power_board = $experience_sarlab_info->power_boards_list;
             } else {
@@ -234,6 +256,7 @@ class simplehtml_form extends moodleform {
             } else {
                 $select->setSelected('APC 1');
             }
+
             $lab_power_outputs = array('1', '2', '3', '4', '5', '6', '7', '8');
             $select = $mform->addElement('select', 'lab_power_outputs', get_string('lab_power_outputs', 'block_remlab_manager'), $lab_power_outputs);
             $select->setMultiple(true);
@@ -247,6 +270,7 @@ class simplehtml_form extends moodleform {
         }
         $this->add_action_buttons();
     }
+
     /**
      * Performs minimal validation on the settings form
      * @param array $data
@@ -266,4 +290,5 @@ class simplehtml_form extends moodleform {
         }
         return $errors;
     } // validation
+
 }
