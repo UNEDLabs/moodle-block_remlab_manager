@@ -36,12 +36,8 @@ $capabilities = array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
-            'user' => CAP_PROHIBIT,
-            'guest' => CAP_PROHIBIT,
-            'student' => CAP_PROHIBIT,
-            'teacher' => CAP_PROHIBIT,
             'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_PROHIBIT
+            'manager' => CAP_ALLOW
         ),
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
     ),
@@ -56,22 +52,9 @@ $capabilities = array(
             'student' => CAP_PROHIBIT,
             'teacher' => CAP_PROHIBIT,
             'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_PROHIBIT
+            'manager' => CAP_ALLOW
         ),
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ),
-
-    'block/remlab_manager:view' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'user' => CAP_PROHIBIT,
-            'guest' => CAP_PROHIBIT,
-            'student' => CAP_PROHIBIT,
-            'teacher' => CAP_PROHIBIT,
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_PROHIBIT
-        )
     )
 
 );

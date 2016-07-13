@@ -62,7 +62,7 @@ class block_remlab_manager extends block_list {
             return null;
         }
 
-        if (!has_capability('block/remlab_manager:addinstance', $this->page->context)) {
+        if (!has_capability('moodle/course:manageactivities', $this->page->context)) {
             return null;
         }
 

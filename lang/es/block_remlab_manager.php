@@ -54,7 +54,6 @@ $string['use_sarlab'] = 'Usar Sarlab en sesiones colaborativas?';
 //Capabilities
 $string['remlab_manager:addinstance'] = 'Añadir un nuevo bloque Gestor Remlab';
 $string['remlab_manager:myaddinstance'] = 'Añadir un nuevo bloque Gestor Remlab';
-$string['remlab_manager:view'] = 'Ver bloque';
 
 //view.php
 $string['inserterror'] = 'Error al grabar la configuración de la experiencia de laboratorio remoto';

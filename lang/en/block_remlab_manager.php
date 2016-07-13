@@ -54,7 +54,6 @@ $string['use_sarlab'] = 'Use Sarlab in collaborative sessions?';
 //Capabilities
 $string['remlab_manager:addinstance'] = 'Add a new Remlab Manager block';
 $string['remlab_manager:myaddinstance'] = 'Add a new Remlab Manager block to My home';
-$string['remlab_manager:view'] = 'View block';
 
 //view.php
 $string['inserterror'] = 'Error while trying to save the configuration for the remote lab experience';
