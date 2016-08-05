@@ -59,7 +59,7 @@ class simplehtml_form extends moodleform {
         $practiceintro = $this->_customdata[1];
         $rem_lab_data = false;
         if ($editing_experience) {
-            $rem_lab_data = $DB->get_record('remlab_manager_conf', array('practiceintro' => $practiceintro));
+            $rem_lab_data = $DB->get_record('block_remlab_manager_conf', array('practiceintro' => $practiceintro));
         }
 
         // Start adding all the visible elements

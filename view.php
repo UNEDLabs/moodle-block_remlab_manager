@@ -32,7 +32,7 @@
 require_once('../../config.php');
 require_once('simplehtml_form.php');
 
-global $DB, $PAGE, $OUTPUT, $CFG;
+global $DB, $PAGE, $OUTPUT, $CFG, $SESSION;
 
 // Check for all required and optional variables.
 $blockid = required_param('blockid', PARAM_INT);
@@ -43,7 +43,7 @@ $delete = optional_param('delete', 0, PARAM_INT);
 $id = optional_param('id', -1, PARAM_INT);
 
 if (!$course = $DB->get_record('course', array('id' => $courseid))) {
-    print_error('invalidcourse', 'block_simplehtml', $courseid);
+    print_error('invalidcourse');
 }
 
 require_login($course);
@@ -52,20 +52,26 @@ $PAGE->set_url('/blocks/remlab_manager/view.php', array('id' => $courseid));
 $PAGE->set_pagelayout('standard');
 $PAGE->set_heading(get_string('configure_lab', 'block_remlab_manager'));
 
-if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion of experience
+$context = context_course::instance($courseid);
+if (!has_capability('block/remlab_manager:addinstance', $context)) {
+    echo $OUTPUT->header();
+    echo $OUTPUT->footer();
+}
+
+if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { // confirm deletion of experience
     if ($delete == 1) { // show confirm/cancel buttons
         echo $OUTPUT->header();
         $url_confirm = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $blockid, 'courseid' => $courseid, 'experience' => $practiceintro_index, 'delete' => 2));
         $url_cancel = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $blockid, 'courseid' => $courseid, 'delete' => 3));
         echo $OUTPUT->box(get_string('confirm_deletion', 'block_remlab_manager'));
         echo $OUTPUT->box(html_writer::tag('a', get_string('confirm_delete_button', 'block_remlab_manager'), array('class'=>'btn', 'href'=>$url_confirm)) .
-                          ' ' . html_writer::tag('a', get_string('cancel_delete_button', 'block_remlab_manager'), array('class'=>'btn', 'href'=>$url_cancel)));
+            ' ' . html_writer::tag('a', get_string('cancel_delete_button', 'block_remlab_manager'), array('class'=>'btn', 'href'=>$url_cancel)));
         echo $OUTPUT->footer();
     } else { // perform action and redirect to course page
         if ($delete == 2) { // delete
-            $list_experiences = $_SESSION['list_experiences'];
+            $list_experiences = $SESSION->block_remlab_manager_list_experiences;
             $practiceintro = $list_experiences[$practiceintro_index];
-            $DB->delete_records('remlab_manager_conf', array('practiceintro' => $practiceintro));
+            $DB->delete_records('block_remlab_manager_conf', array('practiceintro' => $practiceintro));
             // TODO: If needed, send info to SARLAB for deleting the experience
         }
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
@@ -78,13 +84,13 @@ if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion
     $toform['practiceintro'] = '';
     $toform['originalpracticeintro'] = '';
     $practiceintro = '';
-    if ($editing_experience == 1 && !empty($_SESSION['list_experiences'])) { // editing an already existing experience
-        $list_experiences = $_SESSION['list_experiences'];
+    if ($editing_experience == 1 && !empty($SESSION->block_remlab_manager_list_experiences)) { // editing an already existing experience
+        $list_experiences = $SESSION->block_remlab_manager_list_experiences;
         $toform['practiceintro'] = $list_experiences[$practiceintro_index];
         $toform['originalpracticeintro'] = $list_experiences[$practiceintro_index];
         $practiceintro = $list_experiences[$practiceintro_index];
         // If the experience doesn't exist (it is defined in Sarlab but not in Moodle yet), create it:
-        if (!$DB->get_record('remlab_manager_conf', array('practiceintro' => $practiceintro))) {
+        if (!$DB->record_exists('block_remlab_manager_conf', array('practiceintro' => '3Tanques'))) {
             $practice_record = new stdClass;
             $practice_record->practiceintro = $practiceintro;
             $practice_record->usingsarlab = 1;
@@ -103,7 +109,7 @@ if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion
             $practice_record->free_access = 0;
             $practice_record->slotsduration = 0;
             $practice_record->reboottime = 2;
-            $DB->insert_record('remlab_manager_conf', $practice_record);
+            $DB->insert_record('block_remlab_manager_conf', $practice_record);
         }
     }
 
@@ -117,13 +123,13 @@ if ($delete != 0 && !empty($_SESSION['list_experiences'])) { // confirm deletion
     } else if ($fromform = $simplehtml->get_data()) {
         // Store the submitted data
         if ($fromform->editingexperience) {
-            $rem_lab_data = $DB->get_record('remlab_manager_conf', array('practiceintro' => $fromform->originalpracticeintro));
+            $rem_lab_data = $DB->get_record('block_remlab_manager_conf', array('practiceintro' => $fromform->originalpracticeintro));
             $fromform->id = $rem_lab_data->id;
-            if (!$DB->update_record('remlab_manager_conf', $fromform)) {
+            if (!$DB->update_record('block_remlab_manager_conf', $fromform)) {
                 print_error('inserterror', 'block_remlab_manager');
             }
         } else {
-            if (!$DB->insert_record('remlab_manager_conf', $fromform)) {
+            if (!$DB->insert_record('block_remlab_manager_conf', $fromform)) {
                 print_error('inserterror', 'block_remlab_manager');
             }
         }

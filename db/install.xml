@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/remlab_manager/db" VERSION="20120606" COMMENT="XMLDB file for Moodle blocks/remlab_manager"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+        >
+    <TABLES>
+        <TABLE NAME="block_remlab_manager_conf" COMMENT="Defines the configuration of a remote lab experience"
+               NEXT="block_remlab_manager_exp2prc">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="ip"/>
+                <FIELD NAME="practiceintro" TYPE="char" LENGTH="255" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       PREVIOUS="id" NEXT="usingsarlab"/>
+                <FIELD NAME="usingsarlab" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="practiceintro" NEXT="sarlabinstance"/>
+                <FIELD NAME="sarlabinstance" TYPE="int" LENGTH="2" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="usingsarlab" NEXT="sarlabcollab"/>
+                <FIELD NAME="sarlabcollab" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="sarlabinstance" NEXT="ip"/>
+                <FIELD NAME="ip" TYPE="char" LENGTH="255" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       PREVIOUS="user" NEXT="port"/>
+                <FIELD NAME="port" TYPE="int" LENGTH="6" NOTNULL="true" UNSIGNED="true" DEFAULT="443" SEQUENCE="false"
+                       PREVIOUS="ip" NEXT="slotsduration"/>
+                <FIELD NAME="slotsduration" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="port" NEXT="totalslots"/>
+                <FIELD NAME="totalslots" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" DEFAULT="18" SEQUENCE="false"
+                       PREVIOUS="slotsduration" NEXT="weeklyslots"/>
+                <FIELD NAME="weeklyslots" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" DEFAULT="9" SEQUENCE="false"
+                       PREVIOUS="totalslots" NEXT="dailyslots"/>
+                <FIELD NAME="dailyslots" TYPE="int" LENGTH="2" NOTNULL="true" UNSIGNED="true" DEFAULT="3" SEQUENCE="false"
+                       PREVIOUS="weeklyslots" NEXT="reboottime"/>
+                <FIELD NAME="reboottime" TYPE="int" LENGTH="2" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="dailyslots" NEXT="active"/>
+                <FIELD NAME="active" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false"
+                       PREVIOUS="reboottime" NEXT="free_access"/>
+                <FIELD NAME="free_access" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="active"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="block_remlab_manager_exp2prc" COMMENT="Gives a relation of the experiences available for each experimental system"
+               PREVIOUS="block_remlab_manager_conf" NEXT="block_remlab_manager_sb_keys">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="invited_user"/>
+                <FIELD NAME="ejsappid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="id" NEXT="practiceid"/>
+                <FIELD NAME="practiceid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="ejsappid" NEXT="practiceintro"/>
+                <FIELD NAME="practiceintro" TYPE="char" LENGTH="255" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       PREVIOUS="practiceid"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="block_remlab_manager_sb_keys" COMMENT="Stores the access keys used by Sarlab to grant access to a remote lab experience"
+               PREVIOUS="block_remlab_manager_exp2prc">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="user"/>
+                <FIELD NAME="user" TYPE="char" LENGTH="100" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       PREVIOUS="id" NEXT="sarlabpass"/>
+                <FIELD NAME="sarlabpass" TYPE="char" LENGTH="40" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       PREVIOUS="user" NEXT="labmanager"/>
+                <FIELD NAME="labmanager" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="sarlabpass" NEXT="creationtime"/>
+                <FIELD NAME="creationtime" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
+                       PREVIOUS="labmanager"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB> 
