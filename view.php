@@ -61,7 +61,7 @@ if (!has_capability('block/remlab_manager:addinstance', $context)) {
 if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { // confirm deletion of experience
     if ($delete == 1) { // show confirm/cancel buttons
         echo $OUTPUT->header();
-        $url_confirm = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $blockid, 'courseid' => $courseid, 'experience' => $practiceintro_index, 'delete' => 2));
+        $url_confirm = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $blockid, 'courseid' => $courseid, 'experience' => $practiceintro_index, 'delete' => 2, 'sesskey' => sesskey()));
         $url_cancel = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $blockid, 'courseid' => $courseid, 'delete' => 3));
         echo $OUTPUT->box(get_string('confirm_deletion', 'block_remlab_manager'));
         echo $OUTPUT->box(html_writer::tag('a', get_string('confirm_delete_button', 'block_remlab_manager'), array('class'=>'btn', 'href'=>$url_confirm)) .
@@ -69,6 +69,7 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
         echo $OUTPUT->footer();
     } else { // perform action and redirect to course page
         if ($delete == 2) { // delete
+            require_sesskey();
             $list_experiences = $SESSION->block_remlab_manager_list_experiences;
             $practiceintro = $list_experiences[$practiceintro_index];
             $DB->delete_records('block_remlab_manager_conf', array('practiceintro' => $practiceintro));
@@ -78,6 +79,7 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
         redirect($courseurl);
     }
 } else { // add or edit an experience
+    require_sesskey();
     $toform['blockid'] = $blockid;
     $toform['courseid'] = $courseid;
     $toform['editingexperience'] = $editing_experience;
@@ -94,13 +96,13 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
             $practice_record = new stdClass;
             $practice_record->practiceintro = $practiceintro;
             $practice_record->usingsarlab = 1;
-            $list_sarlab_IPs = explode(";", $CFG->sarlab_IP);
+            $list_sarlab_IPs = explode(";", get_config('block_remlab_manager', 'sarlab_IP'));
             $sarlab_IP = $list_sarlab_IPs[0];
             $last_quote_mark = strrpos($sarlab_IP, "'");
             if ($last_quote_mark != 0) $last_quote_mark++;
             $ip = substr($sarlab_IP, $last_quote_mark);
             $practice_record->ip = $ip;
-            $list_sarlab_ports = explode(";", $CFG->sarlab_port);
+            $list_sarlab_ports = explode(";", get_config('block_remlab_manager', 'sarlab_port'));
             $practice_record->port = $list_sarlab_ports[0];
             $practice_record->totalslots = 18;
             $practice_record->weeklyslots = 9;
@@ -121,6 +123,7 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
         redirect($courseurl);
     } else if ($fromform = $simplehtml->get_data()) {
+        require_sesskey();
         // Store the submitted data
         if ($fromform->editingexperience) {
             $rem_lab_data = $DB->get_record('block_remlab_manager_conf', array('practiceintro' => $fromform->originalpracticeintro));

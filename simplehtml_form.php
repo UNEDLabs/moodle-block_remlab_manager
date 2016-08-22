@@ -70,7 +70,7 @@ class simplehtml_form extends moodleform {
             $mform->setDefault('usingsarlab', $rem_lab_data->usingsarlab);
         }
 
-        $list_sarlab_IPs = explode(";", $CFG->sarlab_IP);
+        $list_sarlab_IPs = explode(";", get_config('block_remlab_manager', 'sarlab_IP'));
         $sarlab_configured = 0;
         if ($list_sarlab_IPs[0] != '' && $list_sarlab_IPs[0] != '127.0.0.1' && $list_sarlab_IPs[0] != 'localhost') $sarlab_configured = 1;
         $mform->setDefault('sarlab_configured', $sarlab_configured);

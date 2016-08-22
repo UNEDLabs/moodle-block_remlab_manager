@@ -72,7 +72,7 @@ class block_remlab_manager extends block_list {
         $this->content = new stdClass();
         $this->content->items = array();
         $this->content->icons = array();
-        $url_edit = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id, 'edit' => 1));
+        $url_edit = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id, 'edit' => 1, 'sesskey' => sesskey()));
         $url_delete = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id, 'delete' => 1));
         $this->content->items[0] = '<form method="post">';
         $this->content->items[0] .= html_writer::select($list_showable_experiences, 'experience', $practiceintro_index, true);
@@ -85,7 +85,7 @@ class block_remlab_manager extends block_list {
         }
         $this->content->items[2] .= "</form>";
         $this->content->items[3] = html_writer::label(get_string('or', 'block_remlab_manager'), null);
-        $url_new = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id));
+        $url_new = new moodle_url('/blocks/remlab_manager/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id, 'sesskey' => sesskey()));
         $this->content->items[4] = html_writer::link($url_new, get_string('configure_new_experience', 'block_remlab_manager'));
         $this->content->footer = '';
 

@@ -37,13 +37,13 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading(
-        'remlab_manager/communicationsettings',
+        'block_remlab_manager/communicationsettings',
         get_string('default_communication_set', 'block_remlab_manager'),
         ''
     ));
 
     $settings->add(new admin_setting_configtext(
-        'sarlab_IP',
+        'block_remlab_manager/sarlab_IP',
         get_string('sarlab_IP', 'block_remlab_manager'),
         get_string('sarlab_IP_description', 'block_remlab_manager'),
         '127.0.0.1',
@@ -52,7 +52,7 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configtext(
-        'sarlab_port',
+        'block_remlab_manager/sarlab_port',
         get_string('sarlab_port', 'block_remlab_manager'),
         get_string('sarlab_port_description', 'block_remlab_manager'),
         443,
@@ -61,7 +61,7 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configtext(
-        'sarlab_enc_key',
+        'block_remlab_manager/sarlab_enc_key',
         get_string('sarlab_enc_key', 'block_remlab_manager'),
         get_string('sarlab_enc_key_description', 'block_remlab_manager'),
         '1234567890123456',
