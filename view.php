@@ -92,7 +92,7 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
         $toform['originalpracticeintro'] = $list_experiences[$practiceintro_index];
         $practiceintro = $list_experiences[$practiceintro_index];
         // If the experience doesn't exist (it is defined in Sarlab but not in Moodle yet), create it:
-        if (!$DB->record_exists('block_remlab_manager_conf', array('practiceintro' => '3Tanques'))) {
+        if (!$DB->record_exists('block_remlab_manager_conf', array('practiceintro' => $practiceintro))) {
             $practice_record = new stdClass;
             $practice_record->practiceintro = $practiceintro;
             $practice_record->usingsarlab = 1;
