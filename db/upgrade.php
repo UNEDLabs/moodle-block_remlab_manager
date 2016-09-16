@@ -37,19 +37,25 @@ defined('MOODLE_INTERNAL') || die();
  * @param string $oldversion
  * @return true
  */
-function xmldb_ejsapp_upgrade($oldversion)
+function xmldb_block_remlab_manager_upgrade($oldversion)
 {
     global $DB;
     
-    if ($oldversion <= '2016090100') {
+    if ($oldversion <= '2016091601') {
         // Rename sarlab_keys database table to ejsapp_sarlab_keys
         $dbman = $DB->get_manager();
         $table = new xmldb_table('remlab_manager_conf');
-        $dbman->rename_table($table, 'block_remlab_manager_conf');
+        if ($dbman->table_exists($table)) {
+            $dbman->rename_table($table, 'block_remlab_manager_conf');
+        }
         $table = new xmldb_table('remlab_manager_expsyst2pract');
-        $dbman->rename_table($table, 'block_remlab_manager_exp2prc');
+        if ($dbman->table_exists($table)) {
+            $dbman->rename_table($table, 'block_remlab_manager_exp2prc');
+        }
         $table = new xmldb_table('remlab_manager_sarlab_keys');
-        $dbman->rename_table($table, 'block_remlab_manager_sb_keys');
+        if ($dbman->table_exists($table)) {
+            $dbman->rename_table($table, 'block_remlab_manager_sb_keys');
+        }
     }
     
    return true;

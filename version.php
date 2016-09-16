@@ -28,10 +28,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version = 2016091500;
+defined('MOODLE_INTERNAL') || die();
+
+$plugin->version = 2016091601;
 $plugin->requires = 2013111800;
 $plugin->cron = 0;
 $plugin->component = 'block_remlab_manager'; // To check on upgrade, that module sits in correct place
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.0 (Build: 2016091500)';
+$plugin->release = '1.0 (Build: 2016091601)';
 $plugin->dependencies = array('mod_ejsapp' => 2016082100);
