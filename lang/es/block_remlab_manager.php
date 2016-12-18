@@ -33,8 +33,8 @@
 //block_remlab_manager.php:
 $string['pluginname'] = 'Gestor de laboratorios remotos';
 $string['block_title'] = 'Gestor de Laboratorios Remotos';
-$string['configure_existing_experience'] = 'Configurar la experiencia seleccionada';
-$string['delete_existing_experience'] = 'Borrar la experiencia seleccionada';
+$string['configure_existing_experience'] = 'Configurar la experiencia';
+$string['delete_existing_experience'] = 'Borrar la experiencia';
 $string['or'] = 'o';
 $string['configure_new_experience'] = 'Configurar nueva experiencia';
 
