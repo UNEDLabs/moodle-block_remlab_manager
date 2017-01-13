@@ -80,11 +80,11 @@ class block_remlab_manager extends block_list {
         $this->content->items[0] = html_writer::start_tag('form', array('method'=>'post'));
         $this->content->items[1] = html_writer::select($list_showable_experiences, 'experience', $practiceintro_index, true);
         if (empty($list_showable_experiences)) {
-            $this->content->items[2] = html_writer::empty_tag('input', array('type'=>'submit', 'formaction'=>$url_edit, 'value'=>get_string('configure_existing_experience', 'block_remlab_manager'), 'disabled'));
-            $this->content->items[3] = html_writer::empty_tag('input', array('type'=>'submit', 'formaction'=>$url_delete, 'value'=>get_string('delete_existing_experience', 'block_remlab_manager'), 'disabled'));
+            $this->content->items[2] = html_writer::empty_tag('input', array('class'=>'remlab_button', 'type'=>'submit', 'formaction'=>$url_edit, 'value'=>get_string('configure_existing_experience', 'block_remlab_manager'), 'disabled'));
+            $this->content->items[3] = html_writer::empty_tag('input', array('class'=>'remlab_button','type'=>'submit', 'formaction'=>$url_delete, 'value'=>get_string('delete_existing_experience', 'block_remlab_manager'), 'disabled'));
         } else {
-            $this->content->items[2] = html_writer::empty_tag('input', array('type'=>'submit', 'formaction'=>$url_edit, 'value'=>get_string('configure_existing_experience', 'block_remlab_manager')));
-            $this->content->items[3] = html_writer::empty_tag('input', array('type'=>'submit', 'formaction'=>$url_delete, 'value'=>get_string('delete_existing_experience', 'block_remlab_manager')));
+            $this->content->items[2] = html_writer::empty_tag('input', array('class'=>'remlab_button','type'=>'submit', 'formaction'=>$url_edit, 'value'=>get_string('configure_existing_experience', 'block_remlab_manager')));
+            $this->content->items[3] = html_writer::empty_tag('input', array('class'=>'remlab_button','type'=>'submit', 'formaction'=>$url_delete, 'value'=>get_string('delete_existing_experience', 'block_remlab_manager')));
         }
         $this->content->items[4] = html_writer::end_tag('form');
         $this->content->items[5] = html_writer::label(get_string('or', 'block_remlab_manager'), null);
