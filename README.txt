@@ -6,10 +6,10 @@
 ==========
 
 This plugin lets users to manage the remote labs that can be later accessed using the Java or Javascript applications
-created with Easy Java/Javascript Simulations (EJS) and which are added to a Moodle course by means of the ejsapp module.
+created with Easy Java/Javascript Simulations (EjsS) and which are added to a Moodle course by means of the ejsapp module.
 
 The Java applets or the Javascript applications should have been created with version 5.1 (build 20150613 or later) of
-EJS to work properly.
+EjsS to work properly.
 
 This plugin supports (but does not require) the use of SARLAB for managing the connection to the remote labs.
 
