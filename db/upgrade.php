@@ -57,6 +57,14 @@ function xmldb_block_remlab_manager_upgrade($oldversion)
             $dbman->rename_table($table, 'block_remlab_manager_sb_keys');
         }
     }
+
+    if ($oldversion <= '2017033000') {
+        // Rename sarlab_keys database table to ejsapp_sarlab_keys
+        $dbman = $DB->get_manager();
+        $table = new xmldb_table('block_remlab_manager_sb_keys');
+        $field = new xmldb_field('expirationtime', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, '0', 'creationtime');
+        $dbman->add_field($table, $field);
+    }
     
    return true;
 }

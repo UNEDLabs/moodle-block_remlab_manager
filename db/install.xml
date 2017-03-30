@@ -65,7 +65,9 @@
                 <FIELD NAME="labmanager" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
                        PREVIOUS="sarlabpass" NEXT="creationtime"/>
                 <FIELD NAME="creationtime" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
-                       PREVIOUS="labmanager"/>
+                       PREVIOUS="labmanager" NEXT="expirationtime"/>
+                <FIELD NAME="expirationtime" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"
+                       PREVIOUS="creationtime"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

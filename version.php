@@ -30,10 +30,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2017011300;
+$plugin->version = 2017033000;
 $plugin->requires = 2013111800;
 $plugin->cron = 0;
 $plugin->component = 'block_remlab_manager'; // To check on upgrade, that module sits in correct place
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.0 (Build: 2017011300)';
-$plugin->dependencies = array('mod_ejsapp' => 2016082100);
+$plugin->release = '1.1 (Build: 2017033000)';
+$plugin->dependencies = array('mod_ejsapp' => 2017033000);
