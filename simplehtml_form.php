@@ -200,9 +200,18 @@ class simplehtml_form extends moodleform {
         if ($sarlab_configured) {
             // Sarlab experience configuration
             $mform->addElement('header', 'sarlab', get_string('sarlab_exp_conf', 'block_remlab_manager'));
-            //TODO: if editing an existing SARLAB experience, get information of that experience from the Sarlab Server
             $experience_sarlab_info = null;
+
+            //If editing an existing SARLAB experience, get information of that experience from the Sarlab Server
             if ($editing_experience) {
+                $experience_sarlab_info = new stdClass;
+                $experience_sarlab_info->ip_client = '127.0.0.1';
+                $experience_sarlab_info->port_client = '8081';
+                $experience_sarlab_info->ip_server = '';
+                $experience_sarlab_info->port_server = '';
+                $experience_sarlab_info->power_boards_list = array('APC 1', 'APC 2');
+                $experience_sarlab_info->power_outputs = array('0', '1');
+                //$experience_sarlab_info = get_sarlab_experience_info();
             }
 
             $varsarray = array();
@@ -216,7 +225,7 @@ class simplehtml_form extends moodleform {
             $repeateloptions['ip_client']['helpbutton'] = array('ip_client', 'block_remlab_manager');
             $repeateloptions['ip_client']['rule'] = array(get_string('maximumchars', '', 4), 'maxlength', 15, 'client');
             if ($experience_sarlab_info) {
-                $repeateloptions['ip_client']['default'] = $experience_sarlab_info->reboottime;
+                $repeateloptions['ip_client']['default'] = $experience_sarlab_info->ip_client;
             } else {
                 $repeateloptions['ip_client']['default'] = '127.0.0.1';
             }
@@ -225,7 +234,7 @@ class simplehtml_form extends moodleform {
             $repeateloptions['port_client']['helpbutton'] = array('port_client', 'block_remlab_manager');
             $repeateloptions['port_client']['rule'] = 'numeric'; //array('port_client', get_string('maximumchars', '', 4), 'maxlength', 4, 'client');
             if ($experience_sarlab_info) {
-                $repeateloptions['port_client']['default'] = $experience_sarlab_info->reboottime;
+                $repeateloptions['port_client']['default'] = $experience_sarlab_info->port_client;
             } else {
                 $repeateloptions['port_client']['default'] = '8081';
             }
@@ -234,14 +243,14 @@ class simplehtml_form extends moodleform {
             $repeateloptions['ip_server']['helpbutton'] = array('ip_server', 'block_remlab_manager');
             $repeateloptions['ip_server']['rule'] = array(get_string('maximumchars', '', 4), 'maxlength', 15, 'client');
             if ($experience_sarlab_info) {
-                $repeateloptions['ip_server']['default'] = $experience_sarlab_info->reboottime;
+                $repeateloptions['ip_server']['default'] = $experience_sarlab_info->ip_server;
             }
             $repeateloptions['port_server']['disabledif'] = array('usingsarlab', 'eq', 0);
             $repeateloptions['port_server']['type'] = PARAM_INT;
             $repeateloptions['port_server']['helpbutton'] = array('port_server', 'block_remlab_manager');
             $repeateloptions['port_server']['rule'] = 'numeric'; //array('port_server', get_string('maximumchars', '', 4), 'maxlength', 4, 'client');
             if ($experience_sarlab_info) {
-                $repeateloptions['port_server']['default'] = $experience_sarlab_info->reboottime;
+                $repeateloptions['port_server']['default'] = $experience_sarlab_info->port_server;
             }
             $this->repeat_elements($varsarray, 2, $repeateloptions, 'option_repeats', 'option_add_fields', 2, null, true);
 
@@ -254,7 +263,7 @@ class simplehtml_form extends moodleform {
             $mform->addHelpButton('lab_power_board', 'lab_power_board', 'block_remlab_manager');
             $mform->disabledIf('lab_power_board', 'usingsarlab', 'eq', 0);
             if ($experience_sarlab_info) {
-                $select->setSelected($experience_sarlab_info->power_board);
+                $select->setSelected($experience_sarlab_info->power_boards_list[0]);
             } else {
                 $select->setSelected('APC 1');
             }

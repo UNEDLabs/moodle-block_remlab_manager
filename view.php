@@ -129,11 +129,11 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
             $rem_lab_data = $DB->get_record('block_remlab_manager_conf', array('practiceintro' => $fromform->originalpracticeintro));
             $fromform->id = $rem_lab_data->id;
             if (!$DB->update_record('block_remlab_manager_conf', $fromform)) {
-                print_error('inserterror', 'block_remlab_manager');
+                print_error('Could not update record in block_remlab_manager_conf table', 'block_remlab_manager');
             }
         } else {
             if (!$DB->insert_record('block_remlab_manager_conf', $fromform)) {
-                print_error('inserterror', 'block_remlab_manager');
+                print_error('Could not insert record in block_remlab_manager_conf table', 'block_remlab_manager');
             }
         }
         // TODO: If needed, send info to SARLAB for updating/creating the experience configuration
