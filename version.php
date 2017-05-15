@@ -11,29 +11,29 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
-// The GNU General Public License is available on <http://www.gnu.org/licenses/>
+// You should have received a copy of the GNU General Public License
+// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 //
 // Remlab Manager has been developed by:
-//  - Luis de la Torre (1): ldelatorre@dia.uned.es
+// - Luis de la Torre: ldelatorre@dia.uned.es
 //
-//  (1): Computer Science and Automatic Control, Spanish Open University (UNED),
-//       Madrid, Spain
+// at the Computer Science and Automatic Control, Spanish Open University
+// (UNED), Madrid, Spain.
 
 /**
  * Defines the version of remlab_manager
  *
- * @package    block
- * @subpackage remlab_manager
+ * @package    block_remlab_manager
  * @copyright  2015 Luis de la Torre
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2017033000;
+$plugin->version = 2017051500;
 $plugin->requires = 2013111800;
 $plugin->cron = 0;
-$plugin->component = 'block_remlab_manager'; // To check on upgrade, that module sits in correct place
+$plugin->component = 'block_remlab_manager'; // To check on upgrade, that module sits in correct place.
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.1 (Build: 2017033000)';
+$plugin->release = '1.1 (Build: 2017051500)';
 $plugin->dependencies = array('mod_ejsapp' => 2017033000);

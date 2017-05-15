@@ -1,6 +1,6 @@
-#################################
-# Remote Lab Manager 1.0 #
-#################################
+######################
+# Remote Lab Manager #
+######################
 
 1. Content
 ==========
@@ -34,8 +34,6 @@ downloaded it from Moodle.org, then you are fine.
 
 This is a block plugin for Moodle so you should place the remlab_manager folder in your /blocks folder, inside
 your Moodle installation directory.
-
-This block has been tested in Moodle 2.7, 2.8, 2.9 and 3.0.
 
 4. Dependencies
 ===============

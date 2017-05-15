@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of the Moodle block "Remlab Manager"
 //
 // Remlab Manager is free software: you can redistribute it and/or modify
@@ -12,26 +11,22 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
-// The GNU General Public License is available on <http://www.gnu.org/licenses/>
+// You should have received a copy of the GNU General Public License
+// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 //
 // Remlab Manager has been developed by:
-//  - Luis de la Torre (1): ldelatorre@dia.uned.es
+// - Luis de la Torre: ldelatorre@dia.uned.es
 //
-//  (1): Computer Science and Automatic Control, Spanish Open University (UNED),
-//       Madrid, Spain
+// at the Computer Science and Automatic Control, Spanish Open University
+// (UNED), Madrid, Spain.
 
 /**
  * File for configuring the block instances (selecting the Sarlab server in charge of managing the remote labs)
  *
- * @package    block
- * @subpackage remlab_manager
+ * @package    block_remlab_manager
  * @copyright  2015 Luis de la Torre
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-//sarlab_IP,            If one or more SARLAB systems are used for accessing the remote laboratories, the list of their IPs directions must be written here.
-//sarlab_port,          If one or more SARLAB systems are used for accessing the remote laboratories, the list of the ports used to connect with them must be written here.
-//sarlab_enc_key        If one or more SARLAB systems are used for accessing the remote laboratories, the list of their encoding keys must be written here.
 
 defined('MOODLE_INTERNAL') || die;
 

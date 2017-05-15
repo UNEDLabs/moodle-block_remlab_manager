@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of the Moodle block "Remlab Manager"
 //
 // Remlab Manager is free software: you can redistribute it and/or modify
@@ -12,25 +11,25 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
-// The GNU General Public License is available on <http://www.gnu.org/licenses/>
+// You should have received a copy of the GNU General Public License
+// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 //
 // Remlab Manager has been developed by:
-//  - Luis de la Torre (1): ldelatorre@dia.uned.es
+// - Luis de la Torre: ldelatorre@dia.uned.es
 //
-//  (1): Computer Science and Automatic Control, Spanish Open University (UNED),
-//       Madrid, Spain
+// at the Computer Science and Automatic Control, Spanish Open University
+// (UNED), Madrid, Spain.
 
 
 /**
  * Spanish strings
  *
- * @package    block
- * @subpackage remlab_manager
+ * @package    block_remlab_manager
  * @copyright  2015 Luis de la Torre
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
-//block_remlab_manager.php:
+
+// Strings in block_remlab_manager.php.
 $string['pluginname'] = 'Gestor de laboratorios remotos';
 $string['block_title'] = 'Gestor de Laboratorios Remotos';
 $string['configure_existing_experience'] = 'Configurar la experiencia';
@@ -38,7 +37,7 @@ $string['delete_existing_experience'] = 'Borrar la experiencia';
 $string['or'] = 'o';
 $string['configure_new_experience'] = 'Configurar nueva experiencia';
 
-//settings.php:
+// Strings in settings.php.
 $string['default_communication_set'] = "Opciones de comunicaci&oacute;n. (Importante s&oacute;lo si tambi&eacute;n usa Sarlab";
 $string['sarlab_IP'] = "Nombre y direcci&oacute;n IP del servidor Sarlab";
 $string['sarlab_IP_description'] = "Si usa Sarlab (un sistema que gestiona las conexiones a recursos de laboratorios remotos), debe proporcionar la direcci&oacute;n IP del servidor que ejecuta el sistema Sarlab que desea utilizar. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor Sarlab (por ejemplo, uno en 127.0.0.1 y otro en 127.0.0.2), inserte las direcciones IP separadas por puntos y comas: 127.0.0.1;127.0.0.2. Adem&aacute;s, puede proporcionar un nombre para identificar cada servidor Sarlab: 'Sarlab Madrid'127.0.0.1;'Sarlab Huelva'127.0.0.2";
@@ -47,21 +46,21 @@ $string['sarlab_port_description'] = "Si usa Sarlab (un sistema que gestiona las
 $string['sarlab_enc_key'] = "Clave de encriptaci&oacute;n para comunicarse con Sarlab";
 $string['sarlab_enc_key_description'] = "Si usa Sarlab (un sistema que gestiona las conexiones a recursos de laboratorios remotos), debe proporcionar la clave de 16 caracteres para encriptar/desencriptar las comunicaciones con el servidor Sarlab (esta clave debe ser la misma que la configurada en el servidor Sarlab). En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto.";
 
-//edit_form.php:
+// Strings in edit_form.php.
 $string['sarlab_header'] = 'Configurar Sarlab para esta instancia del bloque';
 $string['use_sarlab'] = 'Usar Sarlab en sesiones colaborativas?';
 
-//Capabilities
+// Strings for capabilities.
 $string['remlab_manager:addinstance'] = 'Añadir un nuevo bloque Gestor Remlab';
 $string['remlab_manager:myaddinstance'] = 'Añadir un nuevo bloque Gestor Remlab';
 
-//view.php
+// Strings in view.php.
 $string['inserterror'] = 'Error al grabar la configuración de la experiencia de laboratorio remoto';
 $string['confirm_deletion'] = '¿Está seguro de que desea borrar la experiencia seleccionada?';
 $string['confirm_delete_button'] = 'Sí';
 $string['cancel_delete_button'] = 'No';
 
-//simplehtml_form.php
+// Strings in simplehtml_form.php.
 $string['configure_lab'] = 'Configurar laboratorio remoto';
 
 $string['sarlab'] = "Usar Sarlab?";
