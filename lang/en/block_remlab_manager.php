@@ -32,8 +32,8 @@
 // Strings in block_remlab_manager.php.
 $string['pluginname'] = 'Remlab manager';
 $string['block_title'] = 'Remote Laboratories Manager';
-$string['configure_existing_experience'] = 'Configure the experience';
-$string['delete_existing_experience'] = 'Delete the experience';
+$string['configure_existing_experience'] = 'Configure experience';
+$string['delete_existing_experience'] = 'Delete experience';
 $string['or'] = 'or';
 $string['configure_new_experience'] = 'Configure new experience';
 

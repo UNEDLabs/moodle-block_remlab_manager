@@ -90,27 +90,28 @@ class block_remlab_manager extends block_list {
             array('blockid' => $this->instance->id, 'courseid' => $COURSE->id, 'edit' => 1, 'sesskey' => sesskey()));
         $urldelete = new moodle_url('/blocks/remlab_manager/view.php',
             array('blockid' => $this->instance->id, 'courseid' => $COURSE->id, 'delete' => 1));
-        $this->content->items[0] = html_writer::start_tag('form', array('method' => 'post'));
-        $this->content->items[1] = html_writer::select($experiences, 'experience', $experienceid, true);
+        $this->content->items[0] = html_writer::start_tag('form', array('method' => 'post')) .
+            html_writer::select($experiences, 'experience', $experienceid, true,
+                array('class' => 'remlab_select'));
         if (empty($experiences)) {
-            $this->content->items[2] = html_writer::empty_tag('input',
+            $this->content->items[1] = html_writer::empty_tag('input',
                 array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $urledit,
                     'value' => get_string('configure_existing_experience', 'block_remlab_manager'),
                     'disabled'));
-            $this->content->items[3] = html_writer::empty_tag('input',
+            $this->content->items[2] = html_writer::empty_tag('input',
                 array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $urldelete,
                     'value' => get_string('delete_existing_experience', 'block_remlab_manager'),
                     'disabled'));
         } else {
-            $this->content->items[2] = html_writer::empty_tag('input',
+            $this->content->items[1] = html_writer::empty_tag('input',
                 array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $urledit,
                     'value' => get_string('configure_existing_experience', 'block_remlab_manager')));
-            $this->content->items[3] = html_writer::empty_tag('input',
+            $this->content->items[2] = html_writer::empty_tag('input',
                 array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $urldelete,
                     'value' => get_string('delete_existing_experience', 'block_remlab_manager')));
         }
-        $this->content->items[4] = html_writer::end_tag('form');
-        $this->content->items[5] = html_writer::label(get_string('or', 'block_remlab_manager'), null);
+        $this->content->items[2] .= html_writer::end_tag('form');
+        $this->content->items[3] = html_writer::label(get_string('or', 'block_remlab_manager'), null);
         $urlnew = new moodle_url('/blocks/remlab_manager/view.php',
             array('blockid' => $this->instance->id, 'courseid' => $COURSE->id, 'sesskey' => sesskey()));
         $this->content->items[6] = html_writer::link($urlnew,

@@ -3,15 +3,10 @@
     margin: auto;
 }
 
-.block_remlab_manager .remlab_button {
-    margin-top: 3px;
-    border-radius: 5px;
-    background-color: transparent;
-    padding: 5px;
-    box-shadow: none;
-    border: 1px solid lightgrey;
+.block_remlab_manager .remlab_select {
+    width: 100%;
 }
 
-.block_remlab_manager .remlab_button:hover {
-    background-color: rgba(24, 24, 24, 0.1);
+.block_remlab_manager .remlab_button {
+    padding: 5px;
 }
