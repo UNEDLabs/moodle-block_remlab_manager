@@ -32,10 +32,11 @@
 // Strings in block_remlab_manager.php.
 $string['pluginname'] = 'Remlab manager';
 $string['block_title'] = 'Remote Laboratories Manager';
-$string['configure_existing_experience'] = 'Configure experience';
-$string['delete_existing_experience'] = 'Delete experience';
+$string['configure_existing_local_experience'] = 'Configure local experience';
+$string['delete_existing_local_experience'] = 'Delete local experience';
 $string['or'] = 'or';
-$string['configure_new_experience'] = 'Configure new experience';
+$string['configure_new_local_experience'] = 'Create new local experience';
+$string['go_to_sarlab'] = 'Go to Sarlab';
 
 // Strings in settings.php.
 $string['default_communication_set'] = "Communication settings. (Only important if you are also using Sarlab)";
@@ -48,40 +49,41 @@ $string['sarlab_enc_key_description'] = "If you are using Sarlab (a system that 
 
 // Strings in edit_form.php.
 $string['sarlab_header'] = 'Configure Sarlab for this block instance';
-$string['use_sarlab'] = 'Use Sarlab in collaborative sessions?';
+$string['sarlab_lti_url'] = 'URL to the Sarlab LTI activity ';
 
 // Strings for capabilities.
 $string['remlab_manager:addinstance'] = 'Add a new Remlab Manager block';
 $string['remlab_manager:myaddinstance'] = 'Add a new Remlab Manager block to My home';
+$string['remlab_manager:view'] = 'View the Remlab Manager block';
+
+// Strings for new roles.
+$string['sarlabdesigner'] = 'Sarlab designer';
+$string['sarlabdesigner_desc'] = 'Sarlab designers can create, delete, edit and use Sarlab experiences';
+$string['sarlabmanager'] = 'Sarlab manager';
+$string['sarlabmanager_desc'] = 'Sarlab managers can edit and use existing Sarlab experiences';
 
 // Strings in view.php.
+$string['configure_lab'] = 'Configure remote lab';
 $string['inserterror'] = 'Error while trying to save the configuration for the remote lab experience';
 $string['confirm_deletion'] = 'Are you sure you want to delete the selected experience?';
 $string['confirm_delete_button'] = 'Yes';
 $string['cancel_delete_button'] = 'No';
 
+// Strings in tasks.php.
+$string['synchronise_sarlab_users'] = 'Synchronise Sarlab users';
+
 // Strings in simplehtml_form.php.
-$string['configure_lab'] = 'Configure remote lab';
-
-$string['sarlab'] = "Using Sarlab?";
-$string['sarlab_help'] = "Only select yes if you are using Sarlab; a system that manages connections to remote laboratories resources";
-
-$string['sarlab_instance'] = "Sarlab server for this lab";
-$string['sarlab_instance_help'] = "The order corresponds to the one used for the values in the sarlab_IP and sarlab_port variables configured at the ejsapp settings page";
-
-$string['sarlab_collab'] = "Use collaborative access provided by Sarlab?";
-$string['sarlab_collab_help'] = "Whether you want Sarlab to provide collaborative access to this remote laboratory or not.";
-
 $string['practiceintro'] = 'Practice identifier';
 $string['practiceintro_help'] = 'The identifier of the practice you want to label this configuration with.';
 $string['practiceintro_required'] = 'WARNING: You need to specify one practice.';
+$string['existing_practice_id'] = 'WARNING: This practice identifier already exists. Choose a different name.';
 
 $string['ip_lab'] = 'IP address';
-$string['ip_lab_help'] = "Experimental system IP address. If you are using Sarlab, you don't have to worry about this parameter.";
+$string['ip_lab_help'] = "Experimental system IP address.";
 $string['ip_lab_required'] = 'WARNING: You need to provide a valid IP address.';
 
 $string['port'] = 'Port';
-$string['port_help'] = "The port used to establish the communication. If you are using Sarlab, you don't have to worry about this parameter.";
+$string['port_help'] = "The port used to establish the communication.";
 $string['port_required'] = 'WARNING: You need to provide a valid port.';
 
 $string['active'] = 'Available';
@@ -102,23 +104,3 @@ $string['dailyslots_help'] = 'Daily amount of maximum slots each student will be
 
 $string['reboottime'] = 'Idle time (minutes)';
 $string['reboottime_help'] = 'Minimum elapsed time (in minutes) between someone stops using a remote lab and somebody else can start using it. Useful for giving time to the remote lab to reboot and/or turn back to its initial state.';
-
-$string['sarlab_exp_conf'] = 'Configuration of the Sarlab experience';
-
-$string['ip_server'] = 'Lab server IP address';
-$string['ip_server_help'] = 'Set the lab\'s IP address to connect to.';
-
-$string['port_server'] = 'Lab server port';
-$string['port_server_help'] = 'Set the port in the lab server side.';
-
-$string['ip_client'] = 'Client IP address';
-$string['ip_client_help'] = 'Set the IP address from which the client will connect.';
-
-$string['port_client'] = 'Client port';
-$string['port_client_help'] = 'Set the port in the client side.';
-
-$string['lab_power_board'] = 'Power distribution unit';
-$string['lab_power_board_help'] = 'The device that powers the equipment used by this lab.';
-
-$string['lab_power_outputs'] = 'Powering outputs';
-$string['lab_power_outputs_help'] = 'The power distribution unit\'s outputs that need activation.';

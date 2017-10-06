@@ -21,7 +21,7 @@
 // (UNED), Madrid, Spain.
 
 /**
- * Page for configuring the data needed by a remote lab application to acces the lab hardware
+ * Page for configuring the data needed by a non-Sarlab remote lab application
  *
  * @package    block_remlab_manager
  * @copyright  2015 Luis de la Torre
@@ -147,7 +147,6 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
                     'block_remlab_manager');
             }
         }
-        // TODO: If needed, send info to SARLAB for updating/creating the experience configuration.
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
         redirect($courseurl);
     } else {

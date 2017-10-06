@@ -21,7 +21,7 @@
 // (UNED), Madrid, Spain.
 
 /**
- * Remlab manager block caps.
+ * Remlab manager block upgrade file.
  *
  * @package    block_remlab_manager
  * @copyright  2015 Luis de la Torre
@@ -62,6 +62,55 @@ function xmldb_block_remlab_manager_upgrade($oldversion) {
         $table = new xmldb_table('block_remlab_manager_sb_keys');
         $field = new xmldb_field('expirationtime', XMLDB_TYPE_INTEGER, '20', null, XMLDB_NOTNULL, null, '0', 'creationtime');
         $dbman->add_field($table, $field);
+    }
+
+    if ($oldversion <= '2017091921') {
+        // Get system context.
+        $context = context_system::instance();
+
+        // Create the experience designer role.
+        if (!$DB->record_exists('role', array('shortname' => 'sarlabdesigner'))) {
+            $sarlabdesignerid = create_role(get_string('sarlabdesigner', 'block_remlab_manager'),
+                'sarlabdesigner', get_string('sarlabdesigner_desc', 'block_remlab_manager'));
+            set_role_contextlevels($sarlabdesignerid, array(CONTEXT_SYSTEM));
+        } else {
+            $sarlabdesignerid = $DB->get_field('role', 'id', array('shortname' => 'sarlabdesigner'));
+        }
+        // Assign capabilities.
+        assign_capability('block/remlab_manager:myaddinstance', CAP_ALLOW, $sarlabdesignerid, $context->id, true);
+        assign_capability('block/remlab_manager:addinstance', CAP_ALLOW, $sarlabdesignerid, $context->id, true);
+        assign_capability('block/remlab_manager:view', CAP_ALLOW, $sarlabdesignerid, $context->id, true);
+
+        // Create the experience manager role.
+        if (!$DB->record_exists('role', array('shortname' => 'sarlabmanager'))) {
+            $sarlabmanagerid = create_role(get_string('sarlabmanager', 'block_remlab_manager'),
+                'sarlabmanager', get_string('sarlabmanager_desc', 'block_remlab_manager'));
+            set_role_contextlevels($sarlabmanagerid, array(CONTEXT_SYSTEM));
+        } else {
+            $sarlabmanagerid = $DB->get_field('role', 'id', array('shortname' => 'sarlabmanager'));
+        }
+        // Assign capabilities.
+        assign_capability('block/remlab_manager:myaddinstance', CAP_ALLOW, $sarlabmanagerid, $context->id, true);
+        assign_capability('block/remlab_manager:addinstance', CAP_ALLOW, $sarlabmanagerid, $context->id, true);
+        assign_capability('block/remlab_manager:view', CAP_ALLOW, $sarlabmanagerid, $context->id, true);
+
+        // Clear any capability caches
+        $context->mark_dirty();
+    }
+
+    if ($oldversion < '2017092700') {
+        // Delete the fields related to sarlab experiences.
+        $dbman = $DB->get_manager();
+        $table = new xmldb_table('block_remlab_manager_conf');
+        $field = new xmldb_field('usingsarlab', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL,
+            null, '0', 'practiceintro');
+        $dbman->drop_field($table, $field);
+        $field = new xmldb_field('sarlabinstance', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL,
+            null, '0', 'usingsarlab');
+        $dbman->drop_field($table, $field);
+        $field = new xmldb_field('sarlabcollab', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL,
+            null, '0', 'sarlabinstance');
+        $dbman->drop_field($table, $field);
     }
 
     return true;

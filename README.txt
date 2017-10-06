@@ -35,6 +35,17 @@ downloaded it from Moodle.org, then you are fine.
 This is a block plugin for Moodle so you should place the remlab_manager folder in your /blocks folder, inside
 your Moodle installation directory.
 
+When installing remlab manager for the first time, you will need to set a few variables:
+
+   sarlab_IP:	  	This variable defines the IP(s) address(es) of the SARLAB system(s) used for managing the access to
+                    the remote laboratories. If left empty, the plugin understands that SARLAB is not used.
+
+   sarlab_port:		This variable defines the port(s) used to communicate with the SARLAB system(s). If left empty, the
+                    plugin understands that SARLAB is not used.
+
+   sarlab_enc_key:	This 16 characters long variable must be configure to match exactly the key set in the SARLAB
+                    system(s).
+
 4. Dependencies
 ===============
 
