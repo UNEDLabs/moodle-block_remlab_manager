@@ -86,7 +86,7 @@ class simplehtml_form extends moodleform {
             get_string('maximumchars', '', 15), 'maxlength', 15, 'client');
         $mform->addHelpButton('ip', 'ip_lab', 'block_remlab_manager');
         $mform->addRule('ip',
-            get_string('ip_labrequired', 'block_remlab_manager'), 'required');
+            get_string('ip_lab_required', 'block_remlab_manager'), 'required');
         if ($remlab) {
             $mform->setDefault('ip', $remlab->ip);
         }

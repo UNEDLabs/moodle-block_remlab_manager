@@ -87,25 +87,24 @@ class block_remlab_manager extends block_list {
         $this->content->icons = array();
         $this->content->footer = '';
 
-        $experienceid = optional_param('experience', -1, PARAM_INT);
-        $this->content->items[0] = html_writer::start_tag('form', array('method' => 'post')) .
+        if (!empty($experiences)) {
+            $experienceid = optional_param('experience', -1, PARAM_INT);
+            $this->content->items[0] = html_writer::start_tag('form', array('method' => 'post')) .
             html_writer::select($experiences, 'experience', $experienceid, true,
                 array('class' => 'remlab_select'));
-        if (empty($experiences)) {
-            $disabled = 'disabled';
+            $this->content->items[0] .= html_writer::empty_tag('input',
+                array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $this->urleditlocal,
+                'value' => get_string('configure_existing_local_experience', 'block_remlab_manager')));
+            $this->content->items[1] = html_writer::empty_tag('input',
+                array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $this->urldeletelocal,
+                'value' => get_string('delete_existing_local_experience', 'block_remlab_manager')));
+            $this->content->items[1] .= html_writer::end_tag('form');
+            $this->content->items[2] = html_writer::label(get_string('or', 'block_remlab_manager'), null);
         } else {
-            $disabled = '';
+            $this->content->items[0] = '';
+            $this->content->items[1] = '';
+            $this->content->items[2] = '';
         }
-        $this->content->items[0] .= html_writer::empty_tag('input',
-            array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $this->urleditlocal,
-                'value' => get_string('configure_existing_local_experience', 'block_remlab_manager'),
-                $disabled));
-        $this->content->items[1] = html_writer::empty_tag('input',
-            array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $this->urldeletelocal,
-                'value' => get_string('delete_existing_local_experience', 'block_remlab_manager'),
-                $disabled));
-        $this->content->items[1] .= html_writer::end_tag('form');
-        $this->content->items[2] = html_writer::label(get_string('or', 'block_remlab_manager'), null);
         $this->content->items[3] = html_writer::link($this->urlnewlocal,
             get_string('configure_new_local_experience', 'block_remlab_manager'));
         if (has_capability('ltisource/sarlab:editexp', $context) && !empty($this->sarlabltiurl)) {
