@@ -57,7 +57,7 @@ if (!has_capability('block/remlab_manager:addinstance', $context)) {
     echo $OUTPUT->footer();
 }
 
-if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { // Confirm deletion of experience.
+if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { // Confirm deletion of local experience.
     if ($delete == 1) { // Show confirm/cancel buttons.
         echo $OUTPUT->header();
         $urlconfirm = new moodle_url('/blocks/remlab_manager/view.php',
@@ -74,12 +74,11 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
                 array('class' => 'btn', 'href' => $urlcancel)));
         echo $OUTPUT->footer();
     } else { // Perform action and redirect to course page.
-        if ($delete == 2) { // Delete.
+        if ($delete == 2) { // Delete local configuration of the experience.
             require_sesskey();
             $experiences = $SESSION->block_remlab_manager_list_experiences;
             $practiceintro = $experiences[$experienceid];
             $DB->delete_records('block_remlab_manager_conf', array('practiceintro' => $practiceintro));
-            // TODO: If needed, send info to SARLAB for deleting the experience.
         }
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
         redirect($courseurl);
