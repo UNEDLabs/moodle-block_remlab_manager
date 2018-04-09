@@ -8,5 +8,14 @@
 }
 
 .block_remlab_manager .remlab_button {
+    border-radius: 5px;
+    background-color: transparent;
     padding: 5px;
+    box-shadow: none;
+    border: 1px solid lightgrey;
+    margin-bottom: 5px;
+}
+
+.block_remlab_manager .remlab_button:hover {
+    background-color: rgba(24, 24, 24, 0.1);
 }

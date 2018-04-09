@@ -35,6 +35,7 @@ defined('MOODLE_INTERNAL') || die();
  *
  * @param string $oldversion
  * @return true
+ * @throws
  */
 function xmldb_block_remlab_manager_upgrade($oldversion) {
     global $DB;

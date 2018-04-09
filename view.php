@@ -68,9 +68,8 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
         echo $OUTPUT->box(get_string('confirm_deletion', 'block_remlab_manager'));
         echo $OUTPUT->box(html_writer::tag('a',
                 get_string('confirm_delete_button', 'block_remlab_manager'),
-                array('class' => 'btn', 'href' => $urlconfirm)) .
-            ' ' . html_writer::tag('a',
-                get_string('cancel_delete_button', 'block_remlab_manager'),
+                array('class' => 'btn', 'href' => $urlconfirm)) . ' ' . html_writer::tag('a',
+                    get_string('cancel_delete_button', 'block_remlab_manager'),
                 array('class' => 'btn', 'href' => $urlcancel)));
         echo $OUTPUT->footer();
     } else { // Perform action and redirect to course page.
