@@ -90,34 +90,15 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
     $toform['practiceintro'] = '';
     $toform['originalpracticeintro'] = '';
     $practiceintro = '';
-    if ($editing == 1 && !empty($SESSION->block_remlab_manager_list_experiences)) { // Editing an already existing experience.
+    if ($editing == 1 && !empty($SESSION->block_remlab_manager_list_experiences)) { // Editing an already listed experience.
         $experiences = $SESSION->block_remlab_manager_list_experiences;
-        $toform['practiceintro'] = $experiences[$experienceid];
-        $toform['originalpracticeintro'] = $experiences[$experienceid];
         $practiceintro = $experiences[$experienceid];
+        $toform['practiceintro'] = $practiceintro;
+        $toform['originalpracticeintro'] = $practiceintro;
         // If the experience doesn't exist (it is defined in Sarlab but not in Moodle yet), create it.
         if (!$DB->record_exists('block_remlab_manager_conf', array('practiceintro' => $practiceintro))) {
-            $practice = new stdClass;
-            $practice->practiceintro = $practiceintro;
-            $practice->usingsarlab = 1;
-            $ips = explode(";", get_config('block_remlab_manager', 'sarlab_IP'));
-            $ip = $ips[0];
-            $lastquotemark = strrpos($ip, "'");
-            if ($lastquotemark != 0) {
-                $lastquotemark++;
-            }
-            $ip = substr($ip, $lastquotemark);
-            $practice->ip = $ip;
-            $ports = explode(";", get_config('block_remlab_manager', 'sarlab_port'));
-            $practice->port = $ports[0];
-            $practice->totalslots = 18;
-            $practice->weeklyslots = 9;
-            $practice->dailyslots = 3;
-            $practice->active = 1;
-            $practice->free_access = 0;
-            $practice->slotsduration = 0;
-            $practice->reboottime = 2;
-            $DB->insert_record('block_remlab_manager_conf', $practice);
+            $default_conf = default_rem_lab_conf($practice, $USER->username);
+            $DB->insert_record('block_remlab_manager_conf', $default_conf);
         }
     }
 

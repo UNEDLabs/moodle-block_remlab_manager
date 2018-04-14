@@ -30,13 +30,15 @@
 class block_remlab_manager_edit_form extends block_edit_form {
 
     protected function specific_definition($mform) {
-        if (has_capability('ltisource/sarlab:createexp', context_system::instance())) {
-            // Section header title according to language file.
-            $mform->addElement('header', 'sarlab_header', get_string('sarlab_header', 'block_remlab_manager'));
+        if  (get_capability_info('ltisource/sarlab:createexp')) {
+            if (has_capability('ltisource/sarlab:createexp', context_system::instance())) {
+                // Section header title according to language file.
+                $mform->addElement('header', 'sarlab_header', get_string('sarlab_header', 'block_remlab_manager'));
 
-            // Indicate the LTI activity that connects to Sarlab.
-            $mform->addElement('text', 'config_sarlab_lti_url', get_string('sarlab_lti_url', 'block_remlab_manager'));
-            $mform->setType('config_sarlab_lti_url', PARAM_TEXT);
+                // Indicate the LTI activity that connects to Sarlab.
+                $mform->addElement('text', 'config_sarlab_lti_url', get_string('sarlab_lti_url', 'block_remlab_manager'));
+                $mform->setType('config_sarlab_lti_url', PARAM_TEXT);
+            }
         }
     }
 
