@@ -69,14 +69,25 @@ class simplehtml_form extends moodleform {
             $remlab = $DB->get_record('block_remlab_manager_conf', array('practiceintro' => $practiceintro));
         }
 
+        $mform->addElement('hidden', 'editing', null);
+        $mform->setType('editing', PARAM_INT);
+        $mform->setDefault('editing', 0);
+
         $mform->addElement('text', 'practiceintro',
             get_string('practiceintro', 'block_remlab_manager'), array('size' => '20'));
         $mform->setType('practiceintro', PARAM_TEXT);
         $mform->addHelpButton('practiceintro', 'practiceintro', 'block_remlab_manager');
         $mform->addRule('practiceintro',
             get_string('practiceintro_required', 'block_remlab_manager'), 'required');
+
+        $mform->addElement('hidden', 'initialpracticeintro', null);
+        $mform->setType('initialpracticeintro', PARAM_TEXT);
+        $mform->setDefault('initialpracticeintro', '');
+
         if ($remlab) {
+            $mform->setDefault('editing', 1);
             $mform->setDefault('practiceintro', $remlab->practiceintro);
+            $mform->setDefault('initialpracticeintro', $remlab->practiceintro);
         }
 
         $mform->addElement('text', 'ip',
@@ -196,10 +207,18 @@ class simplehtml_form extends moodleform {
         if (empty($data['port'])) {
             $errors['port'] = get_string('port_required', 'block_remlab_manager');
         }
-        // Make sure the practice name or identifier does not exist locally nor remotely (in Sarlab)
+        $editing = $data['editing'];
         $showableexperiences = get_showable_experiences();
-        if (in_array($data['practiceintro'],$showableexperiences)) {
-            $errors['practiceintro'] = get_string('existing_practice_id', 'block_remlab_manager');
+        if ($editing == 0) { // New experience
+            // Make sure the practice name or identifier does not exist locally nor remotely (in Sarlab)
+            if (in_array($data['practiceintro'], $showableexperiences)) {
+                $errors['practiceintro'] = get_string('existing_practice_id', 'block_remlab_manager');
+            }
+        } else { // Editing an existing experience
+            if (($data['practiceintro'] != $data['initialpracticeintro']) &&
+                in_array($data['practiceintro'], $showableexperiences)) {
+                $errors['practiceintro'] = get_string('existing_practice_id', 'block_remlab_manager');
+            }
         }
         return $errors;
     }
