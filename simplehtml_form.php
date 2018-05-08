@@ -65,16 +65,18 @@ class simplehtml_form extends moodleform {
         $editing = $this->_customdata[0];
         $practiceintro = $this->_customdata[1];
         $remlab = false;
-        if ($editing) {
-            $remlab = $DB->get_record('block_remlab_manager_conf', array('practiceintro' => $practiceintro));
-        }
 
         $mform->addElement('hidden', 'editing', null);
         $mform->setType('editing', PARAM_INT);
         $mform->setDefault('editing', 0);
 
+        if ($editing) {
+            $mform->setDefault('editing', 1);
+            $remlab = $DB->get_record('block_remlab_manager_conf', array('practiceintro' => $practiceintro));
+        }
+
         $mform->addElement('text', 'practiceintro',
-            get_string('practiceintro', 'block_remlab_manager'), array('size' => '20'));
+            get_string('practiceintro', 'block_remlab_manager'), array('size' => '25'));
         $mform->setType('practiceintro', PARAM_TEXT);
         $mform->addHelpButton('practiceintro', 'practiceintro', 'block_remlab_manager');
         $mform->addRule('practiceintro',
@@ -82,36 +84,38 @@ class simplehtml_form extends moodleform {
 
         $mform->addElement('hidden', 'initialpracticeintro', null);
         $mform->setType('initialpracticeintro', PARAM_TEXT);
-        $mform->setDefault('initialpracticeintro', '');
-
-        if ($remlab) {
-            $mform->setDefault('editing', 1);
-            $mform->setDefault('practiceintro', $remlab->practiceintro);
-            $mform->setDefault('initialpracticeintro', $remlab->practiceintro);
-        }
 
         $mform->addElement('text', 'ip',
-            get_string('ip_lab', 'block_remlab_manager'), array('size' => '12'));
+            get_string('ip_lab', 'block_remlab_manager'), array('size' => '15'));
         $mform->setType('ip', PARAM_TEXT);
         $mform->addRule('ip',
-            get_string('maximumchars', '', 15), 'maxlength', 15, 'client');
+            get_string('maximumchars', ''), 'maxlength', 15, 'client');
         $mform->addHelpButton('ip', 'ip_lab', 'block_remlab_manager');
         $mform->addRule('ip',
             get_string('ip_lab_required', 'block_remlab_manager'), 'required');
-        if ($remlab) {
-            $mform->setDefault('ip', $remlab->ip);
-        }
 
         $mform->addElement('text', 'port',
-            get_string('port', 'block_remlab_manager'), array('size' => '2'));
+            get_string('port', 'block_remlab_manager'), array('size' => '6'));
         $mform->setType('port', PARAM_INT);
         $mform->addRule('port',
-            get_string('maximumchars', '', 6), 'maxlength', 6, 'client');
+            get_string('maximumchars', ''), 'maxlength', 6, 'client');
         $mform->addHelpButton('port', 'port', 'block_remlab_manager');
         $mform->addRule('port',
             get_string('port_required', 'block_remlab_manager'), 'required');
+
         if ($remlab) {
+            $mform->setDefault('practiceintro', $remlab->practiceintro);
+            $mform->setDefault('initialpracticeintro', $remlab->practiceintro);
+            $mform->setDefault('ip', $remlab->ip);
             $mform->setDefault('port', $remlab->port);
+            $sarlabinstance = is_practice_in_sarlab($remlab->practiceintro);
+            if ($sarlabinstance !== false) {
+                $mform->freeze(array('practiceintro', 'ip', 'port'));
+            }
+        } else {
+            $mform->setDefault('initialpracticeintro', '');
+            $mform->setDefault('ip', '127.0.0.1');
+            $mform->setDefault('port', 443);
         }
 
         $mform->addElement('selectyesno', 'active',
@@ -204,9 +208,6 @@ class simplehtml_form extends moodleform {
      */
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
-        if (empty($data['port'])) {
-            $errors['port'] = get_string('port_required', 'block_remlab_manager');
-        }
         $editing = $data['editing'];
         $showableexperiences = get_showable_experiences();
         if ($editing == 0) { // New experience
