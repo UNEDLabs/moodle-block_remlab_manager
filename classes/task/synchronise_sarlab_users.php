@@ -42,6 +42,7 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
      * Get a descriptive name for this task.
      *
      * @return string
+     * @throws
      */
     public function get_name() {
         // Shown in admin screens
@@ -52,25 +53,25 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
      * Performs the synchronisation of sarlab users.
      *
      * @return bool|void
+     * @throws
      */
     public function execute() {
         global $DB;
 
-
         // Obtain the list of users in Moodle with Sarlab designer role
         $sarlabdesignerroleid = $DB->get_field('role', 'id', array('shortname' => 'sarlabdesigner'));
-        $sarlabdesignerusers = $DB->get_records('role', array('roleid' => $sarlabdesignerroleid));
+        $records = $DB->get_records('role_assignments', array('roleid' => $sarlabdesignerroleid));
         $sarlabdesignerusersid = array();
-        foreach ($sarlabdesignerusers as $sarlabdesigneruser) {
-            array_push($sarlabdesignerusersid, $sarlabdesigneruser->id);
+        foreach ($records as $record) {
+            array_push($sarlabdesignerusersid, $record->userid);
         }
 
         // Obtain the list of users in Moodle with Sarlab manager role
         $sarlabmanagerroleid = $DB->get_field('role', 'id', array('shortname' => 'sarlabmanager'));
-        $sarlabmanagerusers = $DB->get_records('role', array('roleid' => $sarlabmanagerroleid));
+        $records = $DB->get_records('role_assignments', array('roleid' => $sarlabmanagerroleid));
         $sarlabmanagerusersid = array();
-        foreach ($sarlabmanagerusers as $sarlabmanageruser) {
-            array_push($sarlabmanagerusersid, $sarlabmanageruser->id);
+        foreach ($records as $record) {
+            array_push($sarlabmanagerusersid, $record->userid);
         }
 
         // Compare info between authorized users in Sarlab and authorized users in Moodle
