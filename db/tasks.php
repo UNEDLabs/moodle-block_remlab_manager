@@ -30,10 +30,19 @@
 
 $tasks = array(
     array(
-        'classname' => 'block_remlab_manager\task\synchronise_sarlab_users',
+        'classname' => 'block_remlab_manager\task\delete_sarlab_keys',
         'blocking' => 0,
-        'minute' => '*/30',
-        'hour' => '*',
+        'minute' => '00',
+        'hour' => '23',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    ),
+    array(
+        'classname' => 'block_remlab_manager\task\ping_remote_labs',
+        'blocking' => 0,
+        'minute' => '00',
+        'hour' => '23',
         'day' => '*',
         'dayofweek' => '*',
         'month' => '*'
@@ -42,6 +51,15 @@ $tasks = array(
         'classname' => 'block_remlab_manager\task\refresh_usestate_field',
         'blocking' => 0,
         'minute' => '*',
+        'hour' => '*',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    ),
+    array(
+        'classname' => 'block_remlab_manager\task\synchronise_sarlab_users',
+        'blocking' => 0,
+        'minute' => '*/30',
         'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',

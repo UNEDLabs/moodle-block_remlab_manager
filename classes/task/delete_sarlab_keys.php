@@ -21,19 +21,44 @@
 // (UNED), Madrid, Spain.
 
 /**
- * Defines the version of remlab_manager
+ * Remlab manager block usestate field update task.
  *
  * @package    block_remlab_manager
- * @copyright  2015 Luis de la Torre
+ * @copyright  2018 Luis de la Torre
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace block_remlab_manager\task;
 
-$plugin->version = 2018071003;
-$plugin->requires = 2013111800;
-$plugin->cron = 0;
-$plugin->component = 'block_remlab_manager'; // To check on upgrade, that module sits in correct place.
-$plugin->maturity = MATURITY_STABLE;
-$plugin->release = '1.2 (Build: 2018071003)';
-$plugin->dependencies = array('mod_ejsapp' => 2018071000);
+/**
+ * Task for sarlab keys in the block_remlab_manager_sb_keys table.
+ *
+ * @package    block_remlab_manager
+ * @copyright  2018 Luis de la Torre
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class delete_sarlab_keys extends \core\task\scheduled_task {
+    /**
+     * Get a descriptive name for this task.
+     *
+     * @return string
+     * @throws
+     */
+    public function get_name() {
+        // Shown in admin screens
+        return get_string('delete_sarlab_keys', 'block_remlab_manager');
+    }
+
+    /**
+     * Deletes the sarlab keys that are one day old or more.
+     *
+     * @return bool|void
+     * @throws
+     */
+    public function execute() {
+        global $DB;
+
+        $time = array(strtotime(date('Y-m-d H:i:s')) - 86400);
+        $DB->delete_records_select('block_remlab_manager_sb_keys', "creationtime < ?", $time);
+    }
+}

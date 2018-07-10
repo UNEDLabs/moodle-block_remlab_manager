@@ -70,7 +70,28 @@ $string['confirm_delete_button'] = 'Sí';
 $string['cancel_delete_button'] = 'No';
 
 // Strings in tasks.
+$string['delete_sarlab_keys'] = 'Eliminar claves de Sarlab';
+
+$string['ping_remote_labs'] = 'Comprobar si los equipos de los laboratorios remotos est&aacute;n operativos';
+
+$string['mail_subject_lab_not_checkable'] = 'Alerta de Estado de Laboratorio no Verificable';
+$string['mail_content1_lab_not_checkable'] = 'El estado de uno de tus laboratorios remotos (';
+$string['mail_content2_lab_not_checkable'] = ' - IP: ';
+$string['mail_content3_lab_not_checkable'] = ') no ha podido ser verificado.';
+
+$string['mail_subject_lab_down'] = 'Alerta de Laboratorio Inactivo';
+$string['mail_content1_lab_down'] = 'Uno de tus laboratorios remotos previamente operativos (';
+$string['mail_content2_lab_down'] = ' - IP: ';
+$string['mail_content3_lab_down'] = ") ha dejado de estar accesible. \r\n";
+$string['mail_content4_lab_down'] = "A continuaci&oacute;n se da una lista de los dispositivos inaccessibles o inoperativos: \r\n";
+
+$string['mail_subject_lab_up'] = 'Aviso de Laboratorio Activo';
+$string['mail_content1_lab_up'] = 'Uno de tus laboratorios remotos previamente innaccesibles (';
+$string['mail_content2_lab_up'] = ' - IP: ';
+$string['mail_content3_lab_up'] = ') vuelve a estar operativo.';
+
 $string['synchronise_sarlab_users'] = 'Sincronizar usuarios Sarlab';
+
 $string['refresh_usestate_field'] = 'Refrescar estado de uso de laboratorios remotos';
 
 // Strings in simplehtml_form.php.

@@ -33,7 +33,7 @@ namespace block_remlab_manager\task;
 /**
  * Task for updating the value of the usestate field in the block_remlab_manager_conf table.
  *
- * @package    mod_ejsapp
+ * @package    block_remlab_manager
  * @copyright  2018 Luis de la Torre
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
