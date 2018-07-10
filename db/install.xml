@@ -27,7 +27,9 @@
                 <FIELD NAME="active" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false"
                        PREVIOUS="reboottime" NEXT="free_access"/>
                 <FIELD NAME="free_access" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"
-                       PREVIOUS="active"/>
+                       PREVIOUS="active" NEXT="usestate"/>
+                <FIELD NAME="usestate" TYPE="char" LENGTH="20" NOTNULL="true" UNSIGNED="true" DEFAULT="available" SEQUENCE="false"
+                       PREVIOUS="free_access"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

@@ -69,8 +69,9 @@ $string['confirm_deletion'] = 'Are you sure you want to delete the selected expe
 $string['confirm_delete_button'] = 'Yes';
 $string['cancel_delete_button'] = 'No';
 
-// Strings in tasks.php.
+// Strings in tasks.
 $string['synchronise_sarlab_users'] = 'Synchronise Sarlab users';
+$string['refresh_usestate_field'] = 'Refresh the use state of remote labs';
 
 // Strings in simplehtml_form.php.
 $string['practiceintro'] = 'Practice identifier';

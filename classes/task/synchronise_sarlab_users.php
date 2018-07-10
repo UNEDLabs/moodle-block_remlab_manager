@@ -24,7 +24,7 @@
  * Remlab manager block Sarlab users synchronization task.
  *
  * @package    block_remlab_manager
- * @copyright  2015 Luis de la Torre
+ * @copyright  2018 Luis de la Torre
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,7 +34,7 @@ namespace block_remlab_manager\task;
  * Task for synchronising Sarlab users between Moodle and Sarlab.
  *
  * @package    block_remlab_manager
- * @copyright  2015 Mark Nelson <markn@moodle.com>
+ * @copyright  2018 Luis de la Torre
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class synchronise_sarlab_users extends \core\task\scheduled_task {
