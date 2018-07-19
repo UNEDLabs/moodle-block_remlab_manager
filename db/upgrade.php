@@ -118,7 +118,7 @@ function xmldb_block_remlab_manager_upgrade($oldversion) {
         // Delete the fields related to sarlab experiences.
         $dbman = $DB->get_manager();
         $table = new xmldb_table('block_remlab_manager_conf');
-        $field = new xmldb_field('usestate', XMLDB_TYPE_TEXT, '20', null, XMLDB_NOTNULL,
+        $field = new xmldb_field('usestate', XMLDB_TYPE_TEXT, '20', null, null,
             null, 'available', 'free_access');
         $dbman->add_field($table, $field);
     }

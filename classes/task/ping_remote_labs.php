@@ -65,8 +65,7 @@ class ping_remote_labs extends \core\task\scheduled_task {
             $remlabsconf = $DB->get_records('block_remlab_manager_conf');
             foreach ($remlabsconf as $remlabconf) {
                 $sarlabinstance = is_practice_in_sarlab($remlabconf->practiceintro);
-                $devicesinfo = new stdClass();
-                // TODO: Do the ping with Sarlab in between too!
+                // $devicesinfo = new stdClass();
                 $labstate = ping($remlabconf->ip, $remlabconf->port, $sarlabinstance, $remlabconf->practiceintro);
                 $remlabs = get_repeated_remlabs($remlabconf->practiceintro);
                 foreach ($remlabs as $remlab) {
@@ -92,11 +91,11 @@ class ping_remote_labs extends \core\task\scheduled_task {
                                 get_string('mail_content2_lab_down', 'block_remlab_manager') . $remlabconf->ip .
                                 get_string('mail_content3_lab_down', 'block_remlab_manager') .
                                 get_string('mail_content4_lab_down', 'block_remlab_manager');
-                            foreach ($devicesinfo as $deviceinfo) {
+                            /*foreach ($devicesinfo as $deviceinfo) {
                                 if (!$deviceinfo->alive) {
                                     $messagebody .= $deviceinfo->name . ', ' . $deviceinfo->ip . "\r\n";
                                 }
-                            }
+                            }*/
                             $sendmail = true;
                         } else if ($remlabconf->active == 0 && $labstate == 1) { // Lab has passed from inactive to active.
                             $subject = get_string('mail_subject_lab_up', 'block_remlab_manager');
