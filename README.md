@@ -1,9 +1,4 @@
-######################
-# Remote Lab Manager #
-######################
-
-1. Content
-==========
+## 1. Content
 
 This plugin lets users to manage the remote labs that can be later accessed using the Java or Javascript applications
 created with Easy Java/Javascript Simulations (EjsS) and which are added to a Moodle course by means of the ejsapp module.
@@ -13,8 +8,7 @@ EjsS to work properly.
 
 This plugin supports (but does not require) the use of SARLAB for managing the connection to the remote labs.
 
-2. License
-==========
+## 2. License
 
 Remote Lab Manager is free software: you can redistribute it and/or modify it under the terms of the GNU General
 Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
@@ -26,8 +20,7 @@ details.
 
 The GNU General Public License is available on <http://www.gnu.org/licenses/>
 
-3. Installation
-===============
+## 3. Installation
 
 If you downloaded this plugin from github, you will need to change the folder's name to remlab_manager. If you
 downloaded it from Moodle.org, then you are fine.
@@ -46,17 +39,15 @@ When installing remlab manager for the first time, you will need to set a few va
    sarlab_enc_key:	This 16 characters long variable must be configure to match exactly the key set in the SARLAB
                     system(s).
 
-4. Dependencies
-===============
+## 4. Dependencies
 
 This block needs the ejsapp module to be of any use. It works with version 2.2 (or later) of EJSApp. You can find and
 download it at https://moodle.org/plugins/view.php?plugin=mod_ejsapp, in the plugins section in the Moodle.org webpage
 or at https://github.com/UNEDLabs.
 
-5. Authors
-==========
+## 5. Authors
 
 Remlab Manager has been developed by:
-  - Luis de la Torre (1): ldelatorre@dia.uned.es
+  - Luis de la Torre (ldelatorre@dia.uned.es)
 
- (1): Computer Science and Automatic Control Department, Spanish Open University (UNED), Madrid, Spain.
+at the Computer Science and Automatic Control Department, Spanish Open University (UNED), Madrid, Spain.
