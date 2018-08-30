@@ -60,62 +60,59 @@ class ping_remote_labs extends \core\task\scheduled_task {
 
         require_once($CFG->dirroot . '/filter/multilang/filter.php');
 
-        // Checking whether remote labs are operative or not (once per day).
-        if (date('H') >= 8 && date('H') < 10) {
-            $remlabsconf = $DB->get_records('block_remlab_manager_conf');
-            foreach ($remlabsconf as $remlabconf) {
-                $sarlabinstance = is_practice_in_sarlab($remlabconf->practiceintro);
-                // $devicesinfo = new stdClass();
-                $labstate = ping($remlabconf->ip, $remlabconf->port, $sarlabinstance, $remlabconf->practiceintro);
-                $remlabs = get_repeated_remlabs($remlabconf->practiceintro);
-                foreach ($remlabs as $remlab) {
-                    $context = context_course::instance($remlab->course);
-                    $multilang = new filter_multilang($context, array('filter_multilang_force_old' => 0));
-                    $sendmail = false;
-                    // Prepare e-mails' content and update lab state when checkable.
-                    $subject = '';
-                    $messagebody = '';
-                    // E-mails are sent only if the remote lab state is not checkable or if it has passed from active to inactive
-                    if ($labstate == 2) {  // Not checkable.
-                        $subject = get_string('mail_subject_lab_not_checkable', 'block_remlab_manager');
-                        $messagebody = get_string('mail_content1_lab_not_checkable', 'block_remlab_manager') .
+        $remlabsconf = $DB->get_records('block_remlab_manager_conf');
+        foreach ($remlabsconf as $remlabconf) {
+            $sarlabinstance = is_practice_in_sarlab($remlabconf->practiceintro);
+            $devicesinfo = new stdClass();
+            $labstate = ping($remlabconf->ip, $remlabconf->port, $sarlabinstance, $remlabconf->practiceintro);
+            $remlabs = get_repeated_remlabs($remlabconf->practiceintro);
+            foreach ($remlabs as $remlab) {
+                $context = context_course::instance($remlab->course);
+                $multilang = new filter_multilang($context, array('filter_multilang_force_old' => 0));
+                $sendmail = false;
+                // Prepare e-mails' content and update lab state when checkable.
+                $subject = '';
+                $messagebody = '';
+                // E-mails are sent only if the remote lab state is not checkable or if it has passed from active to inactive
+                if ($labstate == 2) {  // Not checkable.
+                    $subject = get_string('mail_subject_lab_not_checkable', 'block_remlab_manager');
+                    $messagebody = get_string('mail_content1_lab_not_checkable', 'block_remlab_manager') .
+                        $multilang->filter($remlab->name) .
+                        get_string('mail_content2_lab_not_checkable', 'block_remlab_manager') . $remlabconf->ip .
+                        get_string('mail_content3_lab_not_checkable', 'block_remlab_manager');
+                    $sendmail = true;
+                } else {               // Active or inactive.
+                    if ($remlabconf->active == 1 && $labstate == 0) {  // Lab has passed from active to inactive.
+                        $subject = get_string('mail_subject_lab_down', 'block_remlab_manager');
+                        $messagebody = get_string('mail_content1_lab_down', 'block_remlab_manager') .
                             $multilang->filter($remlab->name) .
-                            get_string('mail_content2_lab_not_checkable', 'block_remlab_manager') . $remlabconf->ip .
-                            get_string('mail_content3_lab_not_checkable', 'block_remlab_manager');
+                            get_string('mail_content2_lab_down', 'block_remlab_manager') . $remlabconf->ip .
+                            get_string('mail_content3_lab_down', 'block_remlab_manager') .
+                            get_string('mail_content4_lab_down', 'block_remlab_manager');
+                        /*foreach ($devicesinfo as $deviceinfo) {
+                            if (!$deviceinfo->alive) {
+                                $messagebody .= $deviceinfo->name . ', ' . $deviceinfo->ip . "\r\n";
+                            }
+                        }*/
                         $sendmail = true;
-                    } else {               // Active or inactive.
-                        if ($remlabconf->active == 1 && $labstate == 0) {  // Lab has passed from active to inactive.
-                            $subject = get_string('mail_subject_lab_down', 'block_remlab_manager');
-                            $messagebody = get_string('mail_content1_lab_down', 'block_remlab_manager') .
-                                $multilang->filter($remlab->name) .
-                                get_string('mail_content2_lab_down', 'block_remlab_manager') . $remlabconf->ip .
-                                get_string('mail_content3_lab_down', 'block_remlab_manager') .
-                                get_string('mail_content4_lab_down', 'block_remlab_manager');
-                            /*foreach ($devicesinfo as $deviceinfo) {
-                                if (!$deviceinfo->alive) {
-                                    $messagebody .= $deviceinfo->name . ', ' . $deviceinfo->ip . "\r\n";
-                                }
-                            }*/
-                            $sendmail = true;
-                        } else if ($remlabconf->active == 0 && $labstate == 1) { // Lab has passed from inactive to active.
-                            $subject = get_string('mail_subject_lab_up', 'block_remlab_manager');
-                            $messagebody = get_string('mail_content1_lab_up', 'block_remlab_manager') .
-                                $multilang->filter($remlab->name) .
-                                get_string('mail_content2_lab_up', 'block_remlab_manager') . $remlabconf->ip .
-                                get_string('mail_content3_lab_up', 'block_remlab_manager');
-                            $sendmail = true;
-                        }
-                        $remlabconf->active = $labstate;
-                        $DB->update_record('block_remlab_manager_conf', $remlabconf);
+                    } else if ($remlabconf->active == 0 && $labstate == 1) { // Lab has passed from inactive to active.
+                        $subject = get_string('mail_subject_lab_up', 'block_remlab_manager');
+                        $messagebody = get_string('mail_content1_lab_up', 'block_remlab_manager') .
+                            $multilang->filter($remlab->name) .
+                            get_string('mail_content2_lab_up', 'block_remlab_manager') . $remlabconf->ip .
+                            get_string('mail_content3_lab_up', 'block_remlab_manager');
+                        $sendmail = true;
                     }
-                    // Send e-mails to teachers if conditions are met.
-                    $role = $DB->get_record('role', array('shortname' => 'editingteacher'));
-                    // TODO: Allow configuring which roles receive the e-mails? (managers, non-editing teacher...) Use Moodle capabilities.
-                    if ($sendmail) {
-                        $teachers = get_role_users($role->id, $context);
-                        foreach ($teachers as $teacher) {
-                            email_to_user($teacher, $teacher, $subject, $messagebody);
-                        }
+                    $remlabconf->active = $labstate;
+                    $DB->update_record('block_remlab_manager_conf', $remlabconf);
+                }
+                // Send e-mails to teachers if conditions are met.
+                $role = $DB->get_record('role', array('shortname' => 'editingteacher'));
+                // TODO: Allow configuring which roles receive the e-mails? (managers, non-editing teacher...) Use Moodle capabilities.
+                if ($sendmail) {
+                    $teachers = get_role_users($role->id, $context);
+                    foreach ($teachers as $teacher) {
+                        email_to_user($teacher, $teacher, $subject, $messagebody);
                     }
                 }
             }
