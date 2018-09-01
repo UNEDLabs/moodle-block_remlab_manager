@@ -45,7 +45,6 @@ function xmldb_block_remlab_manager_install() {
         assign_capability('block/remlab_manager:view', CAP_ALLOW, $sarlabdesignerid, $context->id, true);
     }
 
-
     // Check if the sarlab manager role exists.
     if ($DB->record_exists('role', array('shortname' => 'sarlabmanager'))) {
         $sarlabmanagerid = $DB->get_field('role', 'id', array('shortname' => 'sarlabmanager'));

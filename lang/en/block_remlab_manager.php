@@ -126,3 +126,6 @@ $string['dailyslots_help'] = 'Daily amount of maximum slots each student will be
 
 $string['reboottime'] = 'Idle time (minutes)';
 $string['reboottime_help'] = 'Minimum elapsed time (in minutes) between someone stops using a remote lab and somebody else can start using it. Useful for giving time to the remote lab to reboot and/or turn back to its initial state.';
+
+//Privacy
+$string['privacy:metadata'] = 'The Remlab Manager block only provides configuration options for remote lab experiences.';

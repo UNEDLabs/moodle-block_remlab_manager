@@ -126,3 +126,6 @@ $string['dailyslots_help'] = 'Cantidad diaria de franjas m&aacute;ximas que se l
 
 $string['reboottime'] = 'Tiempo de inactividad (minutos)';
 $string['reboottime_help'] = 'Espacio m&iacute;nimo de tiempo (en minutos) desde que alguien deja de usar el laboratorio remoto hasta que otra persona puede empezar a usarlo. &Uacute;til para darle tiempo al laboratorio remoto de resetearse o volver a su estado inicial.';
+
+//Privacy
+$string['privacy:metadata'] = 'El bloque Remlab Manager solo ofrece opciones para configurar experiencias de laboratorio remoto.';
