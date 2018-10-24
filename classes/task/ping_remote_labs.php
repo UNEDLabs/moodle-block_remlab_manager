@@ -58,17 +58,19 @@ class ping_remote_labs extends \core\task\scheduled_task {
     public function execute() {
         global $DB, $CFG;
 
+        require_once($CFG->dirroot . '/config.php');
+        require_once($CFG->dirroot . '/mod/ejsapp/locallib.php');
         require_once($CFG->dirroot . '/filter/multilang/filter.php');
 
         $remlabsconf = $DB->get_records('block_remlab_manager_conf');
         foreach ($remlabsconf as $remlabconf) {
             $sarlabinstance = is_practice_in_sarlab($remlabconf->practiceintro);
-            $devicesinfo = new stdClass();
+            // $devicesinfo = new \stdClass();
             $labstate = ping($remlabconf->ip, $remlabconf->port, $sarlabinstance, $remlabconf->practiceintro);
             $remlabs = get_repeated_remlabs($remlabconf->practiceintro);
             foreach ($remlabs as $remlab) {
-                $context = context_course::instance($remlab->course);
-                $multilang = new filter_multilang($context, array('filter_multilang_force_old' => 0));
+                $context = \context_course::instance($remlab->course);
+                $multilang = new \filter_multilang($context, array('filter_multilang_force_old' => 0));
                 $sendmail = false;
                 // Prepare e-mails' content and update lab state when checkable.
                 $subject = '';
