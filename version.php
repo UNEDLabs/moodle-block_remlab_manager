@@ -30,7 +30,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2018071003;
+$plugin->version = 2018102500;
 $plugin->requires = 2013111800;
 $plugin->cron = 0;
 $plugin->component = 'block_remlab_manager'; // To check on upgrade, that module sits in correct place.
