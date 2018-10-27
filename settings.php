@@ -54,13 +54,4 @@ if ($ADMIN->fulltree) {
         PARAM_TEXT,
         '4'
     ));
-
-    $settings->add(new admin_setting_configtext(
-        'block_remlab_manager/sarlab_enc_key',
-        get_string('sarlab_enc_key', 'block_remlab_manager'),
-        get_string('sarlab_enc_key_description', 'block_remlab_manager'),
-        '1234567890123456',
-        PARAM_TEXT,
-        '30'
-    ));
 }

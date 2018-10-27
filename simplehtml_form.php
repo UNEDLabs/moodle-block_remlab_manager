@@ -205,6 +205,7 @@ class simplehtml_form extends moodleform {
      * @param array $data
      * @param array $files
      * @return array $errors
+     * @throws
      */
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);

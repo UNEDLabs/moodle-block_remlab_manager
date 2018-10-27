@@ -109,7 +109,8 @@ class block_remlab_manager extends block_list {
         $this->content->items[3] = html_writer::link($this->urlnewlocal,
             get_string('configure_new_local_experience', 'block_remlab_manager'));
         if  (get_capability_info('ltisource/sarlab:editexp')) {
-            if (has_capability('ltisource/sarlab:editexp', $context) && !empty($this->sarlabltiurl)) {
+            if (has_capability('ltisource/sarlab:editexp', $context, $USER->id, false) &&
+                !empty($this->sarlabltiurl)) {
                 $this->content->items[4] = html_writer::link($this->sarlabltiurl,
                     get_string('go_to_sarlab', 'block_remlab_manager'));
             }

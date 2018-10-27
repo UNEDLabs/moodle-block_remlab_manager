@@ -119,48 +119,40 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
                 }
                 $lti_users_id = $DB->get_fieldset_select('enrol_lti_users', 'userid',
                     "id > ?", array(0));
-                function update_role($record, $item, $user_id, $sarlabdesignerroleid, $sarlabmanagerroleid,
-                                     $sarlabirsdesignerusersid, $sarlabirsmanagerusersid) {
+                function update_role($record, $user_id, $sarlabroleid) {
                     // Check whether the user is designer or manager and update role assignments
                     global $DB;
-                    $level = (int)$item->level;
-                    if ($level == 1) {
-                        $sarlabirsdesignerusersid[] = $user_id;
-                        if (!$DB->record_exists('role_assignments', ['roleid' => $sarlabdesignerroleid,
-                            'userid' => $user_id])) {
-                            $record->roleid = $sarlabdesignerroleid;
-                            $record->userid = $user_id;
-                            $DB->insert_record('role_assignments', $record);
-                        }
-                    } else if ($level == 0) {
-                        $sarlabirsmanagerusersid[] = $user_id;
-                        if (!$DB->record_exists('role_assignments', ['roleid' => $sarlabmanagerroleid,
-                            'userid' => $user_id])) {
-                            $record->roleid = $sarlabmanagerroleid;
-                            $record->userid = $user_id;
-                            $DB->insert_record('role_assignments', $record);
-                        }
+                    if (!$DB->record_exists('role_assignments', ['roleid' => $sarlabroleid,
+                        'userid' => $user_id])) {
+                        $record->roleid = $sarlabroleid;
+                        $record->userid = $user_id;
+                        $DB->insert_record('role_assignments', $record);
                     }
-                    return [$sarlabirsdesignerusersid, $sarlabirsmanagerusersid];
+                    return $user_id;
                 }
                 foreach ($xml_response->item as $item) {
                     $user_site_hostname = parse_url((string) $item->siteURL);
                     $user_site_hostname = $user_site_hostname['host'];
                     $user_id = (int) $item->user_id;
                     if (strcmp($site_hostname, $user_site_hostname) == 0) {
+                        $level = (int)$item->level;
                         if ($DB->record_exists('user', ['id' => $user_id])) { // this moodle's user
-                            [$sarlabirsdesignerusersid, $sarlabirsmanagerusersid] = update_role($record, $item,
-                                $user_id, $sarlabdesignerroleid, $sarlabmanagerroleid, $sarlabirsdesignerusersid,
-                                $sarlabirsmanagerusersid);
+                            if ($level == 1) {
+                                $sarlabirsdesignerusersid[] = update_role($record, $user_id, $sarlabdesignerroleid);
+                            } else {
+                                $sarlabirsmanagerusersid[] = update_role($record, $user_id, $sarlabmanagerroleid);
+                            }
                         } else { // LTI user?
                             // Check if the user info received from Sarlab corresponds to any LTI user
                             $origin_coincidence = array_search($user_site_hostname, $lti_users_hostname);
                             $user_id_coincidence = array_search($user_id, $lti_remote_users_id);
                             if ($origin_coincidence && $user_id_coincidence &&
                                 ($origin_coincidence == $user_id_coincidence)) { // If so, continue
-                                [$sarlabirsdesignerusersid, $sarlabirsmanagerusersid] = update_role($record, $item,
-                                    $lti_users_id[$origin_coincidence], $sarlabdesignerroleid, $sarlabmanagerroleid,
-                                    $sarlabirsdesignerusersid, $sarlabirsmanagerusersid);
+                                if ($level == 1) {
+                                    $sarlabirsdesignerusersid[] = update_role($record, $user_id, $sarlabdesignerroleid);
+                                } else {
+                                    $sarlabirsmanagerusersid[] = update_role($record, $user_id, $sarlabmanagerroleid);
+                                }
                             }
                         }
                     }

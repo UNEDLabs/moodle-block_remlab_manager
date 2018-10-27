@@ -36,9 +36,6 @@ When installing remlab manager for the first time, you will need to set a few va
    sarlab_port:		This variable defines the port(s) used to communicate with the SARLAB system(s). If left empty, the
                     plugin understands that SARLAB is not used.
 
-   sarlab_enc_key:	This 16 characters long variable must be configure to match exactly the key set in the SARLAB
-                    system(s).
-
 ## 4. Dependencies
 
 This block needs the ejsapp module to be of any use. It works with version 2.2 (or later) of EJSApp. You can find and
