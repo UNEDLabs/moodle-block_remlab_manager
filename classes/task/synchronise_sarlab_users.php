@@ -117,8 +117,6 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
                     }
                     array_walk($lti_remote_users_id, "fcn1");
                 }
-                $lti_users_id = $DB->get_fieldset_select('enrol_lti_users', 'userid',
-                    "id > ?", array(0));
                 function update_role($record, $user_id, $sarlabroleid) {
                     // Check whether the user is designer or manager and update role assignments
                     global $DB;
