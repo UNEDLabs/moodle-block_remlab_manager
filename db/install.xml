@@ -34,6 +34,9 @@
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
             </KEYS>
+            <INDEXES>
+                <INDEX NAME="practiceintro" UNIQUE="false" FIELDS="practiceintro"/>
+            </INDEXES>
         </TABLE>
         <TABLE NAME="block_remlab_manager_exp2prc" COMMENT="Gives a relation of the experiences available for each experimental system"
                PREVIOUS="block_remlab_manager_conf" NEXT="block_remlab_manager_sb_keys">
@@ -48,7 +51,12 @@
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="ejsappid" TYPE="foreign" FIELDS="ejsappid" REFTABLE="ejsapp" REFFIELDS="id"/>
             </KEYS>
+            <INDEXES>
+                <INDEX NAME="ejsappid" UNIQUE="false" FIELDS="ejsappid"/>
+                <INDEX NAME="practiceintro" UNIQUE="false" FIELDS="practiceintro"/>
+            </INDEXES>
         </TABLE>
         <TABLE NAME="block_remlab_manager_sb_keys" COMMENT="Stores the access keys used by Sarlab to grant access to a remote lab experience"
                PREVIOUS="block_remlab_manager_exp2prc">
@@ -67,6 +75,7 @@
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="user" TYPE="foreign" FIELDS="user" REFTABLE="user" REFFIELDS="id"/>
             </KEYS>
         </TABLE>
     </TABLES>
