@@ -86,20 +86,22 @@ class refresh_usestate_field extends \core\task\scheduled_task {
             $dbman = $DB->get_manager();
             $standardlog = $dbman->table_exists('logstore_standard_log');
             $currenttime = time();
-            if ($standardlog) {
+            if ($standardlog && !empty($ids)) {
                 $select = 'component = :component AND action = :action AND timecreated > :timecreated AND objectid ';
                 list($sql, $params) = $DB->get_in_or_equal($ids, SQL_PARAMS_NAMED);
                 $select .= $sql;
                 $queryparams = ['component' => 'mod_ejsapp', 'action' => 'working', 'timecreated' => $currenttime - $safetime];
                 $queryparams += $params;
                 $inuse = $DB->get_field_select('logstore_standard_log', 'MAX(timecreated)', $select, $queryparams);
-            } else {
+            } else if (!empty($names)) {
                 $select = 'action = :action AND time > :time AND info ';
                 list($sql, $params) = $DB->get_in_or_equal($names, SQL_PARAMS_NAMED);
                 $select .= $sql;
                 $queryparams = ['action' => 'working', 'time' => $currenttime - $safetime];
                 $queryparams += $params;
                 $inuse = $DB->get_field_select('log', 'MAX(time)', $select, $queryparams);
+            } else {
+                $inuse = false;
             }
             if ($inuse == false) { // If so, change 'usestate' field to 'available' to mark the lab as not in use.
                 if ($standardlog) {
