@@ -78,6 +78,11 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
             $experiences = $SESSION->block_remlab_manager_list_experiences;
             $practiceintro = $experiences[$experienceid];
             $DB->delete_records('block_remlab_manager_conf', array('practiceintro' => $practiceintro));
+            $records = $DB->get_records('block_remlab_manager_exp2prc', array('practiceintro' => $practiceintro));
+            foreach ($records as $record) {
+                $DB->delete_records('ejsapp', array('id' => $record->id));
+            }
+            $DB->delete_records('block_remlab_manager_exp2prc', array('practiceintro' => $practiceintro));
         }
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
         redirect($courseurl);
