@@ -101,7 +101,7 @@ class refresh_usestate_field extends \core\task\scheduled_task {
                 $queryparams += $params;
                 $inuse = $DB->get_field_select('log', 'MAX(time)', $select, $queryparams);
             } else {
-                $inuse = false;
+                $inuse = true;
             }
             if ($inuse == false) { // If so, change 'usestate' field to 'available' to mark the lab as not in use.
                 if ($standardlog) {
