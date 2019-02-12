@@ -101,7 +101,8 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
         $toform['practiceintro'] = $practiceintro;
         $toform['originalpracticeintro'] = $practiceintro;
         // If the experience doesn't exist (it is defined in Sarlab but not in Moodle yet), create it.
-        if (!$DB->record_exists('block_remlab_manager_conf', array('practiceintro' => $practiceintro))) {
+        if (!$DB->record_exists('block_remlab_manager_conf', array('practiceintro' => $practiceintro)) &&
+        $practiceintro != '') {
             $default_conf = default_rem_lab_conf($practiceintro, $USER->username);
             $DB->insert_record('block_remlab_manager_conf', $default_conf);
         }
@@ -114,7 +115,7 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
         // Cancelled form redirects to the course main page.
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
         redirect($courseurl);
-    } else if ($fromform = $simplehtml->get_data()) {
+    } else if ($fromform = $simplehtml->get_data() && $fromform->practiceintro != '') {
         require_sesskey();
         // Store the submitted data.
         if ($fromform->editingexperience) {
