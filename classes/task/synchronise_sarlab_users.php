@@ -74,10 +74,10 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
             array_push($sarlabmanagerusersid, $record->userid);
         }
 
-        // Ask Sarlab IRS for $sarlabirsdesignerusersid and $sarlabirsmanagerusersid
+        // Ask ENLARGE IRS for $sarlabirsdesignerusersid and $sarlabirsmanagerusersid
         $sarlabirstoken = 'demo-101-irs-token';
 
-        $curl = curl_init('http://sarlabirs.dia.uned.es/designers');
+        $curl = curl_init('http://enlargeirs.dia.uned.es/designers');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_USERPWD, $sarlabirstoken . ':');
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/xml;q=0.9, */*;q=0.8'));
