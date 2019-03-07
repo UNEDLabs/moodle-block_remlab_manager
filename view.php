@@ -92,9 +92,6 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
     $toform['blockid'] = $blockid;
     $toform['courseid'] = $courseid;
     $toform['editingexperience'] = $editing;
-    $toform['practiceintro'] = '';
-    $toform['originalpracticeintro'] = '';
-    $practiceintro = '';
     if ($editing == 1 && !empty($SESSION->block_remlab_manager_list_experiences)) { // Editing an already listed experience.
         $experiences = $SESSION->block_remlab_manager_list_experiences;
         $practiceintro = $experiences[$experienceid];
@@ -106,6 +103,10 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
             $default_conf = default_rem_lab_conf($practiceintro, $USER->username);
             $DB->insert_record('block_remlab_manager_conf', $default_conf);
         }
+    } else {
+        $practiceintro = '';
+        $toform['practiceintro'] = '';
+        $toform['originalpracticeintro'] = '';
     }
 
     $simplehtml = new simplehtml_form(null, array($editing, $practiceintro));
@@ -115,25 +116,29 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
         // Cancelled form redirects to the course main page.
         $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
         redirect($courseurl);
-    } else if ($fromform = $simplehtml->get_data() && $fromform->practiceintro != '') {
-        require_sesskey();
-        // Store the submitted data.
-        if ($fromform->editingexperience) {
-            $remlab = $DB->get_record('block_remlab_manager_conf',
-                array('practiceintro' => $fromform->originalpracticeintro));
-            $fromform->id = $remlab->id;
-            if (!$DB->update_record('block_remlab_manager_conf', $fromform)) {
-                print_error('Could not update record in block_remlab_manager_conf table',
-                    'block_remlab_manager');
+    } else if ($fromform = $simplehtml->get_data()) {
+        if ($fromform->practiceintro != '') {
+            require_sesskey();
+            // Store the submitted data.
+            if ($fromform->editingexperience) {
+                $remlab = $DB->get_record('block_remlab_manager_conf',
+                    array('practiceintro' => $fromform->originalpracticeintro));
+                $fromform->id = $remlab->id;
+                if (!$DB->update_record('block_remlab_manager_conf', $fromform)) {
+                    print_error('Could not update record in block_remlab_manager_conf table',
+                        'block_remlab_manager');
+                }
+            } else {
+                if (!$DB->insert_record('block_remlab_manager_conf', $fromform)) {
+                    print_error('Could not insert record in block_remlab_manager_conf table',
+                        'block_remlab_manager');
+                }
             }
+            $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
+            redirect($courseurl);
         } else {
-            if (!$DB->insert_record('block_remlab_manager_conf', $fromform)) {
-                print_error('Could not insert record in block_remlab_manager_conf table',
-                    'block_remlab_manager');
-            }
+            print_error('The name of the experience was left blank', 'block_remlab_manager');
         }
-        $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
-        redirect($courseurl);
     } else {
         // Form didn't validate or this is the first display.
         echo $OUTPUT->header();
