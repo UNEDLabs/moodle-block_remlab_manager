@@ -109,10 +109,10 @@ class ping_remote_labs extends \core\task\scheduled_task {
                     $DB->update_record('block_remlab_manager_conf', $remlabconf);
                 }
                 // Send e-mails to teachers if conditions are met.
-                $role = $DB->get_record('role', array('shortname' => 'editingteacher'));
-                // TODO: Allow configuring which roles receive the e-mails? (managers, non-editing teacher...) Use Moodle capabilities.
+                $editingteacherrole = $DB->get_record('role', array('shortname' => 'editingteacher'));
+                $teacherrole = $DB->get_record('role', array('shortname' => 'teacher'));
                 if ($sendmail) {
-                    $teachers = get_role_users($role->id, $context);
+                    $teachers = get_role_users([$editingteacherrole->id, $teacherrole->id], $context);
                     foreach ($teachers as $teacher) {
                         email_to_user($teacher, $teacher, $subject, $messagebody);
                     }
