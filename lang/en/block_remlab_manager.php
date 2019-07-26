@@ -55,10 +55,10 @@ $string['remlab_manager:myaddinstance'] = 'Add a new Remlab Manager block to My 
 $string['remlab_manager:view'] = 'View the Remlab Manager block';
 
 // Strings for new roles.
-$string['sarlabdesigner'] = 'Sarlab designer';
-$string['sarlabdesigner_desc'] = 'Sarlab designers can create, delete, edit and use Sarlab experiences';
-$string['sarlabmanager'] = 'Sarlab manager';
-$string['sarlabmanager_desc'] = 'Sarlab managers can edit and use existing Sarlab experiences';
+$string['enlargedesigner'] = 'Sarlab designer';
+$string['enlargedesigner_desc'] = 'Sarlab designers can create, delete, edit and use Sarlab experiences';
+$string['enlargemanager'] = 'Sarlab manager';
+$string['enlargemanager_desc'] = 'Sarlab managers can edit and use existing Sarlab experiences';
 
 // Strings in view.php.
 $string['configure_lab'] = 'Configure remote lab';

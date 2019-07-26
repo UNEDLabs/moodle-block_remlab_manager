@@ -70,30 +70,30 @@ function xmldb_block_remlab_manager_upgrade($oldversion) {
         $context = context_system::instance();
 
         // Create the experience designer role.
-        if (!$DB->record_exists('role', array('shortname' => 'sarlabdesigner'))) {
-            $sarlabdesignerid = create_role(get_string('sarlabdesigner', 'block_remlab_manager'),
-                'sarlabdesigner', get_string('sarlabdesigner_desc', 'block_remlab_manager'));
-            set_role_contextlevels($sarlabdesignerid, array(CONTEXT_SYSTEM));
+        if (!$DB->record_exists('role', array('shortname' => 'enlargedesigner'))) {
+            $enlargedesignerid = create_role(get_string('enlargedesigner', 'block_remlab_manager'),
+                'enlargedesigner', get_string('enlargedesigner_desc', 'block_remlab_manager'));
+            set_role_contextlevels($enlargedesignerid, array(CONTEXT_SYSTEM));
         } else {
-            $sarlabdesignerid = $DB->get_field('role', 'id', array('shortname' => 'sarlabdesigner'));
+            $enlargedesignerid = $DB->get_field('role', 'id', array('shortname' => 'enlargedesigner'));
         }
         // Assign capabilities.
-        assign_capability('block/remlab_manager:myaddinstance', CAP_ALLOW, $sarlabdesignerid, $context->id, true);
-        assign_capability('block/remlab_manager:addinstance', CAP_ALLOW, $sarlabdesignerid, $context->id, true);
-        assign_capability('block/remlab_manager:view', CAP_ALLOW, $sarlabdesignerid, $context->id, true);
+        assign_capability('block/remlab_manager:myaddinstance', CAP_ALLOW, $enlargedesignerid, $context->id, true);
+        assign_capability('block/remlab_manager:addinstance', CAP_ALLOW, $enlargedesignerid, $context->id, true);
+        assign_capability('block/remlab_manager:view', CAP_ALLOW, $enlargedesignerid, $context->id, true);
 
         // Create the experience manager role.
-        if (!$DB->record_exists('role', array('shortname' => 'sarlabmanager'))) {
-            $sarlabmanagerid = create_role(get_string('sarlabmanager', 'block_remlab_manager'),
-                'sarlabmanager', get_string('sarlabmanager_desc', 'block_remlab_manager'));
-            set_role_contextlevels($sarlabmanagerid, array(CONTEXT_SYSTEM));
+        if (!$DB->record_exists('role', array('shortname' => 'enlargemanager'))) {
+            $enlargemanagerid = create_role(get_string('enlargemanager', 'block_remlab_manager'),
+                'enlargemanager', get_string('enlargemanager_desc', 'block_remlab_manager'));
+            set_role_contextlevels($enlargemanagerid, array(CONTEXT_SYSTEM));
         } else {
-            $sarlabmanagerid = $DB->get_field('role', 'id', array('shortname' => 'sarlabmanager'));
+            $enlargemanagerid = $DB->get_field('role', 'id', array('shortname' => 'enlargemanager'));
         }
         // Assign capabilities.
-        assign_capability('block/remlab_manager:myaddinstance', CAP_ALLOW, $sarlabmanagerid, $context->id, true);
-        assign_capability('block/remlab_manager:addinstance', CAP_ALLOW, $sarlabmanagerid, $context->id, true);
-        assign_capability('block/remlab_manager:view', CAP_ALLOW, $sarlabmanagerid, $context->id, true);
+        assign_capability('block/remlab_manager:myaddinstance', CAP_ALLOW, $enlargemanagerid, $context->id, true);
+        assign_capability('block/remlab_manager:addinstance', CAP_ALLOW, $enlargemanagerid, $context->id, true);
+        assign_capability('block/remlab_manager:view', CAP_ALLOW, $enlargemanagerid, $context->id, true);
 
         // Clear any capability caches
         $context->mark_dirty();

@@ -59,19 +59,19 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
         global $DB, $CFG;
 
         // Obtain the list of users in Moodle with Sarlab designer role
-        $sarlabdesignerroleid = $DB->get_field('role', 'id', array('shortname' => 'sarlabdesigner'));
-        $records = $DB->get_records('role_assignments', array('roleid' => $sarlabdesignerroleid));
-        $sarlabdesignerusersid = array();
+        $enlargedesignerroleid = $DB->get_field('role', 'id', array('shortname' => 'enlargedesigner'));
+        $records = $DB->get_records('role_assignments', array('roleid' => $enlargedesignerroleid));
+        $enlargedesignerusersid = array();
         foreach ($records as $record) {
-            array_push($sarlabdesignerusersid, $record->userid);
+            array_push($enlargedesignerusersid, $record->userid);
         }
 
         // Obtain the list of users in Moodle with Sarlab manager role
-        $sarlabmanagerroleid = $DB->get_field('role', 'id', array('shortname' => 'sarlabmanager'));
-        $records = $DB->get_records('role_assignments', array('roleid' => $sarlabmanagerroleid));
-        $sarlabmanagerusersid = array();
+        $enlargemanagerroleid = $DB->get_field('role', 'id', array('shortname' => 'enlargemanager'));
+        $records = $DB->get_records('role_assignments', array('roleid' => $enlargemanagerroleid));
+        $enlargemanagerusersid = array();
         foreach ($records as $record) {
-            array_push($sarlabmanagerusersid, $record->userid);
+            array_push($enlargemanagerusersid, $record->userid);
         }
 
         // Ask ENLARGE IRS for $sarlabirsdesignerusersid and $sarlabirsmanagerusersid
@@ -136,9 +136,9 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
                         $level = (int)$item->level;
                         if ($DB->record_exists('user', ['id' => $user_id])) { // this moodle's user
                             if ($level == 1) {
-                                $sarlabirsdesignerusersid[] = update_role($record, $user_id, $sarlabdesignerroleid);
+                                $enlargeirsmanagerusersid[] = update_role($record, $user_id, $enlargedesignerroleid);
                             } else {
-                                $sarlabirsmanagerusersid[] = update_role($record, $user_id, $sarlabmanagerroleid);
+                                $enlargeirsmanagerusersid[] = update_role($record, $user_id, $enlargemanagerroleid);
                             }
                         } else { // LTI user?
                             // Check if the user info received from Sarlab corresponds to any LTI user
@@ -147,24 +147,24 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
                             if ($origin_coincidence && $user_id_coincidence &&
                                 ($origin_coincidence == $user_id_coincidence)) { // If so, continue
                                 if ($level == 1) {
-                                    $sarlabirsdesignerusersid[] = update_role($record, $user_id, $sarlabdesignerroleid);
+                                    $enlargeirsdesignerusersid[] = update_role($record, $user_id, $enlargedesignerroleid);
                                 } else {
-                                    $sarlabirsmanagerusersid[] = update_role($record, $user_id, $sarlabmanagerroleid);
+                                    $enlargeirsmanagerusersid[] = update_role($record, $user_id, $enlargemanagerroleid);
                                 }
                             }
                         }
                     }
                 }
-                foreach ($sarlabdesignerusersid as $sarlabdesigneruserid) {
-                    if (!in_array($sarlabdesigneruserid, $sarlabirsdesignerusersid)) {
-                        $DB->delete_records('role_assignments', ['roleid' => $sarlabdesignerroleid,
-                            'userid' => $sarlabdesigneruserid]);
+                foreach ($enlargedesignerusersid as $enlargedesigneruserid) {
+                    if (!in_array($enlargedesigneruserid, $sarlabirsdesignerusersid)) {
+                        $DB->delete_records('role_assignments', ['roleid' => $enlargedesignerroleid,
+                            'userid' => $enlargedesigneruserid]);
                     }
                 }
-                foreach ($sarlabmanagerusersid as $sarlabmanageruserid) {
-                    if (!in_array($sarlabmanageruserid, $sarlabirsmanagerusersid)) {
-                        $DB->delete_records('role_assignments', ['roleid' => $sarlabmanagerroleid,
-                            'userid' => $sarlabmanageruserid]);
+                foreach ($enlargemanagerusersid as $enlargemanageruserid) {
+                    if (!in_array($enlargemanageruserid, $sarlabirsmanagerusersid)) {
+                        $DB->delete_records('role_assignments', ['roleid' => $enlargemanagerroleid,
+                            'userid' => $enlargemanageruserid]);
                     }
                 }
             }

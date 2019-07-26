@@ -55,10 +55,10 @@ $string['remlab_manager:myaddinstance'] = 'Añadir un nuevo bloque Gestor Remlab
 $string['remlab_manager:view'] = 'Ver el bloque Gestor Remlab';
 
 // Strings for new roles.
-$string['sarlabdesigner'] = 'Diseñador Sarlab';
-$string['sarlabdesigner_desc'] = 'Los diseñadores Sarlab pueden crear, borrar, editar y usar experiencias Sarlab';
-$string['sarlabmanager'] = 'Gestor Sarlab';
-$string['sarlabmanager_desc'] = 'Los gestores Sarlab pueden editar y usar experiencias Sarlab';
+$string['enlargedesigner'] = 'Diseñador Sarlab';
+$string['enlargedesigner_desc'] = 'Los diseñadores Sarlab pueden crear, borrar, editar y usar experiencias Sarlab';
+$string['enlargemanager'] = 'Gestor Sarlab';
+$string['enlargemanager_desc'] = 'Los gestores Sarlab pueden editar y usar experiencias Sarlab';
 
 // Strings in view.php.
 $string['configure_lab'] = 'Configurar laboratorio remoto';
