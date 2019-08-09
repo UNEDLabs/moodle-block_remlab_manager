@@ -90,15 +90,14 @@ class block_remlab_manager extends block_list {
         if (!empty($experiences)) {
             $experienceid = optional_param('experience', -1, PARAM_INT);
             $this->content->items[0] = html_writer::start_tag('form', array('method' => 'post')) .
-            html_writer::select($experiences, 'experience', $experienceid, true,
-                array('class' => 'remlab_select'));
-            $this->content->items[1] = html_writer::empty_tag('input',
-                array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $this->urleditlocal,
-                'value' => get_string('configure_existing_local_experience', 'block_remlab_manager')));
-            $this->content->items[1] .= html_writer::empty_tag('br', array('class' => 'button_space'));
-            $this->content->items[1] .= html_writer::empty_tag('input',
-                array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $this->urldeletelocal,
-                'value' => get_string('delete_existing_local_experience', 'block_remlab_manager')));
+                html_writer::select($experiences, 'experience', $experienceid, true,
+                    array('class' => 'remlab_select'));
+                $this->content->items[1] = html_writer::empty_tag('input',
+                    array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $this->urleditlocal,
+                    'value' => get_string('configure_existing_local_experience', 'block_remlab_manager')));
+                $this->content->items[1] .= html_writer::empty_tag('input',
+                    array('class' => 'remlab_button', 'type' => 'submit', 'formaction' => $this->urldeletelocal,
+                    'value' => get_string('delete_existing_local_experience', 'block_remlab_manager')));
             $this->content->items[1] .= html_writer::end_tag('form');
             $this->content->items[2] = html_writer::label(get_string('or', 'block_remlab_manager'), null);
         } else {

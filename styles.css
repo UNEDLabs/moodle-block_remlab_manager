@@ -5,18 +5,17 @@
 
 .block_remlab_manager .remlab_select {
     width: 100%;
+    margin-bottom: 0.2em;
 }
 
 .block_remlab_manager .remlab_button {
     border-radius: 5px;
     background-color: transparent;
     padding: 5px;
+    margin-bottom: 0.2em;
+    margin-top: 0.2em;
     box-shadow: none;
     border: 1px solid lightgrey;
-}
-
-.block_remlab_manager .button_space {
-    margin-bottom: 5px;
 }
 
 .block_remlab_manager .remlab_button:hover {
