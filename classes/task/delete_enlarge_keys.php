@@ -37,7 +37,7 @@ namespace block_remlab_manager\task;
  * @copyright  2018 Luis de la Torre
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class delete_sarlab_keys extends \core\task\scheduled_task {
+class delete_enlarge_keys extends \core\task\scheduled_task {
     /**
      * Get a descriptive name for this task.
      *

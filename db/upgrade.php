@@ -123,5 +123,17 @@ function xmldb_block_remlab_manager_upgrade($oldversion) {
         $dbman->add_field($table, $field);
     }
 
+    if ($oldversion < '2019110400') {
+        // Rename sarlab to enlarge
+        $dbman = $DB->get_manager();
+        $table = new xmldb_table('block_remlab_manager_sb_keys');
+        if ($dbman->table_exists($table)) {
+            $field = new xmldb_field('labmanager', XMLDB_TYPE_INTEGER, '1', null,
+                XMLDB_NOTNULL, null, '0', 'sarlabpass', 'creationtime');
+            $dbman->rename_field($table, $field, 'enlargepass');
+            $dbman->rename_table($table, 'block_remlab_manager_eg_keys');
+        }
+    }
+
     return true;
 }

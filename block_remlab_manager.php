@@ -50,8 +50,8 @@ class block_remlab_manager extends block_list {
     public function specialization() {
         global $COURSE;
 
-        if (!empty($this->config) && !empty($this->config->sarlab_lti_url)) {
-            $this->sarlabltiurl = $this->config->sarlab_lti_url;
+        if (!empty($this->config) && !empty($this->config->enlarge_lti_url)) {
+            $this->enlargeltiurl = $this->config->enlarge_lti_url;
         }
 
         $this->urleditlocal = new moodle_url('/blocks/remlab_manager/view.php',
@@ -109,9 +109,9 @@ class block_remlab_manager extends block_list {
             get_string('configure_new_local_experience', 'block_remlab_manager'));
         if  (get_capability_info('ltisource/enlarge:editexp')) {
             if (has_capability('ltisource/enlarge:editexp', $context, $USER->id, false) &&
-                !empty($this->sarlabltiurl)) {
-                $this->content->items[4] = html_writer::link($this->sarlabltiurl,
-                    get_string('go_to_sarlab', 'block_remlab_manager'));
+                !empty($this->enlargeltiurl)) {
+                $this->content->items[4] = html_writer::link($this->enlargeltiurl,
+                    get_string('go_to_enlarge', 'block_remlab_manager'));
             }
         }
         return $this->content;

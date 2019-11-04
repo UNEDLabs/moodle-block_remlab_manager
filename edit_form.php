@@ -34,11 +34,11 @@ class block_remlab_manager_edit_form extends block_edit_form {
         if  (get_capability_info('ltisource/enlarge:createexp')) {
             if (has_capability('ltisource/enlarge:createexp', context_system::instance(), $USER->id, false)) {
                 // Section header title according to language file.
-                $mform->addElement('header', 'sarlab_header', get_string('sarlab_header', 'block_remlab_manager'));
+                $mform->addElement('header', 'enlarge_header', get_string('enlarge_header', 'block_remlab_manager'));
 
                 // Indicate the LTI activity that connects to ENLARGE.
-                $mform->addElement('text', 'config_sarlab_lti_url', get_string('sarlab_lti_url', 'block_remlab_manager'));
-                $mform->setType('config_sarlab_lti_url', PARAM_TEXT);
+                $mform->addElement('text', 'config_enlarge_lti_url', get_string('enlarge_lti_url', 'block_remlab_manager'));
+                $mform->setType('config_enlarge_lti_url', PARAM_TEXT);
             }
         }
     }

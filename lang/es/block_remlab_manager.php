@@ -40,10 +40,10 @@ $string['go_to_enlarge'] = 'Ir a ENLARGE';
 
 // Strings in settings.php.
 $string['default_communication_set'] = "Opciones de comunicaci&oacute;n. (Importante s&oacute;lo si tambi&eacute;n usa ENLARGE)";
-$string['enlarge_IP'] = "Nombre y direcci&oacute;n IP del servidor ENLARGE";
-$string['enlarge_IP_description'] = "Si usa ENLARGE (un sistema que gestiona las conexiones a recursos de laboratorios remotos), debe proporcionar la direcci&oacute;n IP del servidor que ejecuta el sistema ENLARGE que desea utilizar. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor ENLARGE (por ejemplo, uno en 127.0.0.1 y otro en 127.0.0.2), inserte las direcciones IP separadas por puntos y comas: 127.0.0.1;127.0.0.2. Adem&aacute;s, puede proporcionar un nombre para identificar cada servidor ENLARGE: 'ENLARGE Madrid'127.0.0.1;'ENLARGE Huelva'127.0.0.2";
-$string['enlarge_port'] = "Puerto(s) de comunicaci&oacute;n con ENLARGE";
-$string['enlarge_port_description'] = "Si usa ENLARGE (un sistema que gestiona las conexiones a recursos de laboratorios remotos), debe proporcionar un puerto v&aacute;lido para establecer las comunicaciones necesarias con el servidor de ENLARGE. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor ENLARGE (por ejemplo, uno usando el puerto 443 y un segundo usando tambi&eacute;n el puerto 443), inserte los valores separados por puntos y comas: 443;443";
+$string['myFrontier_IP'] = "Nombre y direcci&oacute;n IP del servidor ENLARGE";
+$string['myFrontier_IP_description'] = "Si usa ENLARGE (un sistema que gestiona las conexiones a recursos de laboratorios remotos), debe proporcionar la direcci&oacute;n IP del servidor que ejecuta el sistema ENLARGE que desea utilizar. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor ENLARGE (por ejemplo, uno en 127.0.0.1 y otro en 127.0.0.2), inserte las direcciones IP separadas por puntos y comas: 127.0.0.1;127.0.0.2. Adem&aacute;s, puede proporcionar un nombre para identificar cada servidor ENLARGE: 'ENLARGE Madrid'127.0.0.1;'ENLARGE Huelva'127.0.0.2";
+$string['myFrontier_port'] = "Puerto(s) de comunicaci&oacute;n con ENLARGE";
+$string['myFrontier_port_description'] = "Si usa ENLARGE (un sistema que gestiona las conexiones a recursos de laboratorios remotos), debe proporcionar un puerto v&aacute;lido para establecer las comunicaciones necesarias con el servidor de ENLARGE. En caso contrario, esta variable no se usa, de modo que puede dejar el valor por defecto. Si tiene m&aacute;s de un servidor ENLARGE (por ejemplo, uno usando el puerto 443 y un segundo usando tambi&eacute;n el puerto 443), inserte los valores separados por puntos y comas: 443;443";
 
 // Strings in edit_form.php.
 $string['enlarge_header'] = 'Configurar ENLARGE para esta instancia del bloque';
