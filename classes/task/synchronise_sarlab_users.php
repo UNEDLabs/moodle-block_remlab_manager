@@ -21,7 +21,7 @@
 // (UNED), Madrid, Spain.
 
 /**
- * Remlab manager block Sarlab users synchronization task.
+ * Remlab manager block ENLARGE IRS users synchronization task.
  *
  * @package    block_remlab_manager
  * @copyright  2018 Luis de la Torre
@@ -31,13 +31,13 @@
 namespace block_remlab_manager\task;
 
 /**
- * Task for synchronising Sarlab users between Moodle and Sarlab.
+ * Task for synchronising ENLARGE IRS users between Moodle and myFrontier.
  *
  * @package    block_remlab_manager
  * @copyright  2018 Luis de la Torre
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class synchronise_sarlab_users extends \core\task\scheduled_task {
+class synchronise_myfrontier_users extends \core\task\scheduled_task {
     /**
      * Get a descriptive name for this task.
      *
@@ -46,11 +46,11 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
      */
     public function get_name() {
         // Shown in admin screens
-        return get_string('synchronise_sarlab_users', 'block_remlab_manager');
+        return get_string('synchronise_myFrontier_users', 'block_remlab_manager');
     }
 
     /**
-     * Performs the synchronisation of sarlab users.
+     * Performs the synchronisation of myFrontier users.
      *
      * @return bool|void
      * @throws
@@ -58,7 +58,7 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
     public function execute() {
         global $DB, $CFG;
 
-        // Obtain the list of users in Moodle with Sarlab designer role
+        // Obtain the list of users in Moodle with ENLARGE designer role
         $enlargedesignerroleid = $DB->get_field('role', 'id', array('shortname' => 'enlargedesigner'));
         $records = $DB->get_records('role_assignments', array('roleid' => $enlargedesignerroleid));
         $enlargedesignerusersid = array();
@@ -66,7 +66,7 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
             array_push($enlargedesignerusersid, $record->userid);
         }
 
-        // Obtain the list of users in Moodle with Sarlab manager role
+        // Obtain the list of users in Moodle with ENLARGE manager role
         $enlargemanagerroleid = $DB->get_field('role', 'id', array('shortname' => 'enlargemanager'));
         $records = $DB->get_records('role_assignments', array('roleid' => $enlargemanagerroleid));
         $enlargemanagerusersid = array();
@@ -74,12 +74,12 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
             array_push($enlargemanagerusersid, $record->userid);
         }
 
-        // Ask ENLARGE IRS for $sarlabirsdesignerusersid and $sarlabirsmanagerusersid
-        $sarlabirstoken = 'demo-101-irs-token';
+        // Ask ENLARGE IRS for $enlargeirsdesignerusersid and $enlargeirsmanagerusersid
+        $enlargeirstoken = 'demo-101-irs-token';
 
         $curl = curl_init('http://enlargeirs.dia.uned.es/designers');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_USERPWD, $sarlabirstoken . ':');
+        curl_setopt($curl, CURLOPT_USERPWD, $enlargeirstoken . ':');
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/xml;q=0.9, */*;q=0.8'));
         $curl_response = curl_exec($curl);
         curl_close($curl);
@@ -88,8 +88,8 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
             if ($xml_response) {
                 $site_hostname = parse_url($CFG->wwwroot);
                 $site_hostname = $site_hostname['host'];
-                $sarlabirsdesignerusersid = [];
-                $sarlabirsmanagerusersid = [];
+                $enlargeirsdesignerusersid = [];
+                $enlargeirsmanagerusersid = [];
                 $record = new \stdClass();
                 $record->contextid    = 1;
                 $record->component    = '';
@@ -117,12 +117,12 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
                     }
                     array_walk($lti_remote_users_id, "fcn1");
                 }
-                function update_role($record, $user_id, $sarlabroleid) {
+                function update_role($record, $user_id, $enlargeroleid) {
                     // Check whether the user is designer or manager and update role assignments
                     global $DB;
-                    if (!$DB->record_exists('role_assignments', ['roleid' => $sarlabroleid,
+                    if (!$DB->record_exists('role_assignments', ['roleid' => $enlargeroleid,
                         'userid' => $user_id])) {
-                        $record->roleid = $sarlabroleid;
+                        $record->roleid = $enlargeroleid;
                         $record->userid = $user_id;
                         $DB->insert_record('role_assignments', $record);
                     }
@@ -141,7 +141,7 @@ class synchronise_sarlab_users extends \core\task\scheduled_task {
                                 $enlargeirsmanagerusersid[] = update_role($record, $user_id, $enlargemanagerroleid);
                             }
                         } else { // LTI user?
-                            // Check if the user info received from Sarlab corresponds to any LTI user
+                            // Check if the user info received from ENLARGE IRS corresponds to any LTI user
                             $origin_coincidence = array_search($user_site_hostname, $lti_users_hostname);
                             $user_id_coincidence = array_search($user_id, $lti_remote_users_id);
                             if ($origin_coincidence && $user_id_coincidence &&

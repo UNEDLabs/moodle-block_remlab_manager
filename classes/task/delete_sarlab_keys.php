@@ -46,7 +46,7 @@ class delete_sarlab_keys extends \core\task\scheduled_task {
      */
     public function get_name() {
         // Shown in admin screens
-        return get_string('delete_sarlab_keys', 'block_remlab_manager');
+        return get_string('delete_myFrontier_keys', 'block_remlab_manager');
     }
 
     /**

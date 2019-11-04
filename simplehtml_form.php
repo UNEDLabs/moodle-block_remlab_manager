@@ -108,7 +108,7 @@ class simplehtml_form extends moodleform {
             $mform->setDefault('initialpracticeintro', $remlab->practiceintro);
             $mform->setDefault('ip', $remlab->ip);
             $mform->setDefault('port', $remlab->port);
-            $sarlabinstance = is_practice_in_sarlab($remlab->practiceintro);
+            $sarlabinstance = is_practice_in_enlarge($remlab->practiceintro);
             if ($sarlabinstance !== false) {
                 $mform->freeze(array('practiceintro', 'ip', 'port'));
             }

@@ -64,9 +64,9 @@ class ping_remote_labs extends \core\task\scheduled_task {
 
         $remlabsconf = $DB->get_records('block_remlab_manager_conf');
         foreach ($remlabsconf as $remlabconf) {
-            $sarlabinstance = is_practice_in_sarlab($remlabconf->practiceintro);
+            $myFrontierinstance = is_practice_in_enlarge($remlabconf->practiceintro);
             // $devicesinfo = new \stdClass();
-            $labstate = ping($remlabconf->ip, $remlabconf->port, $sarlabinstance, $remlabconf->practiceintro);
+            $labstate = ping($remlabconf->ip, $remlabconf->port, $myFrontierinstance, $remlabconf->practiceintro);
             $remlabs = get_repeated_remlabs($remlabconf->practiceintro);
             foreach ($remlabs as $remlab) {
                 $context = \context_course::instance($remlab->course);
