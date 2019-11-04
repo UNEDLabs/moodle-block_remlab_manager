@@ -6,7 +6,7 @@ created with Easy Java/Javascript Simulations (EjsS) and which are added to a Mo
 The Java applets or the Javascript applications should have been created with version 5.1 (build 20150613 or later) of
 EjsS to work properly.
 
-This plugin supports (but does not require) the use of SARLAB for managing the connection to the remote labs.
+This plugin supports (but does not require) the use of ENLARGE for managing the connection to the remote labs.
 
 ## 2. License
 
@@ -30,11 +30,11 @@ your Moodle installation directory.
 
 When installing remlab manager for the first time, you will need to set a few variables:
 
-   sarlab_IP:	  	This variable defines the IP(s) address(es) of the SARLAB system(s) used for managing the access to
-                    the remote laboratories. If left empty, the plugin understands that SARLAB is not used.
+   enlarge_IP:	  	This variable defines the IP(s) address(es) of the ENLARGE system(s) used for managing the access to
+                    the remote laboratories. If left empty, the plugin understands that ENLARGE is not used.
 
-   sarlab_port:		This variable defines the port(s) used to communicate with the SARLAB system(s). If left empty, the
-                    plugin understands that SARLAB is not used.
+   enlarge_port:		This variable defines the port(s) used to communicate with the ENLARGE system(s). If left empty, the
+                    plugin understands that ENLARGE is not used.
 
 ## 4. Dependencies
 

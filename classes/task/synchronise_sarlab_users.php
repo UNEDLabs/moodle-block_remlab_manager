@@ -156,13 +156,13 @@ class synchronise_myfrontier_users extends \core\task\scheduled_task {
                     }
                 }
                 foreach ($enlargedesignerusersid as $enlargedesigneruserid) {
-                    if (!in_array($enlargedesigneruserid, $sarlabirsdesignerusersid)) {
+                    if (!in_array($enlargedesigneruserid, $enlargeirsdesignerusersid)) {
                         $DB->delete_records('role_assignments', ['roleid' => $enlargedesignerroleid,
                             'userid' => $enlargedesigneruserid]);
                     }
                 }
                 foreach ($enlargemanagerusersid as $enlargemanageruserid) {
-                    if (!in_array($enlargemanageruserid, $sarlabirsmanagerusersid)) {
+                    if (!in_array($enlargemanageruserid, $enlargeirsmanagerusersid)) {
                         $DB->delete_records('role_assignments', ['roleid' => $enlargemanagerroleid,
                             'userid' => $enlargemanageruserid]);
                     }

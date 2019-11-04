@@ -21,7 +21,7 @@
 // (UNED), Madrid, Spain.
 
 /**
- * Page for configuring the data needed by a non-Sarlab remote lab application
+ * Page for configuring the data needed by a non-ENLARGE remote lab application
  *
  * @package    block_remlab_manager
  * @copyright  2015 Luis de la Torre
@@ -97,7 +97,7 @@ if ($delete != 0 && !empty($SESSION->block_remlab_manager_list_experiences)) { /
         $practiceintro = $experiences[$experienceid];
         $toform['practiceintro'] = $practiceintro;
         $toform['originalpracticeintro'] = $practiceintro;
-        // If the experience doesn't exist (it is defined in Sarlab but not in Moodle yet), create it.
+        // If the experience doesn't exist (it is defined in ENLARGE but not in Moodle yet), create it.
         if (!$DB->record_exists('block_remlab_manager_conf', array('practiceintro' => $practiceintro)) &&
         $practiceintro != '') {
             $default_conf = default_rem_lab_conf($practiceintro, $USER->username);

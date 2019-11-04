@@ -36,18 +36,18 @@ $string['configure_existing_local_experience'] = 'Configure local experience';
 $string['delete_existing_local_experience'] = 'Delete local experience';
 $string['or'] = 'or';
 $string['configure_new_local_experience'] = 'Create new local experience';
-$string['go_to_sarlab'] = 'Go to Sarlab';
+$string['go_to_enlarge'] = 'Go to ENLARGE';
 
 // Strings in settings.php.
-$string['default_communication_set'] = "Communication settings. (Only important if you are also using Sarlab)";
-$string['sarlab_IP'] = "Name and IP address of the Sarlab server(s)";
-$string['sarlab_IP_description'] = "If you are using Sarlab (a system that manages connections to remote laboratories resources), you need to provide the IP address of the server that runs the Sarlab system you want to use. Otherwise, this value will not be used, so you can leave the default value. If you have more than one Sarlab server (for example, one at 127.0.0.1 and a second one at 127.0.0.2), insert the IP addresses separated by semicolons: 127.0.0.1;127.0.0.2. Additionally, you can provide a name in order to identify each Sarlab server: 'Sarlab Madrid'127.0.0.1;'Sarlab Huelva'127.0.0.2";
-$string['sarlab_port'] = "Sarlab communication port(s)";
-$string['sarlab_port_description'] = "If you are using Sarlab (a system that manages connections to remote laboratories resources), you need to provide a valid port for establishing the communications with the Sarlab server. Otherwise, this value will not be used, so you can leave the default value. If you have more than one Sarlab server (for example, one using port 443 and a second one also using port 443), insert the values separated by semicolons: 443;443";
+$string['default_communication_set'] = "Communication settings. (Only important if you are also using ENLARGE)";
+$string['enlarge_IP'] = "Name and IP address of the ENLARGE server(s)";
+$string['enlarge_IP_description'] = "If you are using ENLARGE (a system that manages connections to remote laboratories resources), you need to provide the IP address of the server that runs the ENLARGE system you want to use. Otherwise, this value will not be used, so you can leave the default value. If you have more than one ENLARGE server (for example, one at 127.0.0.1 and a second one at 127.0.0.2), insert the IP addresses separated by semicolons: 127.0.0.1;127.0.0.2. Additionally, you can provide a name in order to identify each ENLARGE server: 'ENLARGE Madrid'127.0.0.1;'ENLARGE Huelva'127.0.0.2";
+$string['enlarge_port'] = "ENLARGE communication port(s)";
+$string['enlarge_port_description'] = "If you are using ENLARGE (a system that manages connections to remote laboratories resources), you need to provide a valid port for establishing the communications with the ENLARGE server. Otherwise, this value will not be used, so you can leave the default value. If you have more than one ENLARGE server (for example, one using port 443 and a second one also using port 443), insert the values separated by semicolons: 443;443";
 
 // Strings in edit_form.php.
-$string['sarlab_header'] = 'Configure Sarlab for this block instance';
-$string['sarlab_lti_url'] = 'URL to the Sarlab LTI activity ';
+$string['enlarge_header'] = 'Configure ENLARGE for this block instance';
+$string['enlarge_lti_url'] = 'URL to the ENLARGE LTI activity ';
 
 // Strings for capabilities.
 $string['remlab_manager:addinstance'] = 'Add a new Remlab Manager block';
@@ -55,10 +55,10 @@ $string['remlab_manager:myaddinstance'] = 'Add a new Remlab Manager block to My 
 $string['remlab_manager:view'] = 'View the Remlab Manager block';
 
 // Strings for new roles.
-$string['enlargedesigner'] = 'Sarlab designer';
-$string['enlargedesigner_desc'] = 'Sarlab designers can create, delete, edit and use Sarlab experiences';
-$string['enlargemanager'] = 'Sarlab manager';
-$string['enlargemanager_desc'] = 'Sarlab managers can edit and use existing Sarlab experiences';
+$string['enlargedesigner'] = 'ENLARGE designer';
+$string['enlargedesigner_desc'] = 'ENLARGE designers can create, delete, edit and use ENLARGE experiences';
+$string['enlargemanager'] = 'ENLARGE manager';
+$string['enlargemanager_desc'] = 'ENLARGE managers can edit and use existing ENLARGE experiences';
 
 // Strings in view.php.
 $string['configure_lab'] = 'Configure remote lab';
@@ -68,7 +68,7 @@ $string['confirm_delete_button'] = 'Yes';
 $string['cancel_delete_button'] = 'No';
 
 // Strings in tasks.
-$string['delete_sarlab_keys'] = 'Delete Sarlab keys';
+$string['delete_enlarge_keys'] = 'Delete ENLARGE keys';
 
 $string['ping_remote_labs'] = 'Check if remote lab equipments are alive';
 
@@ -88,7 +88,7 @@ $string['mail_content1_lab_up'] = 'One of your previously not accessible remote 
 $string['mail_content2_lab_up'] = ' - IP: ';
 $string['mail_content3_lab_up'] = ') is operative once again.';
 
-$string['synchronise_sarlab_users'] = 'Synchronise Sarlab users';
+$string['synchronise_enlarge_users'] = 'Synchronise ENLARGE users';
 
 $string['refresh_usestate_field'] = 'Refresh the use state of remote labs';
 

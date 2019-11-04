@@ -21,7 +21,7 @@
 // (UNED), Madrid, Spain.
 
 /**
- * File for configuring the block instances (selecting the Sarlab server in charge of managing the remote labs)
+ * File for configuring the block instances (selecting the ENLARGE server in charge of managing the remote labs)
  *
  * @package    block_remlab_manager
  * @copyright  2015 Luis de la Torre
@@ -38,18 +38,18 @@ if ($ADMIN->fulltree) {
     ));
 
     $settings->add(new admin_setting_configtext(
-        'block_remlab_manager/sarlab_IP',
-        get_string('sarlab_IP', 'block_remlab_manager'),
-        get_string('sarlab_IP_description', 'block_remlab_manager'),
+        'block_remlab_manager/myFrontier_IP',
+        get_string('myFrontier_IP', 'block_remlab_manager'),
+        get_string('myFrontier_IP_description', 'block_remlab_manager'),
         '127.0.0.1',
         PARAM_TEXT,
         '13'
     ));
 
     $settings->add(new admin_setting_configtext(
-        'block_remlab_manager/sarlab_port',
-        get_string('sarlab_port', 'block_remlab_manager'),
-        get_string('sarlab_port_description', 'block_remlab_manager'),
+        'block_remlab_manager/myFrontier_port',
+        get_string('myFrontier_port', 'block_remlab_manager'),
+        get_string('myFrontier_port_description', 'block_remlab_manager'),
         443,
         PARAM_TEXT,
         '4'

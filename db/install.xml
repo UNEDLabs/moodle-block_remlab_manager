@@ -58,7 +58,7 @@
                 <INDEX NAME="practiceintro" UNIQUE="false" FIELDS="practiceintro"/>
             </INDEXES>
         </TABLE>
-        <TABLE NAME="block_remlab_manager_sb_keys" COMMENT="Stores the access keys used by Sarlab to grant access to a remote lab experience"
+        <TABLE NAME="block_remlab_manager_sb_keys" COMMENT="Stores the access keys used by ENLARGE to grant access to a remote lab experience"
                PREVIOUS="block_remlab_manager_exp2prc">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="user"/>

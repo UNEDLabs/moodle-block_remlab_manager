@@ -31,7 +31,7 @@
 namespace block_remlab_manager\task;
 
 /**
- * Task for sarlab keys in the block_remlab_manager_sb_keys table.
+ * Task for ENLARGE keys in the block_remlab_manager_sb_keys table.
  *
  * @package    block_remlab_manager
  * @copyright  2018 Luis de la Torre
@@ -50,7 +50,7 @@ class delete_sarlab_keys extends \core\task\scheduled_task {
     }
 
     /**
-     * Deletes the sarlab keys that are one day old or more.
+     * Deletes the ENLARGE keys that are one day old or more.
      *
      * @return bool|void
      * @throws

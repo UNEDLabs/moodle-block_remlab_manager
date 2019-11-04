@@ -36,7 +36,7 @@ function xmldb_block_remlab_manager_install() {
     // Get system context.
     $context = context_system::instance();
 
-    // Check if the sarlab designer user role exists.
+    // Check if the ENLARGE designer user role exists.
     if ($DB->record_exists('role', array('shortname' => 'enlargedesigner'))) {
         $enlargedesignerid = $DB->get_field('role', 'id', array('shortname' => 'enlargedesigner'));
         // If so, assign capabilities.
@@ -45,7 +45,7 @@ function xmldb_block_remlab_manager_install() {
         assign_capability('block/remlab_manager:view', CAP_ALLOW, $enlargedesignerid, $context->id, true);
     }
 
-    // Check if the sarlab manager role exists.
+    // Check if the ENLARGE manager role exists.
     if ($DB->record_exists('role', array('shortname' => 'enlargemanager'))) {
         $enlargemanagerid = $DB->get_field('role', 'id', array('shortname' => 'enlargemanager'));
         // If so, assign capabilities.
