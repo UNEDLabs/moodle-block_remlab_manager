@@ -77,7 +77,7 @@ class synchronise_myfrontier_users extends \core\task\scheduled_task {
         // Ask ENLARGE IRS for $enlargeirsdesignerusersid and $enlargeirsmanagerusersid
         $enlargeirstoken = 'demo-101-irs-token';
 
-        $curl = curl_init('http://enlargeirs.dia.uned.es/designers');
+        $curl = curl_init('http://irs.nebsyst.com/designers');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_USERPWD, $enlargeirstoken . ':');
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/xml;q=0.9, */*;q=0.8'));
