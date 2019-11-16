@@ -46,7 +46,7 @@ class delete_enlarge_keys extends \core\task\scheduled_task {
      */
     public function get_name() {
         // Shown in admin screens
-        return get_string('delete_myFrontier_keys', 'block_remlab_manager');
+        return get_string('delete_enlarge_keys', 'block_remlab_manager');
     }
 
     /**
