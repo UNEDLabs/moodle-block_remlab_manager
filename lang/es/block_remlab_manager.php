@@ -88,7 +88,7 @@ $string['mail_content1_lab_up'] = 'Uno de tus laboratorios remotos previamente i
 $string['mail_content2_lab_up'] = ' - IP: ';
 $string['mail_content3_lab_up'] = ') vuelve a estar operativo.';
 
-$string['synchronise_enlarge_users'] = 'Sincronizar usuarios ENLARGE';
+$string['synchronise_myFrontier_users'] = 'Sincronizar usuarios ENLARGE';
 
 $string['refresh_usestate_field'] = 'Refrescar estado de uso de laboratorios remotos';
 

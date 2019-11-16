@@ -88,7 +88,7 @@ $string['mail_content1_lab_up'] = 'One of your previously not accessible remote 
 $string['mail_content2_lab_up'] = ' - IP: ';
 $string['mail_content3_lab_up'] = ') is operative once again.';
 
-$string['synchronise_enlarge_users'] = 'Synchronise ENLARGE users';
+$string['synchronise_myFrontier_users'] = 'Synchronise ENLARGE users';
 
 $string['refresh_usestate_field'] = 'Refresh the use state of remote labs';
 
