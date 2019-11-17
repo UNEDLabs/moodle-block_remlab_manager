@@ -13,8 +13,7 @@
     background-color: transparent;
     color: black!important;
     padding: 5px;
-    margin-bottom: 0.2em;
-    margin-top: 0.2em;
+    margin: 0.2em 0.1em 0.2em 0.1em;
     box-shadow: none;
     border: 1px solid lightgrey;
 }
