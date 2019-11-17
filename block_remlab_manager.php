@@ -78,7 +78,6 @@ class block_remlab_manager extends block_list {
             return null;
         }
 
-        $context = context_system::instance();
         $experiences = get_showable_experiences($USER->username);
         $SESSION->block_remlab_manager_list_experiences = $experiences;
 
@@ -108,6 +107,7 @@ class block_remlab_manager extends block_list {
         $this->content->items[3] = html_writer::link($this->urlnewlocal,
             get_string('configure_new_local_experience', 'block_remlab_manager'));
         if  (get_capability_info('ltisource/enlarge:editexp')) {
+            $context = context_system::instance();
             if (has_capability('ltisource/enlarge:editexp', $context, $USER->id, false) &&
                 !empty($this->enlargeltiurl)) {
                 $this->content->items[4] = html_writer::link($this->enlargeltiurl,

@@ -101,21 +101,21 @@ class synchronise_myfrontier_users extends \core\task\scheduled_task {
                 $lti_users_hostname = $DB->get_fieldset_select('enrol_lti_users', 'serviceurl',
                     "id > ?", array(0));
                 if (!empty($lti_users_hostname)) {
-                    function fcn2(&$item) {
+                    function fcn1(&$item) {
                         $item = parse_url($item);
                         $item = $item['host'];
                     }
-                    array_walk($lti_users_hostname, "fcn2");
+                    array_walk($lti_users_hostname, array('self', 'fcn1'));
                 }
                 $lti_remote_users_id = $DB->get_fieldset_select('enrol_lti_users', 'sourceid',
                     "id > ?", array(0));
                 if (!empty($lti_remote_users_id)) {
-                    function fcn1(&$item) {
+                    function fcn2(&$item) {
                         $item = json_decode($item, true);
                         $item = $item['data'];
                         $item = $item['userid'];
                     }
-                    array_walk($lti_remote_users_id, "fcn1");
+                    array_walk($lti_remote_users_id, array('self', 'fcn2'));
                 }
                 function update_role($record, $user_id, $enlargeroleid) {
                     // Check whether the user is designer or manager and update role assignments
