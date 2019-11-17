@@ -42,7 +42,6 @@ $capabilities = array(
     ),
 
     'block/remlab_manager:addinstance' => array(
-        'riskbitmask' => RISK_XSS,
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,
         'archetypes' => array(
@@ -52,8 +51,7 @@ $capabilities = array(
     ),
 
     'block/remlab_manager:view' => array(
-        'riskbitmask' => RISK_XSS,
-        'captype' => 'write',
+        'captype' => 'read',
         'contextlevel' => CONTEXT_COURSE,
         'archetypes' => array(
             'editingteacher' => CAP_ALLOW,

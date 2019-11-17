@@ -11,6 +11,7 @@
 .block_remlab_manager .remlab_button {
     border-radius: 5px;
     background-color: transparent;
+    color: black!important;
     padding: 5px;
     margin-bottom: 0.2em;
     margin-top: 0.2em;
@@ -19,5 +20,6 @@
 }
 
 .block_remlab_manager .remlab_button:hover {
+    color: white!important;
     background-color: rgba(24, 24, 24, 0.1);
 }
