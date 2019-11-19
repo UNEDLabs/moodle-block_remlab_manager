@@ -46,7 +46,7 @@ class simplehtml_form extends moodleform {
      * Defines the form
      */
     public function definition() {
-        global $DB;
+        global $DB, $PAGE;
 
         $mform =& $this->_form;
         $mform->addElement('header', 'rem_lab', get_string('rem_lab_conf', 'ejsapp'));
@@ -79,8 +79,6 @@ class simplehtml_form extends moodleform {
             get_string('practiceintro', 'block_remlab_manager'), array('size' => '25'));
         $mform->setType('practiceintro', PARAM_TEXT);
         $mform->addHelpButton('practiceintro', 'practiceintro', 'block_remlab_manager');
-        $mform->addRule('practiceintro',
-            get_string('practiceintro_required', 'block_remlab_manager'), 'required');
 
         $mform->addElement('hidden', 'initialpracticeintro', null);
         $mform->setType('initialpracticeintro', PARAM_TEXT);
@@ -91,8 +89,6 @@ class simplehtml_form extends moodleform {
         $mform->addRule('ip',
             get_string('maximumchars', ''), 'maxlength', 15, 'client');
         $mform->addHelpButton('ip', 'ip_lab', 'block_remlab_manager');
-        $mform->addRule('ip',
-            get_string('ip_lab_required', 'block_remlab_manager'), 'required');
 
         $mform->addElement('text', 'port',
             get_string('port', 'block_remlab_manager'), array('size' => '6'));
@@ -100,8 +96,6 @@ class simplehtml_form extends moodleform {
         $mform->addRule('port',
             get_string('maximumchars', ''), 'maxlength', 6, 'client');
         $mform->addHelpButton('port', 'port', 'block_remlab_manager');
-        $mform->addRule('port',
-            get_string('port_required', 'block_remlab_manager'), 'required');
 
         if ($remlab) {
             $mform->setDefault('practiceintro', $remlab->practiceintro);
@@ -109,10 +103,24 @@ class simplehtml_form extends moodleform {
             $mform->setDefault('ip', $remlab->ip);
             $mform->setDefault('port', $remlab->port);
             $enlargeinstance = is_practice_in_enlarge($remlab->practiceintro);
+            $PAGE->requires->js_call_amd('block_remlab_manager/disable', 'disable');
             if ($enlargeinstance !== false) {
-                $mform->freeze(array('practiceintro', 'ip', 'port'));
+                //$PAGE->requires->js_call_amd('block_remlab_manager/disable', 'disable');
+            } else {
+                $mform->addRule('practiceintro',
+                    get_string('practiceintro_required', 'block_remlab_manager'), 'required');
+                $mform->addRule('ip',
+                    get_string('ip_lab_required', 'block_remlab_manager'), 'required');
+                $mform->addRule('port',
+                    get_string('port_required', 'block_remlab_manager'), 'required');
             }
         } else {
+            $mform->addRule('practiceintro',
+                get_string('practiceintro_required', 'block_remlab_manager'), 'required');
+            $mform->addRule('ip',
+                get_string('ip_lab_required', 'block_remlab_manager'), 'required');
+            $mform->addRule('port',
+                get_string('port_required', 'block_remlab_manager'), 'required');
             $mform->setDefault('initialpracticeintro', '');
             $mform->setDefault('ip', '127.0.0.1');
             $mform->setDefault('port', 443);
@@ -211,8 +219,8 @@ class simplehtml_form extends moodleform {
         $errors = parent::validation($data, $files);
         $editing = $data['editing'];
         $showableexperiences = get_showable_experiences();
+        // Make sure the practice name or identifier does not exist locally nor remotely (in ENLARGE)
         if ($editing == 0) { // New experience
-            // Make sure the practice name or identifier does not exist locally nor remotely (in ENLARGE)
             if (in_array($data['practiceintro'], $showableexperiences)) {
                 $errors['practiceintro'] = get_string('existing_practice_id', 'block_remlab_manager');
             }
