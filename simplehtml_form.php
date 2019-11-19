@@ -60,6 +60,8 @@ class simplehtml_form extends moodleform {
         $mform->setType('editingexperience', PARAM_INT);
         $mform->addElement('hidden', 'originalpracticeintro');
         $mform->setType('originalpracticeintro', PARAM_TEXT);
+        $mform->addElement('hidden', 'initialpracticeintro', null);
+        $mform->setType('initialpracticeintro', PARAM_TEXT);
 
         // Get data if editing an already existing experience.
         $editing = $this->_customdata[0];
@@ -79,9 +81,6 @@ class simplehtml_form extends moodleform {
             get_string('practiceintro', 'block_remlab_manager'), array('size' => '25'));
         $mform->setType('practiceintro', PARAM_TEXT);
         $mform->addHelpButton('practiceintro', 'practiceintro', 'block_remlab_manager');
-
-        $mform->addElement('hidden', 'initialpracticeintro', null);
-        $mform->setType('initialpracticeintro', PARAM_TEXT);
 
         $mform->addElement('text', 'ip',
             get_string('ip_lab', 'block_remlab_manager'), array('size' => '15'));
@@ -103,9 +102,8 @@ class simplehtml_form extends moodleform {
             $mform->setDefault('ip', $remlab->ip);
             $mform->setDefault('port', $remlab->port);
             $enlargeinstance = is_practice_in_enlarge($remlab->practiceintro);
-            $PAGE->requires->js_call_amd('block_remlab_manager/disable', 'disable');
             if ($enlargeinstance !== false) {
-                //$PAGE->requires->js_call_amd('block_remlab_manager/disable', 'disable');
+                $PAGE->requires->js_call_amd('block_remlab_manager/disable', 'disable');
             } else {
                 $mform->addRule('practiceintro',
                     get_string('practiceintro_required', 'block_remlab_manager'), 'required');
