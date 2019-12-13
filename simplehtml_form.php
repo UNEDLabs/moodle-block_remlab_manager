@@ -83,10 +83,10 @@ class simplehtml_form extends moodleform {
         $mform->addHelpButton('practiceintro', 'practiceintro', 'block_remlab_manager');
 
         $mform->addElement('text', 'ip',
-            get_string('ip_lab', 'block_remlab_manager'), array('size' => '15'));
+            get_string('ip_lab', 'block_remlab_manager'), array('size' => '25'));
         $mform->setType('ip', PARAM_TEXT);
         $mform->addRule('ip',
-            get_string('maximumchars', ''), 'maxlength', 15, 'client');
+            get_string('maximumchars', ''), 'maxlength', 50, 'client');
         $mform->addHelpButton('ip', 'ip_lab', 'block_remlab_manager');
 
         $mform->addElement('text', 'port',
