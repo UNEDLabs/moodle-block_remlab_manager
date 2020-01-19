@@ -16,6 +16,8 @@
     margin: 0.2em 0.1em 0.2em 0.1em;
     box-shadow: none;
     border: 1px solid lightgrey;
+    line-height: 0;
+    text-transform: none;
 }
 
 .block_remlab_manager .remlab_button:hover {
