@@ -127,7 +127,7 @@ class synchronise_myfrontier_users extends \core\task\scheduled_task {
                         $level = (int)$item->level;
                         if ($DB->record_exists('user', ['id' => $user_id])) { // this moodle's user
                             if ($level == 1) {
-                                $enlargeirsmanagerusersid[] = update_role($record, $user_id, $enlargedesignerroleid);
+                                $enlargeirsdesignerusersid[] = update_role($record, $user_id, $enlargedesignerroleid);
                             } else {
                                 $enlargeirsmanagerusersid[] = update_role($record, $user_id, $enlargemanagerroleid);
                             }
