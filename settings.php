@@ -45,13 +45,4 @@ if ($ADMIN->fulltree) {
         PARAM_TEXT,
         '13'
     ));
-
-    $settings->add(new admin_setting_configtext(
-        'block_remlab_manager/myFrontier_port',
-        get_string('myFrontier_port', 'block_remlab_manager'),
-        get_string('myFrontier_port_description', 'block_remlab_manager'),
-        443,
-        PARAM_TEXT,
-        '4'
-    ));
 }

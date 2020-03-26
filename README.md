@@ -33,9 +33,6 @@ When installing remlab manager for the first time, you will need to set a few va
    myFrontier_IP:    This variable defines the IP(s) address(es) of the ENLARGE system(s) used for managing the access to
                      the remote laboratories. If left empty, the plugin understands that ENLARGE is not used.
 
-   myFrontier_port:	This variable defines the port(s) used to communicate with the ENLARGE system(s). If left empty, the
-                     plugin understands that ENLARGE is not used.
-
 ## 4. Dependencies
 
 This block needs the ejsapp module to be of any use. It works with version 2.2 (or later) of EJSApp. You can find and

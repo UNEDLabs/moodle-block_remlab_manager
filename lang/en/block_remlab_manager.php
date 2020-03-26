@@ -42,8 +42,6 @@ $string['go_to_enlarge'] = 'Go to ENLARGE';
 $string['default_communication_set'] = "Communication settings. (Only important if you are also using ENLARGE)";
 $string['myFrontier_IP'] = "Name and IP address of the ENLARGE server(s)";
 $string['myFrontier_IP_description'] = "If you are using ENLARGE (a system that manages connections to remote laboratories resources), you need to provide the IP address of the server that runs the ENLARGE system you want to use. Otherwise, this value will not be used, so you can leave the default value. If you have more than one ENLARGE server (for example, one at 127.0.0.1 and a second one at 127.0.0.2), insert the IP addresses separated by semicolons: 127.0.0.1;127.0.0.2. Additionally, you can provide a name in order to identify each ENLARGE server: 'ENLARGE Madrid'127.0.0.1;'ENLARGE Huelva'127.0.0.2";
-$string['myFrontier_port'] = "ENLARGE communication port(s)";
-$string['myFrontier_port_description'] = "If you are using ENLARGE (a system that manages connections to remote laboratories resources), you need to provide a valid port for establishing the communications with the ENLARGE server. Otherwise, this value will not be used, so you can leave the default value. If you have more than one ENLARGE server (for example, one using port 443 and a second one also using port 443), insert the values separated by semicolons: 443;443";
 
 // Strings in edit_form.php.
 $string['enlarge_header'] = 'Configure ENLARGE for this block instance';
