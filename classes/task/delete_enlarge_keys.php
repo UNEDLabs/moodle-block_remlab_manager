@@ -31,7 +31,7 @@
 namespace block_remlab_manager\task;
 
 /**
- * Task for ENLARGE keys in the block_remlab_manager_sb_keys table.
+ * Task for ENLARGE keys in the block_remlab_manager_eg_keys table.
  *
  * @package    block_remlab_manager
  * @copyright  2018 Luis de la Torre
@@ -59,6 +59,6 @@ class delete_enlarge_keys extends \core\task\scheduled_task {
         global $DB;
 
         $time = array(strtotime(date('Y-m-d H:i:s')) - 86400);
-        $DB->delete_records_select('block_remlab_manager_sb_keys', "creationtime < ?", $time);
+        $DB->delete_records_select('block_remlab_manager_eg_keys', "creationtime < ?", $time);
     }
 }
