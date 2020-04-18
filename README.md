@@ -6,7 +6,9 @@ created with Easy Java/Javascript Simulations (EjsS) and which are added to a Mo
 The Java applets or the Javascript applications should have been created with version 5.1 (build 20150613 or later) of
 EjsS to work properly.
 
-This plugin supports (but does not require) the use of ENLARGE for managing the connection to the remote labs.
+This plugin supports (but does not require) the use of ENLARGE for managing the connection to the remote labs. For more
+information about ENLARGE visit https://www.nebsyst.com and https://irs.nebsyst.com. This plugin will not receive further
+updates. For more updated versions, contact the authors and/or Nebulous Systems.
 
 ## 2. License
 
