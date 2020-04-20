@@ -8,7 +8,7 @@ EjsS to work properly.
 
 This plugin supports (but does not require) the use of ENLARGE for managing the connection to the remote labs. For more
 information about ENLARGE visit https://www.nebsyst.com and https://irs.nebsyst.com. This plugin will not receive further
-updates. For more updated versions, contact the authors and/or Nebulous Systems.
+updates. For more updated versions, contact the authors and/or Nebulous Systems (contact@nebsyst.com).
 
 ## 2. License
 
