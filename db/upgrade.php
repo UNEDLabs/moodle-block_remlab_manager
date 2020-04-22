@@ -134,6 +134,23 @@ function xmldb_block_remlab_manager_upgrade($oldversion) {
             $dbman->rename_table($table, 'block_remlab_manager_eg_keys');
         }
     }
+    
+    // Make sure capabilities are assigned to the enlargedesigner and enlargemanager roles
+    $context = context_system::instance();
+    
+    if ($DB->record_exists('role', array('shortname' => 'enlargedesigner'))) {
+        $enlargedesignerid = $DB->get_field('role', 'id', array('shortname' => 'enlargedesigner'));
+        assign_capability('block/remlab_manager:myaddinstance', CAP_ALLOW, $enlargedesignerid, $context->id, true);
+        assign_capability('block/remlab_manager:addinstance', CAP_ALLOW, $enlargedesignerid, $context->id, true);
+        assign_capability('block/remlab_manager:view', CAP_ALLOW, $enlargedesignerid, $context->id, true);
+    }
+
+    if ($DB->record_exists('role', array('shortname' => 'enlargemanager'))) {
+        $enlargemanagerid = $DB->get_field('role', 'id', array('shortname' => 'enlargemanager'));
+        assign_capability('block/remlab_manager:myaddinstance', CAP_ALLOW, $enlargemanagerid, $context->id, true);
+        assign_capability('block/remlab_manager:addinstance', CAP_ALLOW, $enlargemanagerid, $context->id, true);
+        assign_capability('block/remlab_manager:view', CAP_ALLOW, $enlargemanagerid, $context->id, true);
+    }
 
     return true;
 }
